@@ -1,0 +1,25 @@
+[
+  {
+    "series_id": "8_2|PT_VOTES|_T|_T|_T|HSL_8",
+    "measure": "Voter turnout",
+    "measure_code": "8_2",
+    "unit": "Percentage of votes",
+    "unit_code": "PT_VOTES",
+    "age": "Total",
+    "age_code": "_T",
+    "sex": "Total",
+    "sex_code": "_T",
+    "education": "Total",
+    "education_code": "_T",
+    "domain": "Civic engagement",
+    "domain_code": "HSL_8",
+    "n_units": 47,
+    "n_periods": 23,
+    "first_period": 2004,
+    "last_period": 2026,
+    "observed": 287,
+    "possible": 1081,
+    "completion_rate": 0.2655,
+    "balance_status": "Unbalanced"
+  }
+]

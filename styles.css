@@ -1,0 +1,2061 @@
+:root {
+  --burgundy: #871548;
+  --burgundy-dark: #5e0d32;
+  --pink: #bd1763;
+  --teal: #157c87;
+  --teal-dark: #0d5962;
+
+  /* AlvaradoCSS .site-legal-footer, verified 2026-09-10. */
+  --alvaradocss-footer-color: #282822;
+  --alvaradocss-footer-accent: #f0b39f;
+  --hl-radius: 0.4rem;
+
+  --hl-border: #ddd6da;
+  --hl-soft: #f8f5f7;
+  --hl-soft-teal: #f2f7f8;
+  --hl-interactive-bg: #f4f0e9;
+  --hl-footer-reserve: 3.75rem;
+  --hl-sticky-top: 5rem;
+}
+
+.quarto-title-block .quarto-title-banner {
+  background: var(--hl-soft);
+  border-bottom: 2px solid var(--burgundy);
+}
+
+
+/* =========================================================
+   Brand palette
+   ========================================================= */
+
+
+.quarto-title h1,
+.quarto-title .title {
+  color: var(--bs-black, #000);
+}
+
+.title-teaching-materials {
+  color: var(--teal);
+}
+
+main h1 {
+  color: var(--burgundy-dark);
+}
+
+main h2 {
+  color: var(--burgundy);
+}
+
+main h3,
+main h4 {
+  color: var(--teal-dark);
+}
+
+a {
+  color: var(--teal);
+}
+
+a:hover,
+a:focus {
+  color: var(--pink);
+}
+
+.navbar {
+  border-bottom: 3px solid var(--pink);
+  background: var(--burgundy-dark) !important;
+  box-shadow: 0 0.18rem 0.55rem rgba(94, 13, 50, 0.14);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: 650;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  color: white !important;
+}
+
+.navbar-nav .nav-link.active {
+  box-shadow: inset 0 -2px 0 #FFD700;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item.active {
+  color: var(--burgundy-dark);
+  background: rgba(189, 23, 99, 0.065);
+}
+
+#TOC a.nav-link.active,
+#TOC a.nav-link.active:hover,
+#TOC a.nav-link.active:focus {
+  color: var(--burgundy) !important;
+  border-left-color: var(--burgundy) !important;
+  font-weight: 600;
+}
+
+@media (min-width: 992px) {
+  #quarto-margin-sidebar {
+    position: sticky;
+    top: var(--hl-sticky-top);
+    align-self: start;
+    max-height: calc(100vh - var(--hl-sticky-top) - var(--hl-footer-reserve) - 1rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+.callout-note {
+  border-left-color: var(--teal);
+}
+
+
+table caption,
+.figure-caption,
+figcaption {
+  color: var(--burgundy-dark);
+}
+
+.table > thead,
+table > thead {
+  border-top: 2px solid var(--burgundy);
+}
+
+.table > thead > tr > th,
+table > thead > tr > th {
+  background: rgba(135, 21, 72, 0.055);
+}
+
+button:not(.navbar-toggler),
+.btn {
+  border-color: var(--burgundy);
+}
+
+button:not(.navbar-toggler):hover,
+button:not(.navbar-toggler):focus-visible,
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--burgundy-dark);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--teal) !important;
+  box-shadow: 0 0 0 0.2rem rgba(21, 124, 135, 0.13);
+  outline: none;
+}
+
+.callout-note {
+  border-left-width: 4px;
+}
+
+.data-note {
+  border: 1px solid var(--hl-border);
+  border-left: 4px solid var(--teal);
+  border-radius: 0.5rem;
+  padding: 1rem 1.15rem;
+  margin-block: 1.25rem;
+  background: var(--hl-soft-teal);
+}
+
+.data-note > :first-child {
+  margin-top: 0;
+}
+
+.data-note > :last-child {
+  margin-bottom: 0;
+}
+
+.context-note {
+  border: 1px solid var(--hl-border);
+  border-radius: 0.5rem;
+  padding: 1rem 1.15rem;
+  margin-block: 1.25rem;
+  background: var(--hl-soft);
+}
+
+.context-note::before {
+  content: "Keep in mind";
+  display: block;
+  width: fit-content;
+  margin-bottom: 0.55rem;
+  color: var(--burgundy);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.context-note > :first-child {
+  margin-top: 0;
+}
+
+.context-note > :last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   Statistical Series Explorer
+   ========================================================= */
+
+/* Full-component background for interactive displays. */
+.series-explorer,
+.country-coverage,
+#series-trajectories,
+#series-missingness {
+  background: var(--hl-interactive-bg);
+  border-radius: var(--hl-radius);
+  padding: 0.85rem;
+}
+
+.series-explorer-controls {
+  display: grid;
+  gap: 0.4rem;
+  margin: 1rem 0;
+}
+
+.series-explorer-controls label {
+  font-weight: 600;
+}
+
+.series-explorer-controls input {
+  width: min(100%, 36rem);
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--hl-border);
+  border-radius: var(--hl-radius);
+  background: white;
+}
+
+.series-table-wrapper,
+.series-missingness-wrapper,
+.series-trajectory-wrapper {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.series-table-wrapper {
+  max-height: 68vh;
+  overflow: auto;
+  border: 1px solid var(--hl-border);
+  border-radius: var(--hl-radius);
+}
+
+.series-table,
+.series-definition-table,
+.series-statistics-table,
+.series-missingness {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.series-table th,
+.series-table td,
+.series-definition-table th,
+.series-definition-table td,
+.series-statistics-table th,
+.series-statistics-table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--hl-border);
+  vertical-align: top;
+}
+
+.series-table th,
+.series-definition-table th,
+.series-statistics-table th {
+  background: var(--hl-soft);
+  font-weight: 600;
+}
+
+.series-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.series-table thead th:first-child {
+  left: 0;
+  z-index: 5;
+}
+
+.series-table tbody td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: white;
+}
+
+.series-clickable-row {
+  cursor: pointer;
+}
+
+.series-clickable-row:hover,
+.series-clickable-row:focus {
+  background: var(--hl-soft);
+}
+
+.series-clickable-row:hover td:first-child,
+.series-clickable-row:focus td:first-child {
+  background: var(--hl-soft);
+}
+
+.series-table-footer {
+  display: flex;
+  align-items: center;
+}
+
+.series-table-footer {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.series-empty,
+.series-loading,
+.series-error {
+  padding: 1rem;
+}
+
+.series-error {
+  border-left: 4px solid #b02a37;
+  background: #fff5f5;
+}
+
+.series-detail-title {
+  margin-bottom: 0.2rem;
+}
+
+.series-detail-subtitle {
+  margin-top: 0;
+  color: #5f6368;
+  font-size: 1.05rem;
+}
+
+.series-panel-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 0.8rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.series-panel-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hl-border);
+  border-radius: 0.7rem;
+  background: linear-gradient(145deg, #fff 0%, var(--hl-soft) 100%);
+  box-shadow: 0 0.2rem 0.7rem rgba(94, 13, 50, 0.055);
+}
+
+.series-panel-card-structure,
+.series-panel-card-coverage {
+  min-height: 10.5rem;
+  padding: 1.15rem 1.25rem;
+}
+
+.series-panel-card-structure::before,
+.series-panel-card-coverage::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.25rem;
+}
+
+.series-panel-card-structure::before {
+  background: var(--burgundy);
+}
+
+.series-panel-card-coverage::before {
+  background: var(--teal);
+}
+
+.series-panel-eyebrow {
+  margin-bottom: 1rem;
+  color: #6f6970;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.series-panel-equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.45rem, 1.6vw, 1rem);
+}
+
+.series-panel-factor {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 4.8rem;
+  text-align: center;
+}
+
+.series-panel-factor strong,
+.series-panel-coverage-line strong {
+  color: var(--burgundy-dark);
+  font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.series-panel-factor small,
+.series-panel-coverage-line small {
+  color: #625d62;
+  font-size: 0.76rem;
+  line-height: 1.15;
+}
+
+.series-panel-factor-result strong {
+  color: var(--teal-dark);
+}
+
+.series-panel-operator,
+.series-panel-fraction-divider,
+.series-panel-equals {
+  color: #9a9297;
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+.series-panel-period {
+  margin-top: 0.9rem;
+  color: #625d62;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.035em;
+  text-align: center;
+}
+
+.series-panel-coverage-line {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: clamp(0.4rem, 1.4vw, 0.8rem);
+  padding-top: 0.15rem;
+}
+
+.series-panel-coverage-line > span:not(.series-panel-fraction-divider):not(.series-panel-equals) {
+  display: grid;
+  gap: 0.12rem;
+  text-align: center;
+}
+
+.series-panel-completion strong {
+  color: var(--teal-dark);
+}
+
+.series-panel-progress {
+  height: 0.52rem;
+  margin-top: 1.15rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(21, 124, 135, 0.12);
+}
+
+.series-panel-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+}
+
+.series-panel-card-status {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  background: var(--hl-soft-teal);
+}
+
+.series-panel-status-mark {
+  width: 0.72rem;
+  height: 0.72rem;
+  flex: 0 0 auto;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.26rem rgba(135, 21, 72, 0.08);
+}
+
+.series-panel-card-status.is-unbalanced {
+  color: var(--burgundy);
+}
+
+.series-panel-card-status.is-balanced {
+  color: var(--teal-dark);
+}
+
+.series-panel-status-value {
+  color: currentColor;
+  font-size: 1rem;
+  font-weight: 750;
+}
+
+.series-panel-status-detail {
+  margin-top: 0.05rem;
+  color: #625d62;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  .series-panel-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .series-panel-card-status {
+    grid-column: 1;
+  }
+
+  .series-panel-equation,
+  .series-panel-coverage-line {
+    gap: 0.45rem;
+  }
+
+  .series-panel-factor strong,
+  .series-panel-coverage-line strong {
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .series-panel-equation {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .series-panel-factor-result {
+    grid-column: 1 / -1;
+  }
+
+  .series-panel-equation .series-panel-operator:last-of-type {
+    display: none;
+  }
+
+  .series-panel-coverage-line {
+    flex-wrap: wrap;
+  }
+}
+
+.series-missingness {
+  width: max-content;
+  min-width: 100%;
+  font-size: 0.78rem;
+}
+
+.series-missingness th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding: 0.25rem 0.45rem;
+  background: white;
+  white-space: nowrap;
+}
+
+.series-missingness thead th {
+  position: static;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  min-width: 1.15rem;
+  height: 4.2rem;
+  padding: 0.15rem;
+  text-align: left;
+}
+
+.series-missingness thead th:first-child {
+  position: sticky;
+  left: 0;
+  writing-mode: horizontal-tb;
+  transform: none;
+  z-index: 2;
+  min-width: 9rem;
+  height: auto;
+  background: white;
+}
+
+.series-missingness td {
+  width: 1rem;
+  min-width: 1rem;
+  height: 1rem;
+  border: 1px solid white;
+}
+
+.series-cell-observed {
+  background: var(--teal-dark);
+}
+
+.series-cell-missing {
+  background: #e9ecef;
+}
+
+.series-missingness-legend,
+.series-trajectory-legend {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.series-missingness-legend span,
+.series-trajectory-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.series-missingness-legend i {
+  width: 0.9rem;
+  height: 0.9rem;
+  display: inline-block;
+  border: 1px solid var(--hl-border);
+}
+
+.series-trajectory-svg {
+  display: block;
+  width: 100%;
+  min-width: 42rem;
+  height: auto;
+}
+
+.series-axis {
+  stroke: var(--teal-dark);
+  stroke-width: 1;
+}
+
+.series-axis-label {
+  fill: var(--teal-dark);
+  font-size: 12px;
+}
+
+.series-area-line {
+  fill: none;
+  stroke: #adb5bd;
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.series-mean-line {
+  fill: none;
+  stroke: var(--burgundy-dark);
+  stroke-width: 3;
+}
+
+.series-area-line-key,
+.series-mean-line-key {
+  display: inline-block;
+  width: 1.6rem;
+  height: 0;
+  border-top: 2px solid #adb5bd;
+}
+
+.series-mean-line-key {
+  border-top-width: 3px;
+  border-top-color: var(--burgundy-dark);
+}
+
+.series-back-link {
+  margin-top: 2rem;
+}
+
+
+/* =========================================================
+   Statistical series linked selection
+   ========================================================= */
+
+.series-area-select {
+  appearance: none;
+  border: 0;
+  padding: 0.15rem 0.25rem;
+  margin: -0.15rem -0.25rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0.2rem;
+}
+
+.series-area-select:hover,
+.series-area-select:focus-visible {
+  text-decoration: underline;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.series-missingness-row-selected > th {
+  background: var(--hl-soft);
+}
+
+.series-missingness-row-selected .series-area-select {
+  color: var(--pink);
+  font-weight: 700;
+}
+
+.series-area-line {
+  transition: opacity 140ms ease, stroke-width 140ms ease, stroke 140ms ease;
+}
+
+.series-area-line-dimmed {
+  opacity: 0.12;
+}
+
+.series-area-line-selected {
+  stroke: var(--pink);
+  stroke-width: 3.5;
+  opacity: 1;
+}
+
+/* =========================================================
+   Navigation and footer
+   ========================================================= */
+
+/* Equal flexible side tracks center navigation on the viewport. Bootstrap's
+   display/margin utilities require these narrowly scoped important overrides. */
+@media (min-width: 992px) {
+  .navbar > .navbar-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 1rem;
+    align-items: center;
+  }
+
+  .navbar-brand-container {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .navbar-brand-container .navbar-brand {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navbar-brand-logo:not(:has(img)) { display: none; }
+  .navbar-expand-lg .navbar-collapse { display: contents !important; }
+
+  #navbarCollapse > .navbar-nav:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: center;
+    margin-inline: 0 !important;
+  }
+
+  #navbarCollapse > .navbar-nav:last-child {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    margin: 0 2.75rem 0 0 !important;
+  }
+
+  .navbar #quarto-search {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .quarto-navbar-tools:empty { display: none; }
+}
+
+.nav-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.65rem 1.25rem;
+  border-top: 2px solid var(--alvaradocss-footer-accent);
+  color: #fff;
+  background: var(--alvaradocss-footer-color);
+  gap: 0.45rem 1.25rem;
+  font-size: 0.82rem;
+}
+
+body { padding-bottom: var(--hl-footer-reserve); }
+
+.nav-footer a { color: #fff; text-underline-offset: 0.2em; }
+.nav-footer-center a[href*="alvaradocss.com"]::after {
+  content: "\f1c5";
+  display: inline-block;
+  margin-left: 0.28em;
+  font-family: "bootstrap-icons";
+  font-size: 0.78em;
+  line-height: 1;
+  vertical-align: 0.08em;
+}
+
+.nav-footer a:hover,
+.nav-footer a:focus-visible { color: var(--alvaradocss-footer-accent); }
+.nav-footer p { margin: 0; }
+
+@media (max-width: 767.98px) {
+  :root { --hl-footer-reserve: 7.5rem; }
+  .nav-footer { padding: 0.65rem 1rem; row-gap: 0.35rem; }
+  .nav-footer-left, .nav-footer-center, .nav-footer-right { text-align: center; }
+}
+
+/* =========================================================
+   Statistical series interaction cues
+   ========================================================= */
+
+.series-table caption,
+.country-coverage-table caption {
+  caption-side: top;
+  padding: 0 0 0.65rem;
+  color: #212529;
+  font-weight: 600;
+  text-align: left;
+}
+
+.series-clickable-row {
+  position: relative;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.series-clickable-row:hover,
+.series-clickable-row:focus {
+  background: rgba(135, 21, 72, 0.055);
+  box-shadow: inset 3px 0 0 var(--pink);
+}
+
+.series-clickable-row td:first-child::after {
+  content: "  →";
+  color: var(--pink);
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.series-total-row {
+  background: rgba(135, 21, 72, 0.035);
+}
+
+.series-total-row:hover,
+.series-total-row:focus {
+  background: rgba(135, 21, 72, 0.075);
+}
+
+.series-aggregate-badge {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.08rem 0.38rem;
+  border: 1px solid rgba(135, 21, 72, 0.28);
+  border-radius: 999px;
+  color: var(--burgundy);
+  background: rgba(189, 23, 99, 0.055);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  vertical-align: 0.08rem;
+}
+
+
+/* =========================================================
+   Statistical series linked selection and tooltips
+   ========================================================= */
+
+.series-cell-observed {
+  cursor: pointer;
+}
+
+.series-cell-observed:hover,
+.series-cell-observed:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: -2px;
+}
+
+.series-cell-selected {
+  background: var(--pink);
+  outline: 2px solid var(--pink);
+  outline-offset: -2px;
+}
+
+.series-area-line-hovered {
+  stroke: var(--pink);
+  stroke-width: 3;
+  opacity: 1;
+}
+
+.series-point {
+  fill: var(--pink);
+  stroke: white;
+  stroke-width: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.series-point-selected {
+  opacity: 1;
+}
+
+.series-mean-line {
+  pointer-events: none;
+}
+
+.series-line-hit-target {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 12;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.series-tooltip {
+  position: fixed;
+  z-index: 2000;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.42rem 0.58rem;
+  border: 1px solid var(--hl-border);
+  border-radius: 0.35rem;
+  background: rgba(94, 13, 50, 0.96);
+  color: white;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  pointer-events: none;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   Country coverage explorer
+   ========================================================= */
+
+.country-coverage-controls {
+  display: grid;
+  grid-template-columns: minmax(14rem, 2fr) minmax(13rem, 1fr);
+  gap: 0.8rem 1rem;
+  margin: 1rem 0;
+}
+
+.country-coverage-control {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.country-coverage-control label {
+  font-weight: 600;
+}
+
+.country-coverage-control input,
+.country-coverage-control select {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--hl-border);
+  border-radius: var(--hl-radius);
+  background: white;
+}
+
+.country-coverage-check {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+}
+
+.country-coverage-check input {
+  width: auto;
+}
+
+.country-coverage-wrapper {
+  max-height: 68vh;
+  overflow: auto;
+  margin: 1rem 0 0;
+  border: 1px solid var(--hl-border);
+  border-radius: var(--hl-radius);
+}
+
+.country-coverage-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.78rem;
+}
+
+.country-coverage-table th,
+.country-coverage-table td {
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.country-coverage-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  min-width: 1.8rem;
+  height: 8.5rem;
+  padding: 0.35rem 0.2rem;
+  background: var(--hl-soft);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.country-coverage-table thead th:first-child {
+  left: 0;
+  z-index: 5;
+  min-width: 19rem;
+  height: auto;
+  padding: 0.5rem 0.65rem;
+  writing-mode: horizontal-tb;
+  transform: none;
+}
+
+.country-coverage-table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  max-width: 19rem;
+  padding: 0.45rem 0.65rem;
+  background: white;
+  text-align: left;
+  font-weight: 500;
+}
+
+.country-coverage-table tbody th a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.country-coverage-table tbody th a:hover,
+.country-coverage-table tbody th a:focus-visible {
+  color: var(--pink);
+  text-decoration: underline;
+}
+
+.country-coverage-table td {
+  width: 1.8rem;
+  min-width: 1.8rem;
+  height: 1.8rem;
+}
+
+.coverage-none {
+  background: #e9ecef;
+}
+
+.coverage-some {
+  background: rgb(from var(--teal-dark) r g b / var(--coverage-ratio, 0.5));
+}
+
+.coverage-complete {
+  background: var(--teal-dark);
+}
+
+.country-coverage-selected {
+  box-shadow: inset 0 0 0 2px var(--pink);
+}
+
+.country-coverage-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.1rem;
+  align-items: center;
+  margin-top: 0.65rem;
+  font-size: 0.9rem;
+}
+
+.country-coverage-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.country-coverage-legend i {
+  width: 0.9rem;
+  height: 0.9rem;
+  display: inline-block;
+  border: 1px solid var(--hl-border);
+}
+
+.country-coverage-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 767.98px) {
+  .country-coverage-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .country-coverage-table thead th:first-child,
+  .country-coverage-table tbody th {
+    min-width: 14rem;
+    max-width: 14rem;
+  }
+}
+
+
+
+.country-coverage-table tbody th a:hover,
+.country-coverage-table tbody th a:focus-visible {
+  color: var(--pink);
+}
+
+
+/* =========================================================
+   Reading, captions, and accessible interaction
+   ========================================================= */
+main { line-height: 1.65; }
+main h2 { margin-top: 2.25rem; }
+main h3 { margin-top: 1.65rem; }
+main a { text-underline-offset: 0.18em; }
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+.navbar :focus-visible,
+.nav-footer :focus-visible {
+  outline-color: var(--alvaradocss-footer-accent);
+}
+
+figure.quarto-float { margin-block: 1.35rem 2rem; }
+.quarto-float-caption,
+table caption {
+  caption-side: top;
+  text-align: left;
+  color: var(--burgundy-dark);
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 0 0 0.65rem;
+  margin: 0;
+}
+.quarto-float-caption.quarto-float-fig {
+  text-align: center;
+}
+
+.quarto-float-tbl figure > div { overflow-x: auto; }
+.quarto-float-tbl table { font-variant-numeric: tabular-nums; }
+.quarto-float-tbl th { vertical-align: bottom; }
+.quarto-float-tbl td { vertical-align: top; }
+.quarto-float-tbl tbody tr:nth-child(even) { background: var(--hl-soft); }
+.quarto-float-tbl pre { white-space: pre-wrap; }
+.sourceCode { border-radius: var(--hl-radius); }
+.series-missingness-legend, .series-trajectory-legend { flex-wrap: wrap; }
+.series-table-wrapper:focus-visible,
+.country-coverage-wrapper:focus-visible { outline-offset: 2px; }
+.series-clickable-row:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+.series-cell-observed:focus-visible,
+.coverage-none:focus-visible,
+.coverage-some:focus-visible,
+.coverage-complete:focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .series-area-line, .series-clickable-row { transition: none; }
+}
+
+/* =========================================================
+   Refined inline code, captions, tables, and visualization theme
+   ========================================================= */
+
+:root {
+  --hl-viz-bg: #f4f0e9;
+  --hl-viz-border: #ded6cc;
+  --hl-viz-grid: rgba(13, 89, 98, 0.12);
+  --hl-row-stripe: rgba(135, 21, 72, 0.022);
+  --hl-code-bg: #f7f5f6;
+  --hl-code-border: #e7e2e5;
+}
+
+/* Inline code is intentionally distinct from code blocks. */
+main :not(pre) > code,
+.quarto-float-caption code,
+table caption code {
+  display: inline-block;
+  padding: 0.08em 0.38em 0.12em;
+  border: 1px solid var(--hl-code-border);
+  border-radius: 0.38rem;
+  color: var(--burgundy-dark);
+  background: var(--hl-code-bg);
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Footer external-link glyphs use the existing Bootstrap Icons font. */
+.nav-footer-center a[href*="alvaradocss.com"]::after,
+.nav-footer-center a[href*="policydatascience.com"]::after {
+  content: "\f1c5";
+  display: inline-block;
+  margin-left: 0.28em;
+  font-family: "bootstrap-icons";
+  font-size: 0.78em;
+  line-height: 1;
+  vertical-align: 0.08em;
+}
+
+/* Captions: centered, with number, description, and optional series on distinct lines. */
+.quarto-float-caption,
+table caption,
+.series-table caption,
+.country-coverage-table caption {
+  text-align: center;
+}
+
+.object-caption-number,
+.object-caption-title,
+.object-caption-series,
+.series-caption-name {
+  display: block;
+}
+
+.object-caption-number {
+  margin-bottom: 0.08rem;
+  color: var(--burgundy);
+  font-weight: 750;
+}
+
+.object-caption-title {
+  color: var(--burgundy-dark);
+  font-weight: 600;
+}
+
+.object-caption-series,
+.series-caption-name {
+  margin-top: 0.16rem;
+  color: var(--teal-dark);
+  font-weight: 650;
+  font-style: italic;
+}
+
+/* A lighter stripe and fine separators reduce visual weight in long tables. */
+.quarto-float-tbl tbody tr:nth-child(even),
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: var(--hl-row-stripe);
+  background: var(--hl-row-stripe);
+}
+
+.quarto-float-tbl tbody td,
+.quarto-float-tbl tbody th,
+.table > tbody > tr > td,
+.table > tbody > tr > th {
+  border-bottom-color: rgba(94, 13, 50, 0.10);
+}
+
+/* Shared visualization surface: warm background, restrained frame, consistent radius. */
+.quarto-float-fig figure > div,
+.series-explorer,
+.country-coverage,
+#series-trajectories,
+#series-missingness {
+  border: 1px solid var(--hl-viz-border);
+  border-radius: calc(var(--hl-radius) + 0.12rem);
+  background: var(--hl-viz-bg);
+  box-shadow: 0 0.18rem 0.55rem rgba(94, 13, 50, 0.055);
+}
+
+.quarto-float-fig figure > div {
+  padding: 0.45rem;
+}
+
+.quarto-float-fig img.figure-img {
+  display: block;
+  margin-inline: auto;
+  border-radius: var(--hl-radius);
+}
+
+.series-trajectory-svg {
+  border-radius: var(--hl-radius);
+  background: var(--hl-viz-bg);
+}
+
+.series-axis {
+  stroke: var(--teal-dark);
+  stroke-width: 1.1;
+}
+
+.series-area-line {
+  stroke: #a8afb2;
+}
+
+.series-trajectory-legend,
+.series-missingness-legend {
+  justify-content: center;
+  padding: 0.45rem 0.6rem 0.2rem;
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+
+/* Inventory controls and dimension-derived series badges. */
+.series-explorer-controls {
+  grid-template-columns: minmax(18rem, 1fr) minmax(12rem, 0.45fr);
+  align-items: end;
+  gap: 0.8rem 1rem;
+}
+
+.series-control-group {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.series-explorer-controls select {
+  width: 100%;
+  padding: 0.55rem 2.1rem 0.55rem 0.7rem;
+  border: 1px solid var(--hl-border);
+  border-radius: var(--hl-radius);
+  color: #212529;
+  background: #fff;
+}
+
+.series-classification-badge,
+.series-aggregate-badge {
+  display: inline-block;
+  margin-left: 0.38rem;
+  margin-top: 0.12rem;
+  padding: 0.08rem 0.38rem;
+  border: 1px solid rgba(21, 124, 135, 0.16);
+  border-radius: 999px;
+  color: var(--teal-dark);
+  background: var(--hl-soft-teal);
+  font-size: 0.78em;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.series-classification-badge[data-classification="aggregate"] {
+  border-color: rgba(135, 21, 72, 0.12);
+  color: var(--burgundy-dark);
+  background: rgba(135, 21, 72, 0.045);
+}
+
+/* Persistent country/reference-area label for linked matrix selections. */
+.series-country-label {
+  display: none;
+  fill: var(--pink);
+  stroke: var(--hl-viz-bg);
+  stroke-width: 4px;
+  paint-order: stroke fill;
+  font-size: 13px;
+  font-weight: 750;
+  pointer-events: none;
+}
+
+.series-country-label-active {
+  display: block;
+}
+
+@media (max-width: 767.98px) {
+  .series-explorer-controls { grid-template-columns: 1fr; }
+}
+
+.panelview-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.35rem 0 0.65rem;
+  color: var(--teal-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.panelview-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.panelview-legend i { width: 0.9rem; height: 0.9rem; border: 1px solid var(--hl-viz-border); display: inline-block; }
+.panelview-observed-key { background: var(--teal-dark); }
+.panelview-missing-key { background: var(--hl-viz-bg); }
+
+.panelview-browser-figure {
+  padding: 0.65rem;
+  border: 1px solid var(--hl-viz-border);
+  border-radius: var(--hl-radius);
+  background: var(--hl-viz-bg);
+}
+
+.panelview-matrix-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.panelview-matrix {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 1px;
+  font-size: 0.72rem;
+  background: transparent;
+}
+
+.panelview-matrix th {
+  padding: 0.18rem 0.32rem;
+  color: var(--teal-dark);
+  background: var(--hl-viz-bg);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.panelview-matrix thead th:not(:first-child) {
+  height: 3.4rem;
+  min-width: 1.15rem;
+  padding: 0.1rem;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: left;
+}
+
+.panelview-matrix td {
+  width: 1rem;
+  min-width: 1rem;
+  height: 0.72rem;
+  padding: 0;
+  border: 0;
+}
+
+.panelview-cell-observed { background: var(--teal-dark); }
+.panelview-cell-missing { background: #e6ded5; }
+
+/* =========================================================
+   OECD guidance callout
+   ========================================================= */
+
+.oecd-rules {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  margin-block: 1.25rem;
+  overflow: hidden;
+  border: 1px solid #ff0039;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.oecd-rules__slogan,
+.oecd-rules__guidance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.oecd-rules__slogan {
+  flex-direction: column;
+  gap: 0.05em;
+  min-height: 8.5rem;
+  padding: 1.15rem;
+  background: #ff0039;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+.oecd-rules__slogan br {
+  display: none;
+}
+
+.oecd-rules__slogan p {
+  margin: 0;
+}
+
+.oecd-rules__slogan-oecd {
+  font-size: 1.65em;
+  font-weight: 800;
+}
+
+.oecd-rules__guidance {
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.oecd-rules__guidance > :first-child {
+  margin-top: 0;
+}
+
+.oecd-rules__guidance > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 575.98px) {
+  .oecd-rules {
+    grid-template-columns: 1fr;
+  }
+
+  .oecd-rules__slogan {
+    min-height: 0;
+    padding-block: 1rem;
+  }
+}
+
+/* =========================================================
+   2026-09 website refinement pass
+   ========================================================= */
+:root { --interaction-selection: #bd1763; }
+
+/* Footer refinements */
+.footer-link-separator { display:inline-block; width:.7rem; }
+
+/* Callout-specific list markers; titles remain undecorated. */
+.data-note ul, .data-note ol { padding-left:1.35rem; }
+.data-note ul > li::marker { color:var(--teal); content:"●  "; font-size:.82em; }
+.data-note ol > li::marker { color:var(--teal); font-weight:700; }
+.context-note, .context-note p, .context-note li { color:var(--burgundy); }
+
+/* Uniform editorial tables */
+.quarto-float-tbl table, main table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; }
+.quarto-float-tbl thead th, main table thead th { background:rgba(135,21,72,.06); border-bottom:1px solid rgba(135,21,72,.28); color:var(--burgundy-dark); font-weight:700; }
+.quarto-float-tbl tbody td, .quarto-float-tbl tbody th, main table tbody td, main table tbody th { border-bottom:1px solid rgba(40,40,34,.10); background:transparent; }
+.numeric-cell { text-align:right; }
+.primary-dataset-row { box-shadow:inset 3px 0 0 var(--teal); background:rgba(21,124,135,.035); }
+.table-section-row td { padding:.65rem .55rem .35rem!important; color:var(--teal-dark); background:var(--hl-soft-teal)!important; font-size:.76rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+.match-share-cell { color:var(--teal-dark); font-weight:700; }
+.parent-only-cell { color:var(--burgundy); }
+.specialized-only-cell { color:var(--teal); }
+.hash-cell { font-family:var(--bs-font-monospace); white-space:nowrap; }
+
+/* Interactive caption + surface = one component. */
+.interactive-object { border:1px solid var(--hl-border); border-radius:var(--hl-radius); overflow:hidden; background:var(--hl-interactive-bg); }
+.interactive-object > figure { margin:0; }
+.interactive-object figcaption, .interactive-object .quarto-float-caption { margin:0!important; padding:.8rem 1rem!important; background:var(--hl-interactive-bg); border-bottom:1px solid rgba(40,40,34,.10); }
+.interactive-object .country-coverage, .interactive-object .series-explorer, .interactive-object #series-trajectories, .interactive-object #series-missingness { border-radius:0; border:0; margin:0; }
+.object-caption-subtitle { display:block; max-width:72ch; margin:.38rem auto 0; color:#686265; font-size:.82rem; font-weight:400; line-height:1.42; }
+.interactive-object .object-caption-title, #tbl-models .object-caption-title { font-size:1rem; font-weight:700; }
+.interactive-object .object-caption-subtitle, #tbl-models .object-caption-subtitle { padding-top:.28rem; border-top:1px solid rgba(40,40,34,.10); }
+.series-caption-prefix { color:var(--burgundy-dark); font-weight:650; margin-left:.35rem; }
+
+/* V01 coverage explorer */
+.country-coverage-summary { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; margin:.15rem 0 .55rem; padding:.55rem .7rem; background:rgba(255,255,255,.62); border-radius:.35rem; }
+.country-coverage-summary strong { color:var(--burgundy-dark); white-space:nowrap; }
+.country-coverage-legend { margin:.35rem 0 .65rem; }
+.country-coverage-details { margin:.65rem 0 .1rem; padding:.55rem .7rem; border-left:3px solid var(--interaction-selection); background:#fff; font-size:.88rem; }
+.country-coverage-cell-selected { outline:3px solid var(--interaction-selection)!important; outline-offset:-3px; }
+.country-coverage-selected { box-shadow:inset 0 0 0 2px var(--interaction-selection); }
+.country-coverage-table td.coverage-some { opacity:.82; }
+.country-coverage-table thead th:first-child, .country-coverage-table tbody th { position:sticky; left:0; }
+
+/* V02 */
+.workflow-diagram { display:block; width:100%; max-width:900px; margin:.4rem auto; }
+
+/* V07 */
+#tbl-panel-series-summary table { margin-top:.2rem; }
+#tbl-panel-series-summary table thead { display:none; }
+#tbl-panel-series-summary table tbody tr { display:grid; grid-template-columns:.9fr 1.65fr 1fr .85fr; gap:.65rem; }
+#tbl-panel-series-summary table tbody td { min-height:6.8rem; padding:.9rem 1rem; border:1px solid var(--hl-border); border-top:3px solid var(--burgundy); border-radius:.45rem; background:linear-gradient(145deg,#fff 0%,var(--hl-soft) 100%); text-align:left; vertical-align:middle; }
+#tbl-panel-series-summary .panel-kpi-balance { border-top-color:var(--pink); }
+#tbl-panel-series-summary .panel-kpi-completion { border-top-color:var(--teal); background:linear-gradient(145deg,#fff 0%,var(--hl-soft-teal) 100%); }
+#tbl-panel-series-summary .panel-kpi-periods { border-top-color:var(--teal-dark); }
+#tbl-panel-series-summary .panel-kpi-value { color:var(--burgundy-dark); font-size:1.7rem; font-weight:800; line-height:1.05; font-variant-numeric:tabular-nums; }
+#tbl-panel-series-summary .panel-kpi-completion .panel-kpi-value { color:var(--teal-dark); font-size:1.95rem; }
+#tbl-panel-series-summary .panel-kpi-label { margin-top:.42rem; color:#5f5a5c; font-size:.72rem; font-weight:750; letter-spacing:.055em; text-transform:uppercase; }
+#tbl-panel-series-summary .panel-kpi-meta { margin-top:.5rem; color:#6b6668; font-size:.78rem; line-height:1.35; }
+
+
+@media (max-width: 767.98px) {
+  #tbl-panel-series-summary table tbody tr { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+
+@media (max-width: 479.98px) {
+  #tbl-panel-series-summary table tbody tr { grid-template-columns:1fr; }
+  #tbl-panel-series-summary table tbody td { min-height:0; }
+}
+
+/* V09/V10 */
+#tbl-selected-series tbody td:nth-child(2) { font-weight:700; color:var(--teal-dark); }
+#tbl-selected-series tbody td:nth-child(3) { color:#777; font-family:var(--bs-font-monospace); font-size:.84em; }
+.panelview-browser-figure { background:var(--hl-soft); border:1px solid var(--hl-border); border-radius:var(--hl-radius); padding:.75rem; }
+.panelview-matrix th:first-child { width:6.5rem!important; max-width:6.5rem!important; }
+.panelview-matrix td { width:1.25rem; height:1.25rem; min-width:1.25rem; padding:0!important; }
+
+/* V16 */
+.series-explorer-controls { grid-template-columns:minmax(16rem,2fr) minmax(12rem,1fr); gap:.75rem; padding:.75rem; background:rgba(255,255,255,.55); border-radius:.4rem; }
+.series-classification-badge { border:0!important; background:transparent!important; color:var(--burgundy)!important; padding:.05rem .22rem!important; font-size:.67rem!important; font-weight:600!important; }
+.series-table td:nth-child(2) { font-size:.78rem; color:#666; }
+.series-sortable-cue::after { content:" ↕"; color:var(--teal); font-size:.75em; }
+.series-completion-mini { display:block; width:4.6rem; height:.28rem; margin-top:.2rem; overflow:hidden; border-radius:999px; background:#ddd6da; }
+.series-completion-mini i { display:block; height:100%; background:var(--teal); }
+.series-view-cell { color:var(--interaction-selection); font-weight:700; white-space:nowrap; }
+
+/* TWFE */
+#tbl-twfe-status-audit .twfe-audit-note { margin:.7rem 0 0; color:#666; font-size:.86rem; }
+.twfe-area-directory { display:grid; grid-template-columns:repeat(auto-fit,minmax(12rem,1fr)); gap:.45rem .8rem; padding:.7rem 0; }
+.twfe-area-entry { display:flex; justify-content:space-between; gap:.7rem; padding:.35rem .5rem; border-bottom:1px solid rgba(40,40,34,.1); }
+.twfe-area-name { font-weight:600; }
+.twfe-area-entry code { color:#777; background:transparent; }
+.presentation-svg { width:100%; height:auto; display:block; }
+
+/* Series detail */
+.series-definition-table tbody th { width:30%; color:var(--teal-dark); font-weight:650; }
+.series-definition-table tbody td { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; }
+.series-definition-table tbody td strong { font-size:1.02rem; }
+.series-definition-table tbody td code { color:#777; background:transparent; font-size:.78rem; }
+.series-statistics-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:.55rem; }
+.series-statistic { display:grid; place-items:center; min-height:5.6rem; padding:.7rem; border:1px solid var(--hl-border); border-radius:.4rem; background:var(--hl-soft); text-align:center; }
+.series-statistic strong { font-size:1.35rem; color:var(--burgundy-dark); }
+.series-statistic span { color:#6b6668; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+.series-selection-details { margin:.65rem .15rem .1rem; padding:.55rem .7rem; border-left:3px solid var(--interaction-selection); background:#fff; font-size:.88rem; }
+.series-area-line-hovered, .series-area-line-selected { stroke:var(--interaction-selection)!important; }
+.series-point { fill:var(--interaction-selection)!important; }
+.series-cell-selected { background:var(--interaction-selection)!important; outline-color:var(--interaction-selection)!important; }
+.series-country-label-active { fill:var(--interaction-selection)!important; font-weight:700; }
+.series-trajectory-wrapper { overflow:visible; padding-right:.25rem; }
+.series-trajectory-svg { overflow:visible; }
+
+/* Keep OECD guidance exactly in its established design; only requested text-size refinement. */
+.oecd-rules__guidance { font-size:1.12rem; line-height:1.58; }
+
+@media (max-width:767.98px) {
+  .country-coverage-summary { align-items:flex-start; flex-direction:column; }
+  .series-explorer-controls { grid-template-columns:1fr; }
+  #tbl-panel-series-summary table tbody tr { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .series-statistics-strip { grid-template-columns:repeat(2,1fr); }
+  .series-statistic:first-child { grid-column:1/-1; }
+  .twfe-area-directory { grid-template-columns:1fr; }
+}
+#tbl-registered-dataflows table th:nth-child(1), #tbl-registered-dataflows table td:nth-child(1) { width:38%; font-weight:650; }
+#tbl-registered-dataflows table th:nth-child(2), #tbl-registered-dataflows table td:nth-child(2) { width:22%; color:#666; }
+#tbl-registered-dataflows table th:nth-child(3), #tbl-registered-dataflows table td:nth-child(3) { width:30%; }
+#tbl-registered-dataflows table th:nth-child(4), #tbl-registered-dataflows table td:nth-child(4) { width:10%; color:#666; text-align:center; }
+#tbl-models td:nth-child(n+3) { text-align:right; font-variant-numeric:tabular-nums; }
+#tbl-models .model-group-start td { border-top:2px solid rgba(135,21,72,.35); }
+#tbl-models .preferred-model-row { background:rgba(21,124,135,.055); box-shadow:inset 3px 0 0 var(--teal); }
+#tbl-panel-series-summary table tbody td::after { content:none!important; }
+figure:has(> .presentation-svg) { display:flex; flex-direction:column; }
+figure:has(> .presentation-svg) > figcaption { order:1; }
+figure:has(> .presentation-svg) > .presentation-svg { order:2; }
+figure:has(> .presentation-svg) > div[aria-describedby] { display:none; }
+
+/* =========================================================
+   2026-09 final presentation taxonomy and consistency pass
+   ========================================================= */
+
+/* Captions: number, title, optional subtitle; left aligned and punctuation-light. */
+.quarto-float-caption,
+table caption,
+.series-table caption,
+.country-coverage-table caption,
+.interactive-object figcaption,
+.interactive-object .quarto-float-caption {
+  text-align: left !important;
+}
+.object-caption-number,
+.object-caption-title,
+.object-caption-subtitle {
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
+}
+.object-caption-number {
+  margin-bottom: 0.08rem;
+}
+.object-caption-subtitle {
+  max-width: 72ch;
+  margin-top: 0.22rem;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+  color: #686265;
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.42;
+}
+.series-caption-prefix,
+.object-caption-series,
+.series-caption-name {
+  display: inline;
+  margin-top: 0;
+}
+.series-caption-prefix {
+  margin-left: 0;
+}
+
+/* Context-note body inherits the established heading teal; kicker remains burgundy. */
+.context-note,
+.context-note p,
+.context-note li {
+  color: var(--teal-dark);
+}
+.context-note::before {
+  color: var(--burgundy);
+}
+
+/* One editorial table system: white rows, discreet dividers, no zebra striping. */
+.quarto-float-tbl tbody tr:nth-child(even),
+.table-striped > tbody > tr:nth-of-type(odd) > *,
+.quarto-float-tbl tbody td,
+.quarto-float-tbl tbody th {
+  --bs-table-bg-type: #fff;
+  background: #fff !important;
+}
+.quarto-float-tbl tbody td,
+.quarto-float-tbl tbody th {
+  border-bottom: 1px solid rgba(40, 40, 34, 0.10);
+}
+.table-section-row td {
+  background: var(--hl-soft-teal) !important;
+}
+
+/* Table 1: Dataflow-style baseline across all four columns; widths remain content-driven. */
+#tbl-registered-dataflows table th,
+#tbl-registered-dataflows table td {
+  color: inherit;
+  font-weight: inherit;
+  text-align: left;
+}
+#tbl-registered-dataflows table th {
+  font-weight: 700;
+}
+#tbl-registered-dataflows table th:nth-child(1), #tbl-registered-dataflows table td:nth-child(1) { width: 36%; }
+#tbl-registered-dataflows table th:nth-child(2), #tbl-registered-dataflows table td:nth-child(2) { width: 17%; }
+#tbl-registered-dataflows table th:nth-child(3), #tbl-registered-dataflows table td:nth-child(3) { width: 37%; }
+#tbl-registered-dataflows table th:nth-child(4), #tbl-registered-dataflows table td:nth-child(4) { width: 10%; }
+
+/* Table 3: primary dataset uses teal text only, never a border or fill. */
+#tbl-database-inventory .primary-dataset-row {
+  box-shadow: none;
+  background: #fff !important;
+  color: var(--teal-dark);
+}
+#tbl-database-inventory .primary-dataset-row > * {
+  background: #fff !important;
+  color: var(--teal-dark);
+}
+#tbl-database-inventory table th:nth-child(1), #tbl-database-inventory table td:nth-child(1) { width: 27%; }
+#tbl-database-inventory table th:nth-child(2), #tbl-database-inventory table td:nth-child(2) { width: 14%; }
+#tbl-database-inventory table th:nth-child(3), #tbl-database-inventory table td:nth-child(3) { width: 14%; }
+#tbl-database-inventory table th:nth-child(4), #tbl-database-inventory table td:nth-child(4) { width: 19%; }
+#tbl-database-inventory table th:nth-child(5), #tbl-database-inventory table td:nth-child(5) { width: 13%; }
+#tbl-database-inventory table th:nth-child(6), #tbl-database-inventory table td:nth-child(6) { width: 13%; }
+#tbl-database-inventory thead code,
+#tbl-twfe-status-audit thead code {
+  white-space: nowrap;
+}
+
+/* Table 4 provenance display. */
+#tbl-retrieval-manifest td:nth-child(4) {
+  white-space: nowrap;
+  line-height: 1.25;
+}
+.hash-cell {
+  white-space: nowrap;
+}
+
+/* Panel summary: unnumbered KPI information component, not a table. */
+.panel-summary {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, .85fr);
+  gap: .65rem;
+  margin: .45rem 0 1.35rem;
+}
+.panel-summary-card {
+  display: flex;
+  min-height: 6.6rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: .9rem 1rem;
+  border: 1px solid var(--hl-border);
+  border-top: 3px solid var(--burgundy);
+  border-radius: .45rem;
+  background: linear-gradient(145deg, #fff 0%, var(--hl-soft) 100%);
+}
+.panel-summary-card strong {
+  color: var(--burgundy-dark);
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+.panel-summary-card span {
+  margin-top: .42rem;
+  color: #5f5a5c;
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.panel-summary-card small {
+  margin-top: .5rem;
+  color: #6b6668;
+  font-size: .78rem;
+  line-height: 1.35;
+}
+.panel-summary-balance { border-top-color: var(--pink); }
+.panel-summary-completion {
+  border-top-color: var(--teal);
+  background: linear-gradient(145deg, #fff 0%, var(--hl-soft-teal) 100%);
+}
+.panel-summary-completion strong {
+  color: var(--teal-dark);
+  font-size: 1.95rem;
+}
+.panel-summary-periods { border-top-color: var(--teal-dark); }
+
+/* Table 6: consistent columns; literal SDMX codes are the only typographic exception. */
+#tbl-selected-series tbody td:nth-child(2) {
+  color: inherit;
+  font-weight: inherit;
+}
+#tbl-selected-series tbody td:nth-child(3) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+#tbl-selected-series tbody td:nth-child(3) code {
+  color: #666;
+  font-size: .84em;
+  white-space: nowrap;
+}
+
+/* Table 8: exact-match values are ordinary-weight body values. */
+.match-share-cell {
+  font-weight: 400;
+}
+
+/* Tables 9–11: slightly smaller Unit column. */
+#tbl-age-parent-only-records tbody td:nth-child(3),
+#tbl-sex-parent-only-records tbody td:nth-child(3),
+#tbl-education-parent-only-records tbody td:nth-child(3) {
+  font-size: .82rem;
+}
+
+/* Table 12: native-feeling sortable headers and right-aligned inventory count. */
+.series-sortable-cue::after { content: none; }
+.series-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  width: 100%;
+  padding: 0;
+  border: 0 !important;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+}
+.series-sort-button::after {
+  content: "↕";
+  color: var(--teal);
+  font-size: .72em;
+  font-weight: 500;
+}
+th[aria-sort="ascending"] .series-sort-button::after { content: "↑"; }
+th[aria-sort="descending"] .series-sort-button::after { content: "↓"; }
+.series-table-footer {
+  justify-content: flex-end;
+}
+.series-table th:first-child,
+.series-table td:first-child {
+  width: 3.8rem;
+  white-space: nowrap;
+}
+
+/* Series Detail structured summaries are unnumbered information components. */
+.series-info-component {
+  margin: .4rem 0 1.35rem;
+}
+.series-info-component .series-definition-table,
+.series-info-component .series-statistics-strip,
+.series-info-component .series-panel-summary {
+  margin-top: .4rem;
+}
+.series-definition-table tbody th,
+.series-definition-table tbody td {
+  background: #fff !important;
+}
+
+/* Legends belong above the plotting surface. */
+.series-missingness-legend,
+.series-trajectory-legend {
+  margin: 0 0 .55rem;
+}
+
+/* Figure 10: narrower reference-area label column, with width returned to period cells. */
+.series-missingness thead th:first-child,
+.series-missingness tbody th:first-child {
+  width: 6.25rem !important;
+  min-width: 6.25rem !important;
+  max-width: 6.25rem !important;
+}
+.series-area-select {
+  max-width: 5.55rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.series-missingness td {
+  width: 1.08rem;
+  min-width: 1.08rem;
+}
+
+/* Genuine Iconify footer glyphs sit inline with the existing compact footer. */
+.nav-footer-right iconify-icon,
+.nav-footer-right svg.iconify {
+  margin: 0 .14rem 0 .08rem;
+  font-size: 1rem;
+  vertical-align: -.12rem;
+}
+
+@media (max-width: 767.98px) {
+  .panel-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 479.98px) {
+  .panel-summary { grid-template-columns: 1fr; }
+  .panel-summary-card { min-height: 0; }
+}
+#tbl-database-inventory table th:nth-child(4) {
+  white-space: nowrap;
+}
+
+/* OECD rules: slightly larger guidance text on the white half only. */
+.oecd-rules__guidance {
+  font-size: 1.13rem;
+}
+
+/* Series definition is a structured information grid, not a numbered data table. */
+.series-definition-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+}
+.series-definition-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: .18rem .7rem;
+  padding: .82rem .9rem;
+  border: 1px solid var(--hl-border);
+  border-radius: .45rem;
+  background: #fff;
+}
+.series-definition-dimension {
+  grid-column: 1 / -1;
+  color: var(--teal-dark);
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.series-definition-item strong {
+  color: #2d292a;
+  font-weight: 650;
+}
+.series-definition-item code {
+  align-self: center;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .series-definition-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   2026-09 targeted refinement follow-up
+   ========================================================= */
+
+/* Context-note links use burgundy without added weight; citation hover/focus still recedes toward body teal. */
+.context-note a,
+.context-note a:visited,
+.context-note .citation,
+.context-note .citation a {
+  color: var(--burgundy);
+  font-weight: 400;
+}
+.context-note a:hover,
+.context-note a:focus {
+  color: var(--burgundy-dark);
+}
+.context-note .citation:hover,
+.context-note .citation:focus-within,
+.context-note .citation a:hover,
+.context-note .citation a:focus {
+  color: var(--teal-dark);
+  font-weight: 400;
+}
+
+/* Figure 1: fixed-height rows, visibly interactive series links, no decorative instruction border. */
+.country-coverage-details {
+  border-left: 0 !important;
+}
+.country-coverage-table thead th:first-child,
+.country-coverage-table tbody th {
+  width: 19rem;
+  min-width: 19rem;
+  max-width: 19rem;
+}
+.country-coverage-table tbody th {
+  height: 1.8rem;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+}
+.country-coverage-table tbody th a {
+  display: block;
+  overflow: hidden;
+  color: var(--teal-dark);
+  text-decoration: underline;
+  text-decoration-color: rgba(13, 89, 98, .42);
+  text-underline-offset: .12em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.country-coverage-table tbody th a:hover,
+.country-coverage-table tbody th a:focus-visible {
+  color: var(--pink);
+  text-decoration-color: currentColor;
+}
+
+/* Table 3: make Last period comfortably single-line while preserving the MEASURE header. */
+#tbl-database-inventory table th:nth-child(1), #tbl-database-inventory table td:nth-child(1) { width: 24%; }
+#tbl-database-inventory table th:nth-child(2), #tbl-database-inventory table td:nth-child(2) { width: 14%; }
+#tbl-database-inventory table th:nth-child(3), #tbl-database-inventory table td:nth-child(3) { width: 14%; }
+#tbl-database-inventory table th:nth-child(4), #tbl-database-inventory table td:nth-child(4) { width: 20%; }
+#tbl-database-inventory table th:nth-child(5), #tbl-database-inventory table td:nth-child(5) { width: 13%; }
+#tbl-database-inventory table th:nth-child(6), #tbl-database-inventory table td:nth-child(6) { width: 15%; }
+#tbl-database-inventory table th:nth-child(5),
+#tbl-database-inventory table th:nth-child(6) { white-space: nowrap; }
+
+/* Tables inside callouts retain the site's normal table typography instead of inheriting callout body color. */
+.context-note table,
+.context-note .quarto-float-tbl,
+.data-note table,
+.data-note .quarto-float-tbl {
+  color: var(--bs-body-color, #212529);
+  font-family: inherit;
+}
+.context-note table thead th,
+.data-note table thead th {
+  color: var(--burgundy-dark);
+}
+
+/* Analytical Series Explorer: Unit is the compact column; sticky header is fully opaque. */
+.series-table td:nth-child(2) {
+  color: inherit;
+  font-size: inherit;
+}
+.series-table td:nth-child(3) {
+  color: #666;
+  font-size: .78rem;
+}
+.series-table thead th {
+  background: var(--hl-soft) !important;
+  background-color: #f8f5f7 !important;
+  opacity: 1 !important;
+  box-shadow: inset 0 -1px 0 var(--hl-border);
+}
+
+/* Series definition/panel information components carry no decorative progress bar. */
+.series-panel-progress {
+  display: none !important;
+}
+
+/* Dynamic Figure 8 title keeps the selected series name in the established accent. */
+#fig-series-trajectories .series-caption-name {
+  color: var(--teal-dark);
+  font-weight: 650;
+}

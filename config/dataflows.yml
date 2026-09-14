@@ -1,0 +1,38 @@
+base_url: "https://sdmx.oecd.org/public/rest" # See: https://sdmx.oecd.org/public
+
+agency: "OECD.WISE.WDP" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/all/latest
+
+version: "1.1" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB/1.1
+
+format: "csvfilewithlabels" # See: https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html
+
+dataflows:
+  current_wellbeing:
+    title: "Current well-being" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB/1.1
+    id: "DSD_HSL@DF_HSL_CWB"
+    comparison_dimension: null
+
+  current_wellbeing_vertical_inequality:
+    title: "Current well-being vertical inequality" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB_INEQ/1.1
+    id: "DSD_HSL@DF_HSL_CWB_INEQ"
+    comparison_dimension: null
+
+  current_wellbeing_age:
+    title: "Current well-being by age" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB_AGE/1.1
+    id: "DSD_HSL@DF_HSL_CWB_AGE"
+    comparison_dimension: "AGE"
+
+  current_wellbeing_education:
+    title: "Current well-being by education level" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB_EDU/1.1
+    id: "DSD_HSL@DF_HSL_CWB_EDU"
+    comparison_dimension: "EDUCATION_LEV"
+
+  current_wellbeing_sex:
+    title: "Current well-being by sex" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB_SEX/1.1
+    id: "DSD_HSL@DF_HSL_CWB_SEX"
+    comparison_dimension: "SEX"
+
+  future_wellbeing:
+    title: "Future well-being" # See: https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_FWB/1.1
+    id: "DSD_HSL@DF_HSL_FWB"
+    comparison_dimension: null

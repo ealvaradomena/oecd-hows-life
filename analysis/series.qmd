@@ -1,0 +1,63 @@
+---
+title: "Analytical Series"
+toc: true
+---
+
+<div id="series-detail-status" class="series-loading" aria-live="polite">Loading analytical series…</div>
+<div id="series-detail-header"></div>
+
+## Series Definition
+
+::: {#series-definition-component .series-info-component}
+<div id="series-definition-content"></div>
+:::
+
+## Panel Characteristics
+
+::: {#series-characteristics-component .series-info-component}
+<div id="series-metrics"></div>
+:::
+
+## Descriptive Statistics
+
+::: {#series-statistics-component .series-info-component}
+<div id="series-statistics"></div>
+:::
+
+## Reference-Area Trajectories
+
+Thin lines in @fig-series-trajectories show individual reference areas; the emphasized line shows the mean of observed reference-area values in each period. 
+
+Hover over a line to identify the reference area. 
+
+Use the missingness matrix in @fig-series-missingness to select a reference area or a specific reference-area–time-period observation.
+
+::: {#fig-series-trajectories}
+<div id="series-trajectories"></div>
+
+Reference-area trajectories for <span class="series-caption-name" data-series-caption></span>
+<span class="object-caption-subtitle" data-series-unit></span>
+:::
+
+## Panel Missingness
+
+Each cell represents one reference area–time-period combination on the analytical series' observed temporal support. Hover over a filled cell to inspect its value and, when available, its OECD observation-status flag. Click a reference-area name to highlight its full trajectory, or click an observed cell to highlight both the reference area's trajectory and that specific observation.
+
+::: {#fig-series-missingness}
+<div id="series-missingness"></div>
+
+Reference area–time-period observation coverage for the selected analytical series.
+<span class="series-caption-name" data-series-caption></span>
+:::
+
+[← Back to the Analytical Series Explorer](09-series-explorer.qmd){.series-back-link}
+
+<noscript>
+This page requires JavaScript to load the selected analytical series.
+</noscript>
+
+<script src="../assets/series-detail.js" defer></script>
+
+<script src="../assets/site-refinements.js" defer></script>
+
+{{< oecd-rules >}}

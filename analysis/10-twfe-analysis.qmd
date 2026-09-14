@@ -1,0 +1,412 @@
+---
+title: "Two-Way Fixed Effects (TWFE)"
+subtitle: "Employment and life satisfaction"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(dplyr)
+library(ggplot2)
+library(here)
+library(knitr)
+library(readr)
+
+model_summary <- readr::read_csv(
+  here::here(
+    "outputs",
+    "diagnostics",
+    "twfe-employment-life-satisfaction-model-summary.csv"
+  ),
+  show_col_types = FALSE
+)
+
+period_coverage <- readr::read_csv(
+  here::here(
+    "outputs",
+    "diagnostics",
+    "twfe-employment-life-satisfaction-period-coverage.csv"
+  ),
+  show_col_types = FALSE
+)
+
+core_sample <- readr::read_csv(
+  here::here(
+    "outputs",
+    "diagnostics",
+    "twfe-employment-life-satisfaction-core-sample.csv"
+  ),
+  show_col_types = FALSE
+)
+
+transformed <- readr::read_csv(
+  here::here(
+    "outputs",
+    "diagnostics",
+    "twfe-employment-life-satisfaction-transformed.csv"
+  ),
+  show_col_types = FALSE
+)
+
+fwl_verification <- readr::read_csv(
+  here::here(
+    "outputs",
+    "diagnostics",
+    "twfe-employment-life-satisfaction-fwl-verification.csv"
+  ),
+  show_col_types = FALSE
+)
+
+model_labels <- c(
+  pooled_ols = "Pooled OLS",
+  country_fe = "Country FE",
+  twfe = "TWFE: country + period FE"
+)
+
+model_summary <- model_summary |>
+  dplyr::mutate(
+    model_label = unname(model_labels[model]),
+    model_label = factor(
+      model_label,
+      levels = unname(model_labels)
+    )
+  )
+
+core_periods <- period_coverage |>
+  dplyr::filter(core_period) |>
+  dplyr::pull(TIME_PERIOD)
+
+core_n <- nrow(core_sample)
+core_n_units <- dplyr::n_distinct(core_sample$REF_AREA)
+core_n_periods <- dplyr::n_distinct(core_sample$TIME_PERIOD)
+
+singleton_units <- core_sample |>
+  dplyr::count(
+    REF_AREA,
+    UNIT_LABEL,
+    name = "observations"
+  ) |>
+  dplyr::filter(observations == 1L)
+
+singleton_labels <- paste(
+  singleton_units$UNIT_LABEL,
+  collapse = ", "
+)
+
+preferred <- model_summary |>
+  dplyr::filter(
+    sample == "High-coverage core periods",
+    model == "twfe"
+  )
+
+full_twfe <- model_summary |>
+  dplyr::filter(
+    sample == "Full matched sample",
+    model == "twfe"
+  )
+
+format_p <- function(x) {
+  ifelse(
+    x < 0.001,
+    "< .001",
+    sprintf("%.3f", x)
+  )
+}
+```
+
+## Research Question---A Teaching Example
+
+Is a higher employment rate associated with higher life satisfaction within countries over time?
+
+The analysis uses **life satisfaction** as the outcome and the **employment rate** as the predictor. Employment is measured in percentage points and life satisfaction on a 0–10 scale.
+
+This is an econometric demonstration rather than a causal identification design. The goal is to show, step by step, how pooled regression, country fixed effects, and two-way fixed effects answer increasingly within-country versions of the same associational question.
+
+::: {.context-note}
+### [The source knows the data]{.smallcaps}
+
+OECD observations can carry `OBS_STATUS` metadata indicating qualifications such as a time-series break, a definition difference, an estimated value, a provisional value, or low reliability.
+
+These attributes are part of the SDMX observation structure, not cosmetic annotations [@oecd_hows_life_metadata_2026].
+
+The regression analysis below does not automatically discard or correct flagged observations. Observation status should therefore be inspected within the matched sample before interpreting the estimates as comparable over time.
+
+::: {#tbl-twfe-status-audit}
+<div id="twfe-status-audit" aria-live="polite">Loading observation-status audit…</div>
+
+OECD observation-status flags in the matched TWFE sample
+<span class="object-caption-subtitle">A pre-model audit of source status metadata</span>
+:::
+:::
+
+<script src="../assets/twfe-audit.js" defer></script>
+
+## Estimation Sample
+
+The matched data are irregular over time. The matched pair begins in 2009 because that is the first period in the frozen intersection of the selected life-satisfaction and employment series; earlier observations elsewhere in *Current well-being* do not enter this matched pair.
+
+A balanced panel is not required for TWFE. For this teaching example, however, years represented by only a handful of countries would make the main comparison harder to interpret. The project therefore defines a high-coverage core sample using periods observed for at least 70% of the countries in the matched sample.
+
+The 70% cutoff is a project-defined teaching and sample-quality rule, not a requirement of the TWFE estimator.
+
+@fig-period-coverage identifies the periods selected by this rule.
+
+```{r}
+#| label: fig-period-coverage
+#| fig-alt: "Bars show the share of matched-sample countries represented in each period. A dashed horizontal line marks the project-defined 70 percent core-period rule."
+#| fig-cap: 'Country coverage by period <span class="object-caption-subtitle">The dashed line marks the project-defined 70% threshold used to define the core sample</span>'
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4.5
+
+ggplot(
+  period_coverage,
+  aes(
+    x = TIME_PERIOD,
+    y = unit_coverage
+  )
+) +
+  geom_col() +
+  geom_hline(
+    yintercept = 0.70,
+    linetype = "dashed",
+    linewidth = 0.7
+  ) +
+  scale_y_continuous(
+    labels = function(x) paste0(round(100 * x), "%"),
+    limits = c(0, 1)
+  ) +
+  labs(
+    x = "Period",
+    y = "Countries represented"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+The rule selects `r length(core_periods)` periods: `r paste(core_periods, collapse = ", ")`. Together they contain `r core_n` matched observations across `r core_n_units` countries and `r core_n_periods` periods.
+
+The pooled model can use all `r core_n` observations. The fixed-effects models use `r preferred$observations` because `r singleton_labels` appears only once in the core sample. A country observed only once provides no within-country variation, so that observation does not contribute to the country fixed-effects comparison.
+
+This difference in fitted-model sample size is mechanical rather than substantive, but it is worth making visible when comparing the models.
+
+The full matched sample is retained as a **sensitivity check** using all available matched periods.
+
+<details class="twfe-sample-composition">
+<summary><strong>Show the reference areas in the full matched sample</strong></summary>
+<div id="twfe-sample-areas" aria-live="polite">Loading matched-sample reference areas…</div>
+</details>
+
+The expandable list reports the reference areas actually represented in the matched data. It should not be read as an OECD membership roster.
+
+## Model Sequence
+
+The pooled model is:
+
+$$
+Y_{it} = \alpha + \beta X_{it} + \varepsilon_{it}
+$$
+
+It combines differences **between countries** with changes **within countries over time**.
+
+Adding country fixed effects gives:
+
+$$
+Y_{it} = \alpha_i + \beta X_{it} + \varepsilon_{it}
+$$
+
+Here, $\alpha_i$ absorbs time-invariant differences across countries. The coefficient is therefore identified from changes within countries rather than permanent differences between them.
+
+The two-way fixed-effects specification adds period fixed effects:
+
+$$
+Y_{it} = \beta X_{it} + \alpha_i + \lambda_t + \varepsilon_{it}
+$$
+
+Here, $\lambda_t$ absorbs shocks or conditions shared across countries in the same observed period. The TWFE coefficient therefore uses within-country variation after also removing common period effects.
+
+Standard errors are clustered by country to allow observations from the same country to have correlated errors over time.
+
+```{r}
+#| label: tbl-models
+#| tbl-cap: "Employment-rate coefficient across specifications"
+#| echo: true
+
+model_table <- model_summary |>
+  dplyr::arrange(
+    factor(
+      sample,
+      levels = c(
+        "High-coverage core periods",
+        "Full matched sample"
+      )
+    ),
+    model_label
+  ) |>
+  dplyr::transmute(
+    Sample = sample,
+    Model = as.character(model_label),
+    N = observations,
+    Estimate = sprintf("%.4f", estimate),
+    `Clustered SE` = sprintf("%.4f", std_error),
+    `p-value` = format_p(p_value)
+  )
+
+knitr::kable(
+  model_table,
+  align = c("l", "l", "r", "r", "r", "r")
+)
+```
+
+```{r}
+#| label: fig-model-progression
+#| fig-alt: "Coefficient estimates and normal-approximation intervals for pooled OLS, country fixed effects, and two-way fixed effects, shown for core and full samples."
+#| fig-cap: 'Estimated employment coefficients <span class="object-caption-subtitle">Approximate 95% normal intervals (estimate ± 1.96 country-clustered standard errors) across specifications</span>'
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4.8
+
+model_plot <- model_summary |>
+  dplyr::mutate(
+    lower = estimate - 1.96 * std_error,
+    upper = estimate + 1.96 * std_error,
+    sample = factor(
+      sample,
+      levels = c(
+        "High-coverage core periods",
+        "Full matched sample"
+      )
+    )
+  )
+
+ggplot(
+  model_plot,
+  aes(
+    x = model_label,
+    y = estimate,
+    ymin = lower,
+    ymax = upper
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linewidth = 0.4,
+    linetype = "dashed"
+  ) +
+  geom_pointrange() +
+  facet_wrap(~ sample) +
+  labs(
+    x = NULL,
+    y = "Employment coefficient"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(
+      angle = 20,
+      hjust = 1
+    )
+  )
+```
+
+In the core sample, the pooled and country-fixed-effects estimates are very similar: `r sprintf("%.4f", model_summary$estimate[model_summary$sample == "High-coverage core periods" & model_summary$model == "pooled_ols"])` and `r sprintf("%.4f", model_summary$estimate[model_summary$sample == "High-coverage core periods" & model_summary$model == "country_fe"])`, respectively.
+
+Adding period fixed effects increases the estimate to `r sprintf("%.4f", preferred$estimate)`. The exercise is not about choosing a model because its coefficient is larger or more statistically significant; each specification removes a different source of variation.
+
+## What the TWFE Coefficient Uses
+
+A useful way to understand the TWFE coefficient is through the Frisch–Waugh–Lovell theorem:
+
+- First, residualize life satisfaction with respect to country and period indicators.
+- Then do the same for employment.
+
+The remaining variation is the part of each variable that cannot be explained by country fixed effects or common period effects.
+
+Regressing the residualized outcome on the residualized predictor gives the same slope as the TWFE model:
+
+$$
+\widetilde{Y}_{it}
+=
+\beta\widetilde{X}_{it}
++
+\widetilde{\varepsilon}_{it}
+$$
+
+::: {.data-note}
+### [An unbalanced-panel detail]{.smallcaps}
+
+TWFE does not require every country to be observed in every period.
+
+For a perfectly balanced panel, two-way residualization can be written using the familiar subtraction of unit and time means followed by addition of the grand mean. This panel is unbalanced, so the project instead residualizes each variable against the full country-and-period fixed-effect design matrix.
+
+That is the exact Frisch–Waugh–Lovell transformation for the observations available here.
+:::
+
+```{r}
+#| label: fig-fwl
+#| fig-alt: "Scatterplot of life-satisfaction residuals against employment-rate residuals after country and period adjustment. The reference line has the TWFE slope."
+#| fig-cap: 'Life satisfaction and employment after residualizing both variables with respect to country and period fixed effects <span class="object-caption-subtitle">The line has the TWFE slope</span>'
+#| echo: true
+#| fig-width: 8
+#| fig-height: 6
+
+twfe_beta <- fwl_verification$twfe_coefficient[[1]]
+
+ggplot(
+  transformed,
+  aes(
+    x = employment_rate_twfe,
+    y = life_satisfaction_twfe
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linewidth = 0.3
+  ) +
+  geom_vline(
+    xintercept = 0,
+    linewidth = 0.3
+  ) +
+  geom_point(
+    alpha = 0.55,
+    size = 2
+  ) +
+  geom_abline(
+    intercept = 0,
+    slope = twfe_beta,
+    linewidth = 1.1,
+    color = "#871548"
+  ) +
+  labs(
+    x = "Employment rate residual",
+    y = "Life satisfaction residual"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+The residualized regression slope is `r sprintf("%.6f", fwl_verification$transformed_coefficient)` and the direct TWFE estimate is `r sprintf("%.6f", fwl_verification$twfe_coefficient)`. Their absolute difference is `r format(fwl_verification$absolute_difference, scientific = TRUE, digits = 3)`, which is numerical rounding error.
+
+## Interpretation
+
+In the preferred core-period TWFE specification:
+
+$$
+\widehat{\beta}
+=
+`r sprintf("%.4f", preferred$estimate)`
+$$
+
+A one-percentage-point higher employment rate **within a country**, after accounting for time-invariant country differences and effects common to countries in the same period, is associated with approximately `r sprintf("%.3f", preferred$estimate)` points higher life satisfaction.
+
+Under this linear specification, a five-percentage-point difference corresponds mechanically to approximately `r sprintf("%.3f", 5 * preferred$estimate)` points on the 0–10 life-satisfaction scale.
+
+The full matched sample produces a similar TWFE estimate of `r sprintf("%.4f", full_twfe$estimate)`. This is a useful sensitivity check: the estimated association is similar when the sparse periods are retained. It is not, by itself, evidence that the relationship is causal.
+
+## What This Does Not Establish
+
+Country fixed effects absorb country characteristics that do not change over time, and period fixed effects absorb shocks shared across countries in a period.
+
+They do not eliminate time-varying country-specific confounding, reverse causality, measurement error, or other sources of endogeneity.
+
+The coefficient should therefore be interpreted as a **within-country association conditional on country and period fixed effects**, not as the causal effect of employment on life satisfaction.
+
+The exercise illustrates what TWFE changes statistically. A causal interpretation would require a separate identification strategy.

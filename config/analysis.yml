@@ -1,0 +1,23 @@
+# OECD dimension and code definitions:
+# https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB/1.1?references=all
+
+# Project-defined panel specification using OECD SDMX dimensions.
+panel:
+  unit: "REF_AREA"
+  time: "TIME_PERIOD"
+  value: "OBS_VALUE"
+  total_codes:
+    AGE: "_T"
+    SEX: "_T"
+    EDUCATION_LEV: "_T"
+
+# Project-defined numerical tolerance used when comparing values.
+comparison:
+  value_tolerance: 1.0e-10
+
+# Project-defined case-study selection.
+# OECD source for measure codes and labels:
+# https://sdmx.oecd.org/public/rest/dataflow/OECD.WISE.WDP/DSD_HSL@DF_HSL_CWB/1.1?references=all
+case_study:
+  outcome_measure: "11_1"
+  outcome_label: "Life satisfaction"

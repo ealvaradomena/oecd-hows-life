@@ -1,0 +1,235 @@
+---
+title: "Comparing Current well-being with its demographic dataflows"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+source(here::here("R", "COMPARE_DATAFLOWS.R"))
+
+comparisons <- list(
+  Age = readRDS(
+    here::here(
+      "data",
+      "processed",
+      "comparison_age.rds"
+    )
+  ),
+  Sex = readRDS(
+    here::here(
+      "data",
+      "processed",
+      "comparison_sex.rds"
+    )
+  ),
+  `Education level` = readRDS(
+    here::here(
+      "data",
+      "processed",
+      "comparison_education.rds"
+    )
+  )
+)
+
+overview <- dplyr::bind_rows(
+  lapply(
+    names(comparisons),
+    function(comparison_name) {
+      COMPARISON_OVERVIEW(
+        comparisons[[comparison_name]]
+      ) |>
+        dplyr::mutate(
+          Comparison = comparison_name,
+          .before = 1
+        )
+    }
+  )
+)
+```
+
+## Question
+
+The OECD disseminates *Current well-being* alongside specialized views by age, sex, and education level [@oecd_data_explorer_hows_life_2026]. Do these demographic dataflows contain distinct non-missing `OBS_VALUE` observations, or do their values already appear in the main *Current well-being* dataflow when records are matched on their shared SDMX keys?
+
+The comparison is deliberately narrow: it evaluates record-key overlap and `OBS_VALUE` agreement. It does not establish equivalence of observation-status flags, other SDMX attributes, metadata, or presentation conventions.
+
+## Comparison Design
+
+The three specialized dataflows use the same core demographic dimensions as *Current well-being*, but constrain the demographic codes differently. In the current SDMX structures, the specialized scopes are:
+
+| Comparison | Age | Sex | Education level |
+|---|---|---|---|
+| **Current well-being by age** | **`MID`, `OLD`, `YOUNG`** | `_T` (total) | `_T` (total) |
+| **Current well-being by sex** | `_T` (total) | **`F`, `M`** | `_T` (total) |
+| **Current well-being by education** | `_T` (total) | `_T` (total) | **`ISCED11_1`, `ISCED11_2_3`, `ISCED11_5T8`** |
+
+: Demographic codes represented by the three specialized dataflows in the current SDMX structures. {#tbl-demographic-scope}
+
+The project applies the same comparison procedure to all three specialized views. Records are matched on the canonical SDMX dimensions shared by the parent and specialized datasets: `REF_AREA`, `MEASURE`, `UNIT_MEASURE`, `AGE`, `SEX`, `EDUCATION_LEV`, `DOMAIN`, and `TIME_PERIOD`. A full join preserves matched keys as well as keys with a non-missing value on only one side. `OBS_VALUE` is compared using an absolute tolerance of `1e-10`.
+
+The resulting statuses have the following meanings:
+
+- **Exact match**: both sides contain non-missing values that agree within tolerance
+- **Different value**: both sides contain non-missing values that differ by more than the tolerance
+- **Parent only**: only *Current well-being* contains a non-missing value for the joined key
+- **Child only**: only the specialized dataflow contains a non-missing value for the joined key
+- **Both missing**: neither joined value is available
+
+Importantly, **parent-only and child-only are value-availability classifications, not independent tests of row presence**. A record that is present with a missing `OBS_VALUE` is therefore treated the same as a missing joined value for this classification.
+
+::: {.data-note}
+### [How to interpret parent-only records]{.smallcaps}
+
+The current comparison joins the complete parent snapshot to each specialized snapshot on their shared canonical dimensions. Because the specialized dataflows constrain demographic codes more narrowly than the parent, **parent-only records include parent observations outside the specialized demographic scope** as well as any other one-sided non-missing values.
+
+Accordingly, the exact-match shares below describe the full joined record-key universe. They should not be interpreted as coverage rates for the specialized dataflows' intended demographic scopes.
+:::
+
+::: {.context-note}
+### [Subgroup-data caveats]{.smallcaps}
+
+OECD notes that indicators in the specialized age and education views are **banded when the sample size is below 1,000 observations** [@oecd_cwb_age_2026; @oecd_cwb_edu_2026]. The Data Monitor also notes that some subgroup estimates pool multiple years, so a displayed period should not automatically be interpreted as a single-year estimate [@oecd_wellbeing_monitor_2026].
+
+These source-level conventions are separate from the record-matching exercise below.
+:::
+
+## Results
+
+@tbl-demographic-comparison-summary places the three comparisons side by side. This is the main advantage of treating the exercise as one analysis rather than three separate pages.
+
+```{r}
+#| label: tbl-demographic-comparison-summary
+#| tbl-cap: "Record-level comparison of Current well-being with its specialized demographic dataflows."
+
+overview |>
+  dplyr::mutate(
+    `Exact-match share` = sprintf(
+      "%.1f%%",
+      100 * exact_match / total_records
+    )
+  ) |>
+  dplyr::transmute(
+    Comparison,
+    `Record keys` = format(
+      total_records,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    ),
+    `Exact matches` = format(
+      exact_match,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    ),
+    `Exact-match share`,
+    `Parent only` = format(
+      parent_only,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    ),
+    `Child only` = format(
+      child_only,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    ),
+    `Different value` = format(
+      different_value,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    ),
+    `Both missing` = format(
+      both_missing,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    )
+  ) |>
+  knitr::kable()
+```
+
+In the frozen project snapshot, all three comparisons report **zero child-only observations, zero value disagreements, and zero both-missing joined keys**. Every non-missing value available through the specialized demographic dataflows therefore has a corresponding non-missing value in *Current well-being* and agrees with it within the specified tolerance.
+
+The reverse does not hold: *Current well-being* contains many parent-only values in each full join. Because the parent includes demographic combinations outside each specialized scope, those counts demonstrate that the parent is broader; they should not be read as missing-data rates for the specialized views.
+
+## Parent-Only Records
+
+The tabs below retain a small record-level audit sample from each comparison. They are useful for seeing what the one-sided parent classifications look like without repeating the same diagnostic structure three times.
+
+::: {.panel-tabset}
+
+### Age
+
+```{r}
+#| label: tbl-age-parent-only-records
+#| tbl-cap: "First up to 20 records classified as available only in Current well-being in the age comparison."
+
+parent_only_age <- COMPARISON_RECORDS(
+  comparison = comparisons$Age,
+  status = "Parent only"
+)
+
+if (nrow(parent_only_age) == 0L) {
+  cat("No parent-only records were detected.")
+} else {
+  knitr::kable(parent_only_age)
+}
+```
+
+### Sex
+
+```{r}
+#| label: tbl-sex-parent-only-records
+#| tbl-cap: "First up to 20 records classified as available only in Current well-being in the sex comparison."
+
+parent_only_sex <- COMPARISON_RECORDS(
+  comparison = comparisons$Sex,
+  status = "Parent only"
+)
+
+if (nrow(parent_only_sex) == 0L) {
+  cat("No parent-only records were detected.")
+} else {
+  knitr::kable(parent_only_sex)
+}
+```
+
+### Education level
+
+```{r}
+#| label: tbl-education-parent-only-records
+#| tbl-cap: "First up to 20 records classified as available only in Current well-being in the education-level comparison."
+
+parent_only_education <- COMPARISON_RECORDS(
+  comparison = comparisons[["Education level"]],
+  status = "Parent only"
+)
+
+if (nrow(parent_only_education) == 0L) {
+  cat("No parent-only records were detected.")
+} else {
+  knitr::kable(parent_only_education)
+}
+```
+
+:::
+
+## Specialized-Only Records and Value Disagreements
+
+No specialized-only non-missing values are detected in the frozen age, sex, or education comparisons. Likewise, no matched keys report `OBS_VALUE` disagreements beyond the `1e-10` tolerance.
+
+This is the central result of the audit: **with respect to the shared canonical keys and non-missing `OBS_VALUE`, the three specialized demographic views add no unique values in the frozen snapshot**. This statement is intentionally narrower than saying that the specialized dataflows are identical to, or literal subsets of, *Current well-being*.
+
+## Interpretation and Limitations
+
+The comparison supports a practical conclusion for this project: the specialized demographic dataflows do not contribute additional non-missing `OBS_VALUE` values beyond those already represented in *Current well-being* on matching keys. Their value lies instead in providing dedicated dissemination views with narrower demographic scopes and their own metadata and reliability conventions.
+
+The result should not be generalized beyond what is actually tested. In particular, the audit does not establish equivalence of observation-status flags, methodological annotations, other attributes, or metadata. It also does not distinguish a genuinely absent row from a present row whose `OBS_VALUE` is missing when assigning the parent-only and child-only categories.
+
+<script src="../assets/site-refinements.js" defer></script>
+
+{{< oecd-rules >}}

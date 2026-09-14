@@ -1,0 +1,497 @@
+{
+  "version": 1,
+  "pages": {
+    "index.qmd": {
+      "cache": "_freeze/index/execute-results/html.json",
+      "cacheSha256": "b85a1515089f6fecd52afedab67c0d1b986c63294d2123d516160e0462b90cad",
+      "bindings": [
+        {
+          "signature": "ebe7c9e953cca5cb9764f903ef2d8d72e6d28f594ae6a10c281d9ee3339cfe7f",
+          "metadata": {
+            "label": "setup"
+          },
+          "range": [
+            205,
+            205
+          ]
+        }
+      ]
+    },
+    "analysis/01-api-and-structure.qmd": {
+      "cache": "_freeze/analysis/01-api-and-structure/execute-results/html.json",
+      "cacheSha256": "8a2b04c1a93d94903729eb9576a6eb5f11f17a26ce79e5b2e5503fff372addcc",
+      "bindings": [
+        {
+          "signature": "0b37b235be82b1160d6f044572568f301b70caa55bc821e73d736c6f79a04e27",
+          "metadata": {
+            "label": "setup"
+          },
+          "range": [
+            48,
+            48
+          ]
+        },
+        {
+          "signature": "8fea5109701193751a83d6bee9495e26eceee9901710149d386d18e4350198f8",
+          "metadata": {
+            "label": "tbl-registered-dataflows",
+            "tbl-cap": "Registered OECD How’s Life? dataflows used by the project."
+          },
+          "range": [
+            953,
+            1953
+          ]
+        },
+        {
+          "signature": "b16347036206f340340877db58deb1fa04ad321f5c5aed9da77cc4bb173c777b",
+          "metadata": {
+            "label": "api-url-example"
+          },
+          "range": [
+            4430,
+            4815
+          ]
+        }
+      ]
+    },
+    "analysis/02-database-inventory.qmd": {
+      "cache": "_freeze/analysis/02-database-inventory/execute-results/html.json",
+      "cacheSha256": "8690e352a4fcce43e83fd68225adf36bf2e021337e7a59e3df0f5560bcaa2843",
+      "bindings": [
+        {
+          "signature": "876bcabc3cdcfa943dfafe79778f42e1f69e7ba300a9a69bc2c089bcfef9f48e",
+          "metadata": {
+            "label": "setup"
+          },
+          "range": [
+            39,
+            39
+          ]
+        },
+        {
+          "signature": "113247204f6c90042abdc03fd69c60a40c04d05047e7ff689780047bd05078b1",
+          "metadata": {
+            "label": "tbl-database-inventory",
+            "tbl-cap": "Inventory of the six OECD How’s Life? dataset snapshots used by the project."
+          },
+          "range": [
+            259,
+            1325
+          ]
+        }
+      ]
+    },
+    "analysis/03-panel-structure.qmd": {
+      "cache": "_freeze/analysis/03-panel-structure/execute-results/html.json",
+      "cacheSha256": "c154f1ba9e56365bd2b81a0deb19e972b38dc9a2e0953ce7c063b2d72736dc97",
+      "bindings": [
+        {
+          "signature": "f8168a9beee44184d55e9acd3290f1a27bf2e8933f092c85f4bf965d118168ca",
+          "metadata": {
+            "label": "setup"
+          },
+          "range": [
+            38,
+            38
+          ]
+        },
+        {
+          "signature": "9737ada7fd89b8a7c2ffc10093c12f9307ca072d93e2787380c9ab5f9c67bf47",
+          "metadata": {
+            "label": "tbl-panel-series-summary",
+            "tbl-cap": "Panel characteristics across Current well-being statistical series."
+          },
+          "range": [
+            1081,
+            2224
+          ]
+        },
+        {
+          "signature": "fab39904e33e55483f94658b8d16f38d54e866a922a3019385bbf374a6cdc688",
+          "metadata": {
+            "label": "fig-completion-rate",
+            "fig-cap": "Distribution of reference area-time completion rates across Current well-being statistical series."
+          },
+          "range": [
+            4468,
+            4953
+          ]
+        },
+        {
+          "signature": "71f58a981cbf4507a35fe8728de56eeeab71ca7e957dc3237ec56d6a6e4d014d",
+          "metadata": {
+            "label": "select-panelview-series"
+          },
+          "range": [
+            5599,
+            5599
+          ]
+        },
+        {
+          "signature": "c9c01995cf9d156d847e346c922c70c2f5fa463102cea148a00ea403cdab2692",
+          "metadata": {
+            "label": "tbl-selected-series",
+            "tbl-cap": "Dimensions defining the statistical series displayed in the PanelView diagnostic."
+          },
+          "range": [
+            5599,
+            5599
+          ]
+        },
+        {
+          "signature": "1ff9f1e4100ae2fcd0e96f20640798a4c28b5c0b0e019bd282c9f28141383b23",
+          "metadata": {
+            "label": "fig-panelview-example",
+            "fig-cap": "Reference area-time missingness for the selected Current well-being statistical series."
+          },
+          "range": [
+            5599,
+            7117
+          ]
+        }
+      ]
+    },
+    "analysis/09-series-explorer.qmd": {
+      "bindings": []
+    },
+    "analysis/10-twfe-analysis.qmd": {
+      "cache": "_freeze/analysis/10-twfe-analysis/execute-results/html.json",
+      "cacheSha256": "b0734b0e5b3c6d333dad0f4d4cbdf5207df803e5b0f5bc8b64fd3a54d50ac53f",
+      "bindings": [
+        {
+          "signature": "b81d062ddd8f79de9b75cd4c505e0ffec655cf37568b3b8c693aa4547ce5b043",
+          "metadata": {
+            "label": "setup"
+          },
+          "range": [
+            87,
+            87
+          ]
+        },
+        {
+          "signature": "80136c7949ef7fdfb02e225662dde1cd00607b937851ac3751b5bc3001c25052",
+          "metadata": {
+            "label": "tbl-core-periods",
+            "tbl-cap": "High-coverage periods used in the preferred TWFE estimation sample."
+          },
+          "range": [
+            922,
+            1293
+          ]
+        },
+        {
+          "signature": "14a7383c8692b03a9380b0331bfe416af5ff4ffe366dd655b808d82eee3cd7b1",
+          "metadata": {},
+          "range": [
+            1314,
+            1315
+          ]
+        },
+        {
+          "signature": "5214c0a5ae8f635338a0f0a6548484c6e26cac93679eb68664a483f3b2c236c1",
+          "metadata": {},
+          "range": [
+            1325,
+            1365
+          ]
+        },
+        {
+          "signature": "17728a438ee1c2ebdd1b431e9c7f23691caac4956040414f9eea503aaf8a439b",
+          "metadata": {
+            "label": "fig-period-coverage",
+            "fig-cap": "Country coverage by period. The dashed line marks the 70% threshold used to define the core sample."
+          },
+          "range": [
+            1369,
+            1612
+          ]
+        },
+        {
+          "signature": "a2354443e5c21665dfcac6428cfd7e9313c4f48df1cd4ad7f14c094dca2a9618",
+          "metadata": {},
+          "range": [
+            1640,
+            1643
+          ]
+        },
+        {
+          "signature": "647e9cf89e6fee5ed43171661af6e2e7e1bd4d3b156d61827147cf2e122a1329",
+          "metadata": {},
+          "range": [
+            1664,
+            1666
+          ]
+        },
+        {
+          "signature": "8e2367fb164b3807ab0a03d8dd599e889ff4a2aedd2ad9050ea2e5703b391ceb",
+          "metadata": {},
+          "range": [
+            1681,
+            1682
+          ]
+        },
+        {
+          "signature": "18f937c4b52c9c029b50cabaf1254d5bd87ec72af87b2335da5cdc5ea886d122",
+          "metadata": {
+            "label": "tbl-models",
+            "tbl-cap": "Employment-rate coefficient across specifications."
+          },
+          "range": [
+            2263,
+            2263
+          ]
+        },
+        {
+          "signature": "3399433b4c88ff41851920061715b8774acc9c945e14c0325fba04c56e2507ff",
+          "metadata": {
+            "label": "fig-model-progression",
+            "fig-cap": "Estimated employment coefficient and 95% confidence interval across specifications."
+          },
+          "range": [
+            2263,
+            3477
+          ]
+        },
+        {
+          "signature": "e788dae93cd75a1d79c917440499db6b5b507730c237a6e01482c204b25981b9",
+          "metadata": {},
+          "range": [
+            3564,
+            3570
+          ]
+        },
+        {
+          "signature": "319b434e322dd9aec3f18491c050307bc996a250640387a28d3e6deafd062b8f",
+          "metadata": {},
+          "range": [
+            3575,
+            3581
+          ]
+        },
+        {
+          "signature": "ee287e7a690b06605d7759e8654599c8292adc6ccbd00b3247d9ef9844613f9f",
+          "metadata": {},
+          "range": [
+            3653,
+            3659
+          ]
+        },
+        {
+          "signature": "6f637cac8f8a7352db4c806ac5e4499241efb345033bdc936dabf2b2f65458e0",
+          "metadata": {
+            "label": "fig-fwl",
+            "fig-cap": "Life satisfaction and employment after residualizing both variables with respect to country and period fixed effects. The line has the TWFE slope."
+          },
+          "range": [
+            4676,
+            4942
+          ]
+        },
+        {
+          "signature": "4390e5db8a189783991932bdc2278a87a2121f65df94835f2a9d0b5a4896869d",
+          "metadata": {},
+          "range": [
+            4989,
+            4997
+          ]
+        },
+        {
+          "signature": "2c0d4d35856e9d64287f4473d737fbcf032ada346dc04fd66edb69a610a2ede5",
+          "metadata": {},
+          "range": [
+            5027,
+            5035
+          ]
+        },
+        {
+          "signature": "a94e6f09c67bdb4c39f5150d36614455908a5e5f88da41e2ef3245b21eccc966",
+          "metadata": {},
+          "range": [
+            5066,
+            5074
+          ]
+        },
+        {
+          "signature": "ee287e7a690b06605d7759e8654599c8292adc6ccbd00b3247d9ef9844613f9f",
+          "metadata": {},
+          "range": [
+            5202,
+            5208
+          ]
+        },
+        {
+          "signature": "344d46fd51aa5aef76b5e91e658819ab9e6610235a97dc9953291e160d18e65e",
+          "metadata": {},
+          "range": [
+            5325,
+            5330
+          ]
+        },
+        {
+          "signature": "07c7a03be20136772b1b33c255767e1423cbb6468b46b0c4203fa35f91cddf73",
+          "metadata": {},
+          "range": [
+            5599,
+            5604
+          ]
+        },
+        {
+          "signature": "ebc44a270be3e6e37db3086d1840953f693919db2c85c597b0594ba005348609",
+          "metadata": {},
+          "range": [
+            5734,
+            5740
+          ]
+        }
+      ]
+    },
+    "analysis/series.qmd": {
+      "bindings": []
+    },
+    "analysis/05-demographic-comparisons.qmd": {
+      "cache": "_freeze/analysis/05-demographic-comparisons/execute-results/html.json",
+      "cacheSha256": "80f7e62fdcae8a0421084a8208dc8b02052d9553cb15af60d570651bc1ac9701",
+      "bindings": [
+        {
+          "signature": "91c2df7a8283ea053cc056286b994a40f3ff789f30c2a0a4f7eba3799a02b96d",
+          "metadata": {
+            "label": "setup"
+          },
+          "range": [
+            78,
+            78
+          ]
+        },
+        {
+          "signature": "e34080437d13d6a76756f454de453895d963a51610eb9293ddac78d9059ee4f1",
+          "metadata": {
+            "label": "tbl-demographic-comparison-summary",
+            "tbl-cap": "Record-level comparison of Current well-being with its specialized demographic dataflows."
+          },
+          "range": [
+            3763,
+            4239
+          ]
+        },
+        {
+          "signature": "77b32e8732e69d31c1a11a2e099951d51a3259666c90f9507399e2e6c7304030",
+          "metadata": {
+            "label": "tbl-age-parent-only-records",
+            "tbl-cap": "First up to 20 records classified as available only in Current well-being in the age comparison."
+          },
+          "range": [
+            5186,
+            7417
+          ]
+        },
+        {
+          "signature": "ea43161439116b1e6dd89bd9221d26b16c94005b67f3d9e9100b8c768bacc5c4",
+          "metadata": {
+            "label": "tbl-sex-parent-only-records",
+            "tbl-cap": "First up to 20 records classified as available only in Current well-being in the sex comparison."
+          },
+          "range": [
+            7428,
+            9699
+          ]
+        },
+        {
+          "signature": "46c7d5d4a13c1460dffe17c33119e95ccb932b2da8a019dda42adc351121efda",
+          "metadata": {
+            "label": "tbl-education-parent-only-records",
+            "tbl-cap": "First up to 20 records classified as available only in Current well-being in the education-level comparison."
+          },
+          "range": [
+            9722,
+            12011
+          ]
+        }
+      ]
+    }
+  },
+  "artifacts": {
+    "data/metadata/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/metadata/current_wellbeing-structure.xml": "a07b344fa3dd678d41f6f3753147660ad39f7d79f2bcac9c91f9cdf8c87d3799",
+    "data/metadata/current_wellbeing_age-structure.xml": "bb912bb1b3e0a074782c31797c09a09db98b93a301df5bbef9cec8860fbc7df9",
+    "data/metadata/current_wellbeing_education-structure.xml": "59c863c95e64fb12fb113d5d7656b6988fcd298037d2627a1b7e769be647c522",
+    "data/metadata/current_wellbeing_sex-structure.xml": "d9e2c731fc2dec5b23c5f189a03f909b8efc2c11ec36c8bd9ac7fbebf1c5aff2",
+    "data/metadata/current_wellbeing_vertical_inequality-structure.xml": "bd028e36fcbac437de604a338d49f2714065961ca3fa15448450a4ae89fcfaa7",
+    "data/metadata/future_wellbeing-structure.xml": "9f67d595e5987006d6e4e70a277ebbd8115c09d680668d9ce0913d39a4a86f59",
+    "data/processed/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/processed/comparison_age.rds": "81bcfe9bd448f7b41b61004a2087b1953bc1642f473b781d80948470e47f34d3",
+    "data/processed/comparison_education.rds": "fea8ad5bab5bfe470c3b8a57dc50f39478015b5d848bffdf6c6449ac7364d605",
+    "data/processed/comparison_sex.rds": "90bc87612ceea958133c34a2b01ad1725cb34e221e27a8a2587c39c1daa3e79a",
+    "data/processed/current_wellbeing-labels.rds": "68c86b4db272ec14e1335387b5fc5df13a603eb8294f9654569e0d7587ef1850",
+    "data/processed/current_wellbeing.rds": "f84c661442e06c73b8fb309fd265b7a94b6b6ec2e6a064c40634e3d9253d09fb",
+    "data/processed/current_wellbeing_age-labels.rds": "68c86b4db272ec14e1335387b5fc5df13a603eb8294f9654569e0d7587ef1850",
+    "data/processed/current_wellbeing_age.rds": "b0a59fbe962a3446c35797d84d7e7b98b2119f5849c3fb04f751fb8a3136c4a0",
+    "data/processed/current_wellbeing_education-labels.rds": "68c86b4db272ec14e1335387b5fc5df13a603eb8294f9654569e0d7587ef1850",
+    "data/processed/current_wellbeing_education.rds": "50ac8b038cfdd94f093de7e76c309946c7260301b72ab448030267b4d4b42b1f",
+    "data/processed/current_wellbeing_sex-labels.rds": "68c86b4db272ec14e1335387b5fc5df13a603eb8294f9654569e0d7587ef1850",
+    "data/processed/current_wellbeing_sex.rds": "57bd41246ce19c9cf8fdb3eb153dca1949f19f1faef2ceb4aa1440fd55277c07",
+    "data/processed/current_wellbeing_vertical_inequality-labels.rds": "68c86b4db272ec14e1335387b5fc5df13a603eb8294f9654569e0d7587ef1850",
+    "data/processed/current_wellbeing_vertical_inequality.rds": "f1d001ac8b62c9ca0ce4084b1397aacc91ebcfb016665730545fa04c9669e19d",
+    "data/processed/future_wellbeing-labels.rds": "68c86b4db272ec14e1335387b5fc5df13a603eb8294f9654569e0d7587ef1850",
+    "data/processed/future_wellbeing.rds": "54e0fabc841187651bcf6d2661526cc4bd7b399fac561808b2940c293fa53ea3",
+    "data/processed/panel_inventory.rds": "d7b7859ddba6d42525bbf10213329f87638853edcc3f4ec5e6e12b216cded157",
+    "data/raw/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/raw/current_wellbeing.csv": "33b494c2e5a892f3c1bb2c762fc1306ef604008485e7df4fde3a82db1aeb901d",
+    "data/raw/current_wellbeing_age.csv": "84c54748e3aaf1f275076f042015b10f7decf6326db0d67c46a085f59840f98e",
+    "data/raw/current_wellbeing_education.csv": "09781cbececa0b2211d5908f1fd3b88f22aaa7376ecdea79c2604ff14b47103b",
+    "data/raw/current_wellbeing_sex.csv": "08cc6cfd450d062d8f1de49ca1754ed3629614938c89d22955330d76df35cab5",
+    "data/raw/current_wellbeing_vertical_inequality.csv": "2fef995561bc75fba436c73fc71343e996001430b2e6c7a2bf92b032d63e9691",
+    "data/raw/future_wellbeing.csv": "960e586a758702437bc059372670e2632260f2017fa7a1d2a48b010a9b240e3e",
+    "outputs/diagnostics/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/diagnostics/panel-inventory.csv": "01f04c437114efef0a7fbf9bfee471d2a792024efe10ba3327758809d9f5474c",
+    "outputs/diagnostics/twfe-candidates.csv": "64d7b8c3885e07554b21ef143cccfc13db491ad7412c2ba17d2440a6d1a4eab1",
+    "outputs/diagnostics/twfe-candidates.rds": "c13a274850d4ad94061b5551c27946bad0cd2dda2896ced0aab86e8785f2ef0d",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-by-area.csv": "48d7a1666f3542d5c6c9dfd33089a1f0205d677bf863496905e227ea9aa25ea1",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-by-period.csv": "c46af3b27196f356d2e0294be8ac7f4a586c3a0b86d35a21b17f8fe3886db593",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-core-sample.csv": "7ad62d53655f3754919eeac66264412cc10227342c606f83f3cb30e6386987e2",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-fwl-verification.csv": "a5173164fbb1549202b53fa3231fcb699ed69e49d3ead6c95d589d17f1e199e7",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-model-summary.csv": "a45b4d1244d72b0c80fcd126a082c88f5c809fcdcfb85ab1b570924e91c4a218",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-models.rds": "19648eed43cf8098ce970fc5c949b5c67626f6f7ca74144249247455bbd46eab",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-period-coverage.csv": "759a5ed391b37ffad538c884eee99546aa46547009ff5500d6a3b8c0f78105ee",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-sample.csv": "a1208fb4a23344a82648836e212d0968bd48fe46bb6989d3dcf927b8d7499692",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-sample.rds": "fac3d505fef427513c354b7251f17d0495e935560ace814741e11576559f58cf",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-summary.csv": "9f90e92f076390e4f2a77f674945ce4e19a72708ba3c5f0110ab297a53a10c65",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-transformed.csv": "0698dbf306c60fc927d020c7926f0249659c7d442e1bf64e2396189b965bc380",
+    "outputs/diagnostics/twfe-employment-life-satisfaction-transformed.rds": "71e07c4ea0a6d34702dcb551fb23048bb8e0ca05d33843b09169ac40733408ef",
+    "outputs/figures/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/tables/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/tables/comparison-age-summary.csv": "e336e25cc77fb8b19220df23719b1f2a1a36a7e1183845d6a98811e924b43b56",
+    "outputs/tables/comparison-education-summary.csv": "1820af314e640d0855d5702227a76c377fb84f14f4478b70ed392ca1a6cf984d",
+    "outputs/tables/comparison-sex-summary.csv": "8a491e2e3d384c886b4a219d5fc1a27a681506a8d3b7ff72c390a71375a8fe5d",
+    "outputs/tables/database-inventory.csv": "c11b0141f33cecb1f40e59cec4e1635d96ed532b80c8784d69bb3de379ac7272",
+    "outputs/tables/dataflow-inventory.csv": "514cfe479b17491547f9d38a5d124db146ea0c9425f2fa6beb191a625fd6839a",
+    "_freeze/analysis/01-api-and-structure/execute-results/html.json": "8a2b04c1a93d94903729eb9576a6eb5f11f17a26ce79e5b2e5503fff372addcc",
+    "_freeze/analysis/02-database-inventory/execute-results/html.json": "8690e352a4fcce43e83fd68225adf36bf2e021337e7a59e3df0f5560bcaa2843",
+    "_freeze/analysis/03-panel-structure/execute-results/html.json": "c154f1ba9e56365bd2b81a0deb19e972b38dc9a2e0953ce7c063b2d72736dc97",
+    "_freeze/analysis/03-panel-structure/figure-html/fig-completion-rate-1.png": "de26e20dfc0a4ef943f71c80ffc5da3e926780e9b9fe542e4ec04714e19b1cba",
+    "_freeze/analysis/03-panel-structure/figure-html/fig-panelview-example-1.png": "ac35c66e9b0c756400d85cfd7405fac7f086a8946e92bab162a05197aeb8bcd4",
+    "_freeze/analysis/04-balancedness/execute-results/html.json": "706ab00216a7b340f10966ef9f4c98944ad72f8fc8242d6c31273dd0be0a4125",
+    "_freeze/analysis/04-balancedness/figure-html/completion-rate-figure-1.png": "de26e20dfc0a4ef943f71c80ffc5da3e926780e9b9fe542e4ec04714e19b1cba",
+    "_freeze/analysis/04-balancedness/figure-html/fig-completion-rate-1.png": "de26e20dfc0a4ef943f71c80ffc5da3e926780e9b9fe542e4ec04714e19b1cba",
+    "_freeze/analysis/04-balancedness/figure-html/fig-panelview-example-1.png": "ac35c66e9b0c756400d85cfd7405fac7f086a8946e92bab162a05197aeb8bcd4",
+    "_freeze/analysis/04-balancedness/figure-html/panelview-example-1.png": "9fb8d6249caabeb808a3bcd884b572085cfb4c0f1a8985149876801a33f968af",
+    "_freeze/analysis/08-case-study/execute-results/html.json": "c9d28945edff16119213cb12350673b1e07337d9e7a2a2960af89a9fe32d53b4",
+    "_freeze/analysis/08-case-study/figure-html/life-satisfaction-trajectories-1.png": "eac46b46434db744e0e179a152e4f3f58c06cc268b25c282782cfb8d6e8ba211",
+    "_freeze/analysis/10-twfe-analysis/execute-results/html.json": "b0734b0e5b3c6d333dad0f4d4cbdf5207df803e5b0f5bc8b64fd3a54d50ac53f",
+    "_freeze/analysis/10-twfe-analysis/figure-html/fig-fwl-1.png": "a896e35ada02f6840b7e1a46759bcdb550221aafd0b2b3d3fe95e132a2e57e41",
+    "_freeze/analysis/10-twfe-analysis/figure-html/fig-model-progression-1.png": "ed7b6e2e7af44bc2e1c37f95cda9320374a291b7cfbb88926eef0e660b25befa",
+    "_freeze/analysis/10-twfe-analysis/figure-html/fig-period-coverage-1.png": "f69b6b3da3cc70d89c880fedaccbfec399693bfb22932c4e056774f51e71969a",
+    "_freeze/analysis/old/03-panel-structure/execute-results/html.json": "951c7ccd6d7fcba5cdb6754250c4139c4cff5b3d97d7eb78612ff0797996a84a",
+    "_freeze/analysis/old/04-balancedness/execute-results/html.json": "6f31c23520263be63ca3c36f7559d76a641489ecb64723bf40b0f76db8093be0",
+    "_freeze/analysis/old/04-balancedness/figure-html/completion-rate-figure-1.png": "de26e20dfc0a4ef943f71c80ffc5da3e926780e9b9fe542e4ec04714e19b1cba",
+    "_freeze/analysis/old/04-balancedness/figure-html/panelview-example-1.png": "9fb8d6249caabeb808a3bcd884b572085cfb4c0f1a8985149876801a33f968af",
+    "_freeze/index/execute-results/html.json": "b85a1515089f6fecd52afedab67c0d1b986c63294d2123d516160e0462b90cad",
+    "_freeze/site_libs/clipboard/clipboard.min.js": "e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9",
+    "assets/series-data.json": "ad7822cd24b9a8636020a73d3eeed02f46bffdac7e982905be9402a34af45493",
+    "assets/series-inventory.json": "64152bb498cd28b3513074f2f85972f29b0af2ec72001d38cf27885104e8b386",
+    "renv.lock": "ee47cdc413c13b110931e2782de89f63fc3a69a12b4371b4c89218c1323542a8",
+    "config/analysis.yml": "e01114c32c68f1532f33bd2c061ef9934821246ca019071627d75d07f05d9828",
+    "config/dataflows.yml": "964889e42513650e1a5d426bba69eb12e8a72531f02101fabdf70f9bc12f1325",
+    "assets/selected-series.json": "0de022d64f6eb96c886d34cc731510a16241953ad3438232ebd7b5bdba45ab6d",
+    "_freeze/analysis/05-demographic-comparisons/execute-results/html.json": "80f7e62fdcae8a0421084a8208dc8b02052d9553cb15af60d570651bc1ac9701"
+  }
+}

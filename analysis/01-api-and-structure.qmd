@@ -1,0 +1,230 @@
+---
+title: "OECD API"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+source(here::here("R", "config.R"))
+source(here::here("R", "oecd_api.R"))
+
+cfg <- READ_PROJECT_CONFIG()
+registry <- DATAFLOW_REGISTRY(cfg)
+```
+
+## Useful Links
+
+The **OECD Well-being Data Monitor** draws on the **OECD Well-being Database** and directs users to the **OECD Data Explorer** to access and explore the underlying data [@oecd_wellbeing_monitor_2026]. 
+
+The official OECD resources below provide useful documentation, context, and access points.
+
+### Database and data exploration
+
+- [OECD Well-being Data Monitor](https://www.oecd.org/en/data/tools/well-being-data-monitor.html)
+- [OECD How’s Life? Well-being Database — Definitions and Metadata](https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/measuring-well-being-and-progress/oecd-well-being-database-definitions.pdf)
+- [OECD Data Explorer](https://data-explorer.oecd.org/?lc=en)
+  - [OECD Data Explorer — Current well-being](https://data-explorer.oecd.org/vis?fs[0]=Topic,1%7CSociety%23SOC%23%7CWell-being%20and%20beyond%20GDP%23SOC_WEL%23&pg=0&fc=Reference%20area&bp=true&snb=26&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_HSL%40DF_HSL_CWB&df[ag]=OECD.WISE.WDP&df[vs]=1.1&dq=AUS.11_2%2B11_1%2B9_3%2B9_2%2B8_2%2B8_1_DEP%2B7_2%2B7_1_DEP%2B6_2%2B5_3%2B5_1%2B4_3%2B4_1%2B3_2%2B3_1%2B2_7%2B2_2%2B2_1%2B1_3%2B1_2%2B1_1.._T._T._T.&pd=2010,&to[TIME_PERIOD]=false)
+
+### Programmatic access
+
+- [OECD Data API — Programmatic Access to OECD Data](https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html)
+
+## Why SDMX Matters
+
+The OECD Data Explorer exposes a REST API based on the **Statistical Data and Metadata eXchange (SDMX)** standard [@oecd_api_2025]. 
+
+A reproducible request therefore requires both the dataflow identifier and knowledge of the data structure that defines its dimensions, their order, and the codes used to identify observations.
+
+API access technicalities are addressed in what follows.
+
+::: {.data-note}
+### [The joy of programmatic access to high-quality data]{.smallcaps}
+
+Why care about the OECD API? Because good empirical research begins with good data. 
+
+OECD statistical platforms provide high-quality, internationally comparable, well-documented statistics, while programmatic access makes it possible to retrieve those data directly and reproducibly.
+
+More specifically, the **OECD SDMX public service** (`sdmx.oecd.org/public`) is the technical entry point to the OECD's SDMX-based statistical infrastructure [@oecd_api_2025].
+
+Rather than a conventional user-facing website, it exposes web services through which OECD data and metadata can be accessed programmatically, including REST resources for observations, dataflows, data structures, codelists, and other SDMX objects [@oecd_api_2025].
+
+These services provide the programmatic infrastructure used to retrieve data disseminated through the OECD Data Explorer, making the service root primarily a developer resource rather than a platform intended for interactive data exploration [@oecd_api_2025].
+
+Direct access is especially valuable as AI increasingly mediates how people encounter official statistics. Important context can be lost along the information chain, making traceability, metadata, and connection to the original source increasingly important [@boarini2026protecting].
+:::
+
+## Registered *How's Life?* Datasets
+
+The *Current well-being* dataset serves as the primary example throughout the project.
+
+The [OECD Data Explorer](https://data-explorer.oecd.org/vis?df%5Bag%5D=OECD.WISE.WDP&df%5Bid%5D=DSD_HSL%40DF_HSL_CWB&df%5Bvs%5D=1.1) [@oecd_data_explorer_hows_life_2026] provides the following description of the *How's Life?* database, of which *Current well-being* is one of six datasets:
+
+> The *How’s Life?* database is the one-stop shop for the 80+ indicators of the OECD Well-being Dashboard, covering social, economic and environmental outcomes that matter most for people, the planet and future generations. It consists of **six datasets**: current well-being, current well-being vertical inequalities, current well-being by age, educational attainment, sex, and resources for future well-being.
+
+The project registers the corresponding six SDMX dataflows as follows:
+
+```{r}
+#| label: tbl-registered-dataflows
+#| tbl-cap: "Registered OECD How’s Life? dataflows used by the project."
+
+registry |>
+  dplyr::select(
+    title,
+    agency,
+    dataflow,
+    version
+  ) |>
+  knitr::kable()
+```
+
+Notice that the project pins **dataflow version `1.1`** for all six registered dataflows. This fixes the version of the requested dataflow, but it does not freeze the underlying data snapshot. 
+
+OECD datasets may be revised or otherwise updated while a dataflow version remains unchanged [@oecd_api_best_practices_2026; @oecd_data_explorer_platform_status_2026].
+
+Exact reproduction of the underlying data snapshot therefore requires preserving the raw responses together with the structural metadata used to interpret them.
+
+The dataflow version should not be confused with the version of the associated **Data Structure Definition (DSD)**, which is a separate SDMX object.
+
+::: {.data-note}
+### [Dataset, Dataflow, and Data Structure Definition]{.smallcaps}
+
+In SDMX terminology, a **dataset** is an organized collection of data, whereas a **dataflow** is an abstract SDMX object according to which datasets are reported or disseminated [@sdmx_glossary_2020].
+
+A dataflow does not itself contain observations. Rather, it references a **Data Structure Definition (DSD)** that specifies the structure of the datasets associated with it and may constrain how that structure is used.
+
+The DSD defines the dimensions used to identify observations, the measures that contain observed values, and the attributes that provide additional information needed to interpret them.
+
+The DSD also specifies how these components are represented, including through codelists where their allowable values are coded. It therefore provides the structural blueprint that makes an SDMX dataset interpretable and machine-readable.
+
+OECD's API follows this SDMX architecture. Observations are retrieved through `/data/` queries, while the OECD Data Explorer generates `/dataflow/` structure queries that can retrieve the corresponding dataflow and referenced structural metadata [@oecd_api_2025; @oecd_hows_life_structure_2026].
+
+OECD's user-facing terminology is somewhat more flexible.
+
+The OECD Data Explorer generally presents its statistical products as *datasets*, and the API documentation likewise uses *dataset* when describing the statistical resources users select and query, while also referring to the corresponding SDMX *dataflows* and dataflow versions [@oecd_api_2025].
+
+This is not a substantive contradiction but a distinction between user-facing statistical terminology and SDMX architectural terminology.
+
+Throughout this website, I therefore use *dataset* for an OECD statistical product or the data being analyzed, and *dataflow* specifically for the corresponding SDMX object.
+:::
+
+## Constructing a Request
+
+OECD API documentation explains how to construct data queries [@oecd_api_2025].
+
+In the generic API documentation, OECD refers to the version field as **dataset version** [@oecd_api_2025]. 
+
+Throughout this website, I refer to it more specifically as the **dataflow version** when discussing the corresponding SDMX object; the associated DSD is a separate, independently versioned object.
+
+A data query follows this general syntax:
+
+> {Host URL}/{Agency identifier},{Dataset identifier},{Dataset version}/{Data selection}?{Optional parameters}
+
+Where:
+
+- **Host URL** identifies the OECD API endpoint.
+- **Agency identifier** identifies the organization responsible for the dataset.
+- **Dataset identifier** specifies the dataset/dataflow to query.
+- **Dataset version** (optional) field identifies the version of the queried dataflow; if omitted, OECD uses the currently latest version. The associated DSD is a separate, independently versioned SDMX object [@oecd_api_2025; @oecd_hows_life_structure_2026].
+- **Data selection** determines which dimension values are returned.
+- **Optional parameters** can further specify the request, for example, by restricting the time period or selecting the response format.
+
+For the *Current well-being* dataset, for instance, the request looks like this:
+
+```{r}
+#| label: api-url-example
+
+cwb_flow <- registry |>
+  dplyr::filter(key == "current_wellbeing")
+
+BUILD_OECD_DATA_URL(
+  flow = as.list(cwb_flow[1, ]),
+  cfg = cfg
+)
+```
+
+The request above can be read as follows:
+
+- `OECD.WISE.WDP` is the OECD agency namespace used for this dataflow family [@oecd_hows_life_structure_2026].
+- `DSD_HSL@DF_HSL_CWB` is the **dataflow identifier** used by the OECD for *Current well-being*; despite the `DSD_HSL` prefix embedded in that identifier, the associated Data Structure Definition is a separate SDMX object named `DSD_HSL` [@oecd_hows_life_structure_2026].
+- `1.1` specifies the **dataflow version** requested by the project; the DSD has its own version and should be inspected through the structure metadata rather than inferred from the data-query URL.
+- `/all` requests all available data rather than a particular selection of dimension values.
+- `dimensionAtObservation=AllDimensions` asks the API to represent all dimensions at the observation level, producing a flat structure convenient for analysis in R.
+- `format=csvfilewithlabels` requests a CSV file containing descriptive labels alongside the underlying SDMX codes.
+
+Thus, the request asks the OECD API to return all available observations from version 1.1 of the *Current well-being* dataflow in a labelled tabular format convenient for analysis [@oecd_api_2025; @oecd_hows_life_structure_2026].
+
+The main pipeline makes one consolidated download per registered dataflow and caches the raw response. 
+
+Structural metadata are downloaded separately so that the observations and their SDMX structure can be inspected independently.
+
+### Let Data Explorer Construct the Key
+
+For filtered requests, the **Developer API** control in Data Explorer exposes the corresponding **Data query** and **Structure query** after a selection is made. 
+
+Using those generated queries is safer than guessing the order or codes of SDMX dimensions [@oecd_api_2025; @oecd_data_explorer_hows_life_2026].
+
+For example, the following key requests the *Current well-being* `Employment rate` measure for all reference areas, with total age, sex, and education, in the employment domain:
+
+```text
+https://sdmx.oecd.org/public/rest/data/OECD.WISE.WDP,DSD_HSL@DF_HSL_CWB,1.1/.2_1.PT_POP_Y25T64._T._T._T.HSL_2?dimensionAtObservation=AllDimensions&format=csvfilewithlabels
+```
+
+The dot-separated portion after the version is positional: each field corresponds to a dimension in the order defined by the current SDMX structure.
+
+An empty first field leaves `REF_AREA` unrestricted; the remaining fields select `MEASURE = 2_1`, `UNIT_MEASURE = PT_POP_Y25T64`, total (`_T`) age, sex, and education, and `DOMAIN = HSL_2`.
+
+This example illustrates why the structure matters: the meaning of a filtered key depends on both the dimension order and the valid codes defined for the dataflow. 
+
+The Data Explorer query builder provides a convenient way to obtain that information for a particular selection [@oecd_api_2025].
+
+::: {.data-note}
+### [Current Practice]{.smallcaps}
+
+The **OECD Data Explorer** is now the OECD's current statistical dissemination platform. The former **OECD.Stat** service was taken offline on 1 July 2024, and legacy queries built around `stats.oecd.org` no longer work [@oecd_data_explorer_faq_2026].
+
+Current programmatic access should therefore use the OECD Data Explorer's SDMX-based API and its associated query conventions [@oecd_api_2025].
+
+For efficient use of the service, OECD currently recommends caching retrieved data locally, avoiding unnecessary repeated downloads, and favoring consolidated queries where practical. API and browser-based data downloads are limited to **60 per hour** [@oecd_api_best_practices_2026; @oecd_data_explorer_faq_2026].
+
+The project follows these recommendations by downloading each registered dataflow in a consolidated request and preserving the resulting raw response locally.
+:::
+
+## Summary Table
+
+| Description | API syntax / specification | Source |
+|---|---|---|
+| **REST service root** | `https://sdmx.oecd.org/public/rest/` | [@oecd_api_2025] |
+| **Data endpoint** | `https://sdmx.oecd.org/public/rest/data/` | [@oecd_api_2025] |
+| **Data query** | `https://sdmx.oecd.org/public/rest/data/{Agency identifier},{Dataset identifier},{Dataset version}/{Data selection}?{optional parameters}` | [@oecd_api_2025] |
+| **Dataflow endpoint used for structure queries** | `https://sdmx.oecd.org/public/rest/dataflow/` | [@oecd_api_2025] |
+| **Data Explorer structure-query form** | `https://sdmx.oecd.org/public/rest/dataflow/{Agency identifier}/{Dataset identifier}/{Dataset version}?references=all` | [@oecd_hows_life_structure_2026; @oecd_api_2025] |
+| **All available dataflows** | `https://sdmx.oecd.org/public/rest/dataflow/all` | [@oecd_api_2025] |
+| **Agency identifier** | Identifies the organization responsible for the queried statistical resource; for the *How's Life?* dataflows used here, `OECD.WISE.WDP`. | [@oecd_api_2025; @oecd_hows_life_structure_2026] |
+| **Dataset identifier** | Identifies the dataset/dataflow to query; for *Current well-being*, `DSD_HSL@DF_HSL_CWB`. | [@oecd_api_2025; @oecd_hows_life_structure_2026] |
+| **Dataset version** | Optional in the generic API syntax. If omitted, the latest available version is used. This project pins the corresponding **dataflow version** explicitly for reproducibility. | [@oecd_api_2025] |
+| **Data selection** | A positional SDMX key whose fields correspond to dimensions in the order defined by the data structure. | [@oecd_api_2025] |
+| **Multiple values within one dimension** | Join requested codes with `+`; for example, `OLD+MID+YOUNG`. | [@oecd_api_2025] |
+| **All values for one dimension** | Leave that dimension's position empty in the dot-separated selection key. | [@oecd_api_2025] |
+| **All dimension values** | Use `all` as the data selection when no dimensional filtering is required. | [@oecd_api_2025] |
+| **Dimension order and valid codes** | Inspect the current structure metadata or use the Data Explorer **Developer API** query builder rather than guessing positional keys or codes. | [@oecd_api_2025; @oecd_hows_life_structure_2026] |
+| **Start period** | `startPeriod=` restricts observations to periods at or after the specified value. | [@oecd_api_2025] |
+| **End period** | `endPeriod=` restricts observations to periods at or before the specified value. | [@oecd_api_2025] |
+| **Dimensions at observation level** | `dimensionAtObservation=AllDimensions` returns all dimensions at the observation level, which is convenient for a flat analytical table. | [@oecd_api_2025] |
+| **CSV** | `format=csvfile` | [@oecd_api_2025] |
+| **CSV with codes and labels** | `format=csvfilewithlabels` | [@oecd_api_2025] |
+| **JSON** | `format=jsondata` | [@oecd_api_2025] |
+| **XML** | `format=genericdata` | [@oecd_api_2025] |
+| **Developer API** | Data Explorer can generate the corresponding **Data query** and **Structure query** for the user's current selection. | [@oecd_api_2025] |
+| **Download limit** | OECD currently limits API and browser-based data downloads to **60 per hour**. | [@oecd_api_best_practices_2026; @oecd_data_explorer_faq_2026] |
+| **Network restrictions** | OECD states that VPN or anonymized traffic is not permitted for API access. | [@oecd_api_best_practices_2026] |
+| **Local caching** | OECD recommends caching retrieved data locally to avoid unnecessary repeated downloads. | [@oecd_api_best_practices_2026] |
+| **Query size** | OECD generally recommends consolidated requests rather than many small queries; very large datasets may instead require smaller slices. | [@oecd_api_best_practices_2026] |
+| **Update checking** | OECD recommends using `contentconstraint` information to inspect metadata such as the latest update timestamp (i.e., `ValidFrom`), observation count, and latest dataset version before downloading data again. | [@oecd_api_best_practices_2026] |
+| **Version pinning does not freeze the data** | A fixed dataflow version does not guarantee an immutable data snapshot; OECD may update disseminated content while the dataflow version remains unchanged. | [@oecd_api_best_practices_2026; @oecd_data_explorer_platform_status_2026] |
+
+: OECD SDMX API syntax, query construction, formats, and operational guidance. {#tbl-api-reference}
+
+<script src="../assets/site-refinements.js" defer></script>
+
+{{< oecd-rules >}}

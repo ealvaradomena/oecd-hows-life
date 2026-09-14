@@ -1,0 +1,34 @@
+---
+title: "Analytical Series"
+---
+
+For panel analysis, this project partitions the *Current well-being* dataset into **analytical series**, each defined by a unique combination of measure, unit of measure, age group, sex, education level, and domain.
+
+This project-defined grouping is designed for panel diagnostics; it is not an official OECD indicator count or a claim that OECD defines SDMX series in the same way.
+
+The interactive inventory in @tbl-series-explorer lists every project-defined analytical series identified by the panel-diagnostics pipeline and ranks them by **completion rate**, from highest to lowest. Use the search box to filter the inventory. Click any row to open a series-specific diagnostic page.
+
+::: {.data-note}
+### [Completion rate]{.smallcaps}
+
+**Completion rate** is the share of observed reference area–time-period cells in the rectangular panel implied by the reference areas and time periods represented in an analytical series. A high completion rate indicates dense panel coverage, but does not by itself imply strong balance.
+:::
+
+::: {#tbl-series-explorer}
+<div id="series-explorer" class="series-explorer" aria-live="polite">
+  <p class="series-loading">Loading analytical series inventory…</p>
+</div>
+
+Analytical series inventory for the *Current well-being* dataset
+<span class="object-caption-subtitle">`By Age`, `By Education`, and `By Sex` identify subgroup-defined series \n`Aggregate` indicates totals on all three dimensions</span>
+:::
+
+<noscript>
+This explorer requires JavaScript to filter the inventory and open individual analytical-series pages.
+</noscript>
+
+<script src="../assets/series-explorer.js" defer></script>
+
+<script src="../assets/site-refinements.js" defer></script>
+
+{{< oecd-rules >}}

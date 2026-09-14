@@ -1,0 +1,9 @@
+(() => {
+  "use strict";
+  const audit=document.getElementById("twfe-status-audit"); const areas=document.getElementById("twfe-sample-areas"); if(!audit&&!areas)return;
+  fetch("../assets/twfe-audit.json").then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();}).then(data=>{
+    if(!data.available){if(audit)audit.textContent=data.message;if(areas)areas.textContent=data.message;return;}
+    if(audit){const table=document.createElement("table");table.innerHTML="<thead><tr><th>Variable</th><th><code>OBS_STATUS</code></th><th>OECD status</th><th>Data points</th></tr></thead>";const body=document.createElement("tbody");data.status_summary.forEach(item=>{const tr=document.createElement("tr");[item.variable,item.status,item.status_label,Number(item.observations).toLocaleString()].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});body.appendChild(tr)});table.appendChild(body);const note=document.createElement("p");note.className="twfe-audit-note";note.textContent=data.note;audit.replaceChildren(table,note)}
+    if(areas){const directory=document.createElement("div");directory.className="twfe-area-directory";[...data.areas].sort((a,b)=>String(a.label||a.code).localeCompare(String(b.label||b.code))).forEach(item=>{const entry=document.createElement("div");entry.className="twfe-area-entry";const name=document.createElement("span");name.className="twfe-area-name";name.textContent=item.label||item.code;const code=document.createElement("code");code.textContent=item.code||"—";entry.append(name,code);directory.appendChild(entry)});areas.replaceChildren(directory)}
+  }).catch(error=>{const message=`TWFE audit information could not be loaded (${error.message}).`;if(audit)audit.textContent=message;if(areas)areas.textContent=message;});
+})();

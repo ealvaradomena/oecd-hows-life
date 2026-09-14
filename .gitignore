@@ -1,0 +1,58 @@
+# R / RStudio local state
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+renv/library/
+renv/staging/
+
+# Quarto local caches and temporary render products
+.quarto/
+_site/
+**/*.quarto_ipynb
+
+# OECD API downloads and locally generated analytical data
+# Keep raw responses and structural metadata local; the public site uses
+# versioned presentation assets rather than committing these API payloads.
+data/raw/
+data/metadata/
+data/processed/
+data/retrieval-manifest.csv
+
+# Analytical outputs are local/frozen inputs, not public-repository content.
+outputs/
+output/
+
+# Disposable presentation-build staging
+.presentation-build/
+
+# PatchMyMess / local archival backups
+**/old/
+archive/
+*.zip
+
+# Environment files, credentials, and local secrets
+.env
+.env.*
+!.env.example
+.Renviron
+.httr-oauth
+*.pem
+*.key
+
+# OS / editor metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Intentionally NOT ignored:
+# - docs/ (GitHub Pages publication output)
+# - assets/*.json and assets/*.svg required by the frozen website
+# - _extensions/ (project-local Quarto extensions required for reproducibility)
+
+/.quarto/
+
+# Temporary working files and review artifacts
+tmp/

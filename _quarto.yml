@@ -1,0 +1,91 @@
+project:
+  type: website
+  output-dir: docs
+  # Presentation-only derivation. These hooks rebuild browser/presentation
+  # assets from existing local artifacts; none invokes the numbered analytical pipeline.
+  pre-render:
+    - '"C:/Program Files/R/R-4.5.2/bin/Rscript.exe" --vanilla scripts/website/derive-presentation-assets.R'
+    - scripts/website/build-workflow-diagram.ts
+    - scripts/website/derive-visual-assets.ts
+  post-render:
+    - scripts/website/polish-rendered.ts
+  # Explicit render allow-list. Only these source documents are rendered by
+  # `quarto render`; archival QMDs under adjacent `old/` directories are not
+  # discovered implicitly and must be deliberately added here to become active.
+  render:
+    - "index.qmd"
+    - "analysis/01-api-and-structure.qmd"
+    - "analysis/02-database-inventory.qmd"
+    - "analysis/03-panel-structure.qmd"
+    - "analysis/05-demographic-comparisons.qmd"
+    - "analysis/09-series-explorer.qmd"
+    - "analysis/10-twfe-analysis.qmd"
+    - "analysis/series.qmd"
+  resources:
+    - "assets/*.js"
+    - "assets/*.json"
+    - "assets/*.svg"
+  # Preview the already-rendered docs/ tree through an external static server.
+  # This prevents navbar requests from entering Quarto's incremental-render path,
+  # which always executes code unless --use-freezer is supplied explicitly.
+  preview:
+    watch-inputs: false
+    navigate: false
+    serve:
+      cmd: "quarto run ../scripts/website/static-preview.ts --root . --host {host} --port {port}"
+      ready: "STATIC_PREVIEW_READY"
+
+website:
+  title: "Exploring OECD <em>How’s Life?</em> Database"
+  navbar:
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Data
+        menu:
+          - href: analysis/01-api-and-structure.qmd
+            text: OECD API
+          - href: analysis/02-database-inventory.qmd
+            text: Database Inventory
+          - href: analysis/03-panel-structure.qmd
+            text: Panel Data
+          - href: analysis/05-demographic-comparisons.qmd
+            text: Demographic Comparisons
+      - href: analysis/09-series-explorer.qmd
+        text: Series
+      - href: analysis/10-twfe-analysis.qmd
+        text: Analysis
+    right:
+      - icon: github
+        text: GitHub
+        href: https://github.com/ealvaradomena/oecd-hows-life
+        aria-label: GitHub
+  page-footer:
+    left: "© <span data-current-year>2026</span> Edwin Alvarado-Mena, PhD"
+    center: "[AlvaradoCSS.com](https://alvaradocss.com/) <span class=\"footer-link-separator\"></span> [PolicyDataScience.com](https://policydatascience.com/)"
+    right: "Built with {{< iconify simple-icons:quarto size=sm label=\"\" style=\"margin:0 .14rem 0 .08rem;vertical-align:-.12rem;\" >}} Quarto and {{< iconify fa6-brands:r-project size=sm label=\"\" style=\"margin:0 .14rem 0 .08rem;vertical-align:-.12rem;\" >}} R"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-summary: "Code"
+    code-tools: true
+    fig-cap-location: top
+    tbl-cap-location: top
+    link-external-newwindow: true
+
+bibliography: references.bib
+
+execute:
+  # Rebuild presentation output from current source on every full render. Page
+  # chunks read existing local artifacts; they do not run the analytical pipeline
+  # or contact OECD. The strict Node/CI path separately consumes the historical
+  # _freeze/ cache recorded by config/frozen-presentation.json.
+  freeze: false
+  warning: false
+  message: false

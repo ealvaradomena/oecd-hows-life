@@ -1,0 +1,4 @@
+# Archived backups are retained for reference only. They are not active project
+# source files and must not participate in renv dependency discovery.
+old/
+**/old/

@@ -1,0 +1,82 @@
+---
+title: "Database Inventory"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+inventory_path <- here::here(
+  "outputs",
+  "tables",
+  "database-inventory.csv"
+)
+
+if (!file.exists(inventory_path)) {
+  stop("Run scripts/00-run-all.R before rendering this page.")
+}
+
+inventory <- readr::read_csv(
+  inventory_path,
+  show_col_types = FALSE
+)
+```
+
+The OECD Data Explorer provides access to six *How's Life?* datasets [@oecd_data_explorer_hows_life_2026]. 
+
+In the underlying SDMX architecture, each dataset is made available through a corresponding **dataflow**.
+
+## The Six *How's Life?* Datasets
+
+```{r}
+#| label: tbl-database-inventory
+#| tbl-cap: "Inventory of the six OECD *How’s Life?* dataset snapshots used by the project."
+
+inventory |>
+  dplyr::rename(
+    `Observation rows` = data_points,
+    `Reference areas` = reference_areas
+  ) |>
+  knitr::kable(
+    digits = 0
+  )
+```
+
+The inventory above (@tbl-database-inventory) is computed from the data retrieved through the six corresponding SDMX dataflows rather than copied from the OECD Data Explorer interface. 
+
+It reports project-derived counts of observation rows, reference areas, and unique `MEASURE` codes in each local snapshot. These are properties of the downloaded SDMX files, not official headline counts of conceptual indicators.
+
+In particular, the number of unique `MEASURE` codes in *Current well-being* should not be compared one-for-one with OECD's statement that the overall *How's Life?* database contains 80+ indicators across its six datasets [@oecd_hows_life_metadata_2026; @oecd_data_explorer_hows_life_2026].
+
+::: {.context-note}
+### [Snapshot provenance]{.smallcaps}
+
+New OECD downloads made by this project record a retrieval manifest containing the exact request URL, dataflow identifier and version, UTC retrieval timestamp, SHA-256 file hash, and available HTTP response metadata.
+
+The project's existing frozen-artifact integrity checks remain separate from this retrieval provenance.
+
+::: {#tbl-retrieval-manifest}
+<div id="retrieval-manifest-summary" aria-live="polite">Loading retrieval-manifest information…</div>
+
+Retrieval provenance for the six OECD *How’s Life?* dataset snapshots
+:::
+:::
+
+<script src="../assets/retrieval-manifest.js" defer></script>
+
+The distinction matters because the downloaded **snapshots** constitute the actual data used as inputs to every downstream analysis in this project.
+
+The dataflows are the SDMX dissemination objects through which the data are accessed; the downloaded observations themselves are the data being analyzed.
+
+::: {.data-note}
+### [Snapshots]{.smallcaps}
+Here, a **snapshot** refers to the data returned by a particular OECD API request and saved locally when the retrieval pipeline is run. 
+
+A snapshot represents the data returned by that request at the time of retrieval. Because OECD datasets may subsequently be revised or otherwise updated, repeating the same request later may return different data.
+
+Automated updates through the OECD API are possible but beyond the scope of this project.
+:::
+
+<script src="../assets/site-refinements.js" defer></script>
+
+{{< oecd-rules >}}
