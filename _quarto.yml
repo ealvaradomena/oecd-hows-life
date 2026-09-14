@@ -25,6 +25,7 @@ project:
     - "assets/*.js"
     - "assets/*.json"
     - "assets/*.svg"
+    - "assets/*.png"
   # Preview the already-rendered docs/ tree through an external static server.
   # This prevents navbar requests from entering Quarto's incremental-render path,
   # which always executes code unless --use-freezer is supplied explicitly.
@@ -37,6 +38,13 @@ project:
 
 website:
   title: "Exploring OECD <em>How’s Life?</em> Database"
+  site-url: "https://ealvaradomena.github.io/oecd-hows-life/"
+  image: assets/logo-bg-1200x900.png
+  open-graph:
+    image: assets/logo-bg-1200x900.png
+  twitter-card:
+    card-style: summary_large_image
+    image: assets/logo-bg-1200x900.png
   navbar:
     pinned: true
     left:
