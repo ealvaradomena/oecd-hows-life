@@ -114,7 +114,7 @@ The workflow diagram is a committed reproducible output. Its expected content fi
 
 ## Strict frozen-presentation path
 
-The Node path is intended for strict validation/publication, not routine local rendering. It is optional for local website maintenance but required by `.github/workflows/publish.yml`. The strict builder checks `config/frozen-presentation.json`, reads the reviewed caches and figures in `publication-baseline/`, and generates `docs/` without rerunning the R analytical pipeline. Every baseline artifact needed by the default CI build must exist, match its recorded SHA-256 hash, and be tracked by Git.
+The Node path is intended for strict validation/publication, not routine local rendering. It is optional for local website maintenance but required by `.github/workflows/publish.yml`. The strict builder checks `config/frozen-presentation.json`, reads the reviewed caches and figures in `publication-baseline/`, and consumes the approved, committed presentation SVGs under `assets/`. It does not regenerate those SVGs from ignored analytical outputs or rerun the R analytical pipeline. Every artifact needed by the default CI build must exist, match its recorded SHA-256 hash, and be tracked by Git.
 
 These directories deliberately have different ownership:
 

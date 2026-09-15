@@ -1,8 +1,19 @@
 /** Presentation-only utilities. Never evaluate R or inline expressions. */
 import { createHash } from 'node:crypto';
+import path from 'node:path';
 
 export const sha256 = value => createHash('sha256').update(value).digest('hex');
 export const normalize = text => text.replace(/\r\n/g, '\n');
+const textArtifactExtensions = new Set([
+  '.bib', '.csv', '.css', '.html', '.js', '.json', '.lock', '.md', '.mjs',
+  '.qmd', '.sha256', '.svg', '.tex', '.ts', '.txt', '.xml', '.yaml', '.yml',
+]);
+export const sha256Artifact = (file, value) => {
+  const bytes = Buffer.isBuffer(value) ? value : Buffer.from(value);
+  return sha256(textArtifactExtensions.has(path.extname(file).toLowerCase())
+    ? Buffer.from(normalize(bytes.toString('utf8')))
+    : bytes);
+};
 export const tokens = text => [...text.matchAll(/^```\{r[^\n]*\}\n[\s\S]*?^```[ \t]*$|`r [^`\n]+`/gm)];
 // Only these non-computational options may change without a new result binding.
 export const signature = token => sha256(token.replace(/^#\| (?:label|fig-cap|tbl-cap|fig-alt):.*\n/gm, ''));

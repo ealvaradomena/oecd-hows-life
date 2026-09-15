@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compilePage } from './build.mjs';
-import { signature, metadata } from './frozen-source.mjs';
+import { signature, metadata, sha256Artifact } from './frozen-source.mjs';
 
 const token = '```{r}\n#| label: fig-example\n#| fig-cap: "Original caption."\nplot(values)\n```';
 const frozen = '\n![Original caption.](example_files/fig-example-1.png){#fig-example}\n';
@@ -45,4 +45,18 @@ test('ambiguous repeated expressions fail closed', () => {
 test('ordinary example code stays visible and non-executable', () => {
   const source = '```r\nsource("scripts/00-run-all.R")\n```';
   assert.equal(compilePage(source, { bindings: [] }), source);
+});
+
+test('text artifact hashes are stable across LF and CRLF checkouts', () => {
+  assert.equal(
+    sha256Artifact('assets/example.json', Buffer.from('{\r\n  "value": 1\r\n}\r\n')),
+    sha256Artifact('assets/example.json', Buffer.from('{\n  "value": 1\n}\n')),
+  );
+});
+
+test('binary artifact hashes remain byte-exact', () => {
+  assert.notEqual(
+    sha256Artifact('figure.png', Buffer.from([0x0d, 0x0a])),
+    sha256Artifact('figure.png', Buffer.from([0x0a])),
+  );
 });

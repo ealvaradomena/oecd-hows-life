@@ -6,6 +6,7 @@
 /publication-baseline/**/*.png binary
 /assets/*.json text eol=lf
 /assets/*.png binary
+/assets/*.svg text eol=lf
 /config/*.json text eol=lf
 /config/*.yml text eol=lf
 /renv.lock text eol=lf

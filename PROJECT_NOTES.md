@@ -12,7 +12,7 @@ The project-level pre-render hook calls `scripts/website/derive-presentation-ass
 
 Ordinary presentation execution is not frozen: `_quarto.yml` uses `execute.freeze: false` so a full render always reflects current `.qmd` source. The executed page chunks read existing analytical artifacts but do not recreate them, download data, or fit models. If a required local input is absent, rendering fails clearly or the presentation-asset step emits an explicit unavailable state instead of recreating analytical data.
 
-The Node builder remains the stricter publication/CI path. `node scripts/website/build.mjs` verifies frozen source bindings and artifact hashes, derives the same presentation assets, stages Markdown-only pages, validates the rendered site, and publishes to `docs/`. Node is therefore optional for ordinary local rendering but still required by the current GitHub Actions workflow.
+The Node builder remains the stricter publication/CI path. `node scripts/website/build.mjs` verifies frozen source bindings and artifact hashes, consumes the approved committed presentation SVGs rather than their ignored analytical source CSVs, stages Markdown-only pages, validates the rendered site, and publishes to `docs/`. Node is therefore optional for ordinary local rendering but still required by the current GitHub Actions workflow.
 
 The workflow SVG uses a content fingerprint in `assets/project-workflow.sha256`, covering `diagrams/project-workflow.tex` and both generator implementations. Matching content skips TeX entirely; changed content regenerates the committed SVG when `pdflatex` and `dvisvgm` are available and otherwise fails rather than publishing stale output.
 

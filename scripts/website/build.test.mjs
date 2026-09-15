@@ -18,10 +18,14 @@ test('default publication requirements include caches, figures, and browser data
     },
   };
   assert.deepEqual(requiredPublicationArtifacts(frozen), [
+    'assets/completion-rate.svg',
     'assets/logo-bg-1200x900.png',
     'assets/selected-series.json',
     'assets/series-data.json',
     'assets/series-inventory.json',
+    'assets/twfe-fwl.svg',
+    'assets/twfe-model-progression.svg',
+    'assets/twfe-period-coverage.svg',
     'publication-baseline/index/execute-results/html.json',
     'publication-baseline/index/figure-html/fig-example-1.png',
   ]);

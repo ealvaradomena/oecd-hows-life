@@ -1919,241 +1919,296 @@ OECD. 2026a. <span>“OECD Data Explorer: Current Well-Being by Age.”</span> O
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Comparing Current well-being with its demographic dataflows"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"COMPARE_DATAFLOWS.R"</span>))</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">readRDS</span>(</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">"data"</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"processed"</span>,</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"comparison_age.rds"</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="fu">readRDS</span>(</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>      <span class="st">"data"</span>,</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      <span class="st">"processed"</span>,</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>      <span class="st">"comparison_sex.rds"</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Education level</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">readRDS</span>(</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>      <span class="st">"data"</span>,</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>      <span class="st">"processed"</span>,</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>      <span class="st">"comparison_education.rds"</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>overview <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(comparisons),</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">function</span>(comparison_name) {</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">COMPARISON_OVERVIEW</span>(</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        comparisons[[comparison_name]]</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>          <span class="at">Comparison =</span> comparison_name,</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>          <span class="at">.before =</span> <span class="dv">1</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>The OECD disseminates *Current well-being* alongside specialized views by age, sex, and education level [@oecd_data_explorer_hows_life_2026]. Do these demographic dataflows contain distinct non-missing `OBS_VALUE` observations, or do their values already appear in the main *Current well-being* dataflow when records are matched on their shared SDMX keys?</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>The comparison is deliberately narrow: it evaluates record-key overlap and <span class="in">`OBS_VALUE`</span> agreement. It does not establish equivalence of observation-status flags, other SDMX attributes, metadata, or presentation conventions.</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparison Design</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>The three specialized dataflows use the same core demographic dimensions as *Current well-being*, but constrain the demographic codes differently. In the current SDMX structures, the specialized scopes are:</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Comparison <span class="pp">|</span> Age <span class="pp">|</span> Sex <span class="pp">|</span> Education level <span class="pp">|</span></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Current well-being by age** | **`MID`, `OLD`, `YOUNG`** <span class="pp">|</span> <span class="in">`_T`</span> (total) <span class="pp">|</span> <span class="in">`_T`</span> (total) <span class="pp">|</span></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Current well-being by sex** | `_T` (total) | **`F`, `M`** <span class="pp">|</span> <span class="in">`_T`</span> (total) <span class="pp">|</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Current well-being by education** | `_T` (total) | `_T` (total) | **`ISCED11_1`, `ISCED11_2_3`, `ISCED11_5T8`** <span class="pp">|</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>: Demographic codes represented by the three specialized dataflows in the current SDMX structures. {#tbl-demographic-scope}</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>The project applies the same comparison procedure to all three specialized views. Records are matched on the canonical SDMX dimensions shared by the parent and specialized datasets: <span class="in">`REF_AREA`</span>, <span class="in">`MEASURE`</span>, <span class="in">`UNIT_MEASURE`</span>, <span class="in">`AGE`</span>, <span class="in">`SEX`</span>, <span class="in">`EDUCATION_LEV`</span>, <span class="in">`DOMAIN`</span>, and <span class="in">`TIME_PERIOD`</span>. A full join preserves matched keys as well as keys with a non-missing value on only one side. <span class="in">`OBS_VALUE`</span> is compared using an absolute tolerance of <span class="in">`1e-10`</span>.</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>The resulting statuses have the following meanings:</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Exact match**: both sides contain non-missing values that agree within tolerance</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Different value**: both sides contain non-missing values that differ by more than the tolerance</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Parent only**: only *Current well-being* contains a non-missing value for the joined key</span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Child only**: only the specialized dataflow contains a non-missing value for the joined key</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Both missing**: neither joined value is available</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>Importantly, **parent-only and child-only are value-availability classifications, not independent tests of row presence**. A record that is present with a missing <span class="in">`OBS_VALUE`</span> is therefore treated the same as a missing joined value for this classification.</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>::: {.data-note}</span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### [How to interpret parent-only records]{.smallcaps}</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>The current comparison joins the complete parent snapshot to each specialized snapshot on their shared canonical dimensions. Because the specialized dataflows constrain demographic codes more narrowly than the parent, **parent-only records include parent observations outside the specialized demographic scope** as well as any other one-sided non-missing values.</span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>Accordingly, the exact-match shares below describe the full joined record-key universe. They should not be interpreted as coverage rates for the specialized dataflows' intended demographic scopes.</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>::: {.context-note}</span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Subgroup-data caveats]{.smallcaps}</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>OECD notes that indicators in the specialized age and education views are **banded when the sample size is below 1,000 observations** <span class="co">[</span><span class="ot">@oecd_cwb_age_2026; @oecd_cwb_edu_2026</span><span class="co">]</span>. The Data Monitor also notes that some subgroup estimates pool multiple years, so a displayed period should not automatically be interpreted as a single-year estimate <span class="co">[</span><span class="ot">@oecd_wellbeing_monitor_2026</span><span class="co">]</span>.</span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>These source-level conventions are separate from the record-matching exercise below.</span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>@tbl-demographic-comparison-summary places the three comparisons side by side. This is the main advantage of treating the exercise as one analysis rather than three separate pages.</span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-demographic-comparison-summary</span></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Record-level comparison of Current well-being with its specialized demographic dataflows."</span></span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>overview <span class="sc">|&gt;</span></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exact-match share</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sprintf</span>(</span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>      <span class="st">"%.1f%%"</span>,</span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>      <span class="dv">100</span> <span class="sc">*</span> exact_match <span class="sc">/</span> total_records</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>    Comparison,</span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Record keys</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>      total_records,</span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exact matches</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>      exact_match,</span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exact-match share</span><span class="st">`</span>,</span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Parent only</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>      parent_only,</span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Child only</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>      child_only,</span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Different value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>      different_value,</span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Both missing</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>      both_missing,</span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>In the frozen project snapshot, all three comparisons report **zero child-only observations, zero value disagreements, and zero both-missing joined keys**. Every non-missing value available through the specialized demographic dataflows therefore has a corresponding non-missing value in *Current well-being* and agrees with it within the specified tolerance.</span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>The reverse does not hold: *Current well-being* contains many parent-only values in each full join. Because the parent includes demographic combinations outside each specialized scope, those counts demonstrate that the parent is broader; they should not be read as missing-data rates for the specialized views.</span>
-<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parent-Only Records</span></span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>The tabs below retain a small record-level audit sample from each comparison. They are useful for seeing what the one-sided parent classifications look like without repeating the same diagnostic structure three times.</span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### Age</span></span>
-<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-age-parent-only-records</span></span>
-<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "First up to 20 records classified as available only in Current well-being in the age comparison."</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">engine:</span><span class="co"> markdown</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Comparing Current well-being with its demographic dataflows"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>The OECD disseminates *Current well-being* alongside specialized views by age, sex, and education level [@oecd_data_explorer_hows_life_2026]. Do these demographic dataflows contain distinct non-missing `OBS_VALUE` observations, or do their values already appear in the main *Current well-being* dataflow when records are matched on their shared SDMX keys?</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>The comparison is deliberately narrow: it evaluates record-key overlap and <span class="in">`OBS_VALUE`</span> agreement. It does not establish equivalence of observation-status flags, other SDMX attributes, metadata, or presentation conventions.</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparison Design</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>The three specialized dataflows use the same core demographic dimensions as *Current well-being*, but constrain the demographic codes differently. In the current SDMX structures, the specialized scopes are:</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Comparison <span class="pp">|</span> Age <span class="pp">|</span> Sex <span class="pp">|</span> Education level <span class="pp">|</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Current well-being by age** | **`MID`, `OLD`, `YOUNG`** <span class="pp">|</span> <span class="in">`_T`</span> (total) <span class="pp">|</span> <span class="in">`_T`</span> (total) <span class="pp">|</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Current well-being by sex** | `_T` (total) | **`F`, `M`** <span class="pp">|</span> <span class="in">`_T`</span> (total) <span class="pp">|</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Current well-being by education** | `_T` (total) | `_T` (total) | **`ISCED11_1`, `ISCED11_2_3`, `ISCED11_5T8`** <span class="pp">|</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>: Demographic codes represented by the three specialized dataflows in the current SDMX structures. {#tbl-demographic-scope}</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>The project applies the same comparison procedure to all three specialized views. Records are matched on the canonical SDMX dimensions shared by the parent and specialized datasets: <span class="in">`REF_AREA`</span>, <span class="in">`MEASURE`</span>, <span class="in">`UNIT_MEASURE`</span>, <span class="in">`AGE`</span>, <span class="in">`SEX`</span>, <span class="in">`EDUCATION_LEV`</span>, <span class="in">`DOMAIN`</span>, and <span class="in">`TIME_PERIOD`</span>. A full join preserves matched keys as well as keys with a non-missing value on only one side. <span class="in">`OBS_VALUE`</span> is compared using an absolute tolerance of <span class="in">`1e-10`</span>.</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>The resulting statuses have the following meanings:</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Exact match**: both sides contain non-missing values that agree within tolerance</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Different value**: both sides contain non-missing values that differ by more than the tolerance</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Parent only**: only *Current well-being* contains a non-missing value for the joined key</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Child only**: only the specialized dataflow contains a non-missing value for the joined key</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Both missing**: neither joined value is available</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>Importantly, **parent-only and child-only are value-availability classifications, not independent tests of row presence**. A record that is present with a missing <span class="in">`OBS_VALUE`</span> is therefore treated the same as a missing joined value for this classification.</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>::: {.data-note}</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### [How to interpret parent-only records]{.smallcaps}</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>The current comparison joins the complete parent snapshot to each specialized snapshot on their shared canonical dimensions. Because the specialized dataflows constrain demographic codes more narrowly than the parent, **parent-only records include parent observations outside the specialized demographic scope** as well as any other one-sided non-missing values.</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>Accordingly, the exact-match shares below describe the full joined record-key universe. They should not be interpreted as coverage rates for the specialized dataflows' intended demographic scopes.</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>::: {.context-note}</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Subgroup-data caveats]{.smallcaps}</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>OECD notes that indicators in the specialized age and education views are **banded when the sample size is below 1,000 observations** <span class="co">[</span><span class="ot">@oecd_cwb_age_2026; @oecd_cwb_edu_2026</span><span class="co">]</span>. The Data Monitor also notes that some subgroup estimates pool multiple years, so a displayed period should not automatically be interpreted as a single-year estimate <span class="co">[</span><span class="ot">@oecd_wellbeing_monitor_2026</span><span class="co">]</span>.</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>These source-level conventions are separate from the record-matching exercise below.</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>@tbl-demographic-comparison-summary places the three comparisons side by side. This is the main advantage of treating the exercise as one analysis rather than three separate pages.</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>::: {#tbl-demographic-comparison-summary .cell tbl-cap='Record-level comparison of Current well-being with its specialized demographic dataflows.'}</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>overview <span class="sc">|&gt;</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exact-match share</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sprintf</span>(</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>      <span class="st">"%.1f%%"</span>,</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>      <span class="dv">100</span> <span class="sc">*</span> exact_match <span class="sc">/</span> total_records</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    Comparison,</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Record keys</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>      total_records,</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exact matches</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>      exact_match,</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exact-match share</span><span class="st">`</span>,</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Parent only</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>      parent_only,</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Child only</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>      child_only,</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Different value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>      different_value,</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Both missing</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">format</span>(</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>      both_missing,</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>      <span class="at">big.mark =</span> <span class="st">","</span>,</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>      <span class="at">scientific =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>::: {.cell-output-display}</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>Comparison      <span class="pp">|</span>Record keys <span class="pp">|</span>Exact matches <span class="pp">|</span>Exact-match share <span class="pp">|</span>Parent only <span class="pp">|</span>Child only <span class="pp">|</span>Different value <span class="pp">|</span>Both missing <span class="pp">|</span></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------------|:-----------|:-------------|:-----------------|:-----------|:----------|:---------------|:------------|</span></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>Age             <span class="pp">|</span>111,266     <span class="pp">|</span>31,903        <span class="pp">|</span>28.7%             <span class="pp">|</span>79,363      <span class="pp">|</span>0          <span class="pp">|</span>0               <span class="pp">|</span>0            <span class="pp">|</span></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>Sex             <span class="pp">|</span>111,266     <span class="pp">|</span>30,262        <span class="pp">|</span>27.2%             <span class="pp">|</span>81,004      <span class="pp">|</span>0          <span class="pp">|</span>0               <span class="pp">|</span>0            <span class="pp">|</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>Education level <span class="pp">|</span>111,266     <span class="pp">|</span>21,106        <span class="pp">|</span>19.0%             <span class="pp">|</span>90,160      <span class="pp">|</span>0          <span class="pp">|</span>0               <span class="pp">|</span>0            <span class="pp">|</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>In the frozen project snapshot, all three comparisons report **zero child-only observations, zero value disagreements, and zero both-missing joined keys**. Every non-missing value available through the specialized demographic dataflows therefore has a corresponding non-missing value in *Current well-being* and agrees with it within the specified tolerance.</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>The reverse does not hold: *Current well-being* contains many parent-only values in each full join. Because the parent includes demographic combinations outside each specialized scope, those counts demonstrate that the parent is broader; they should not be read as missing-data rates for the specialized views.</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parent-Only Records</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>The tabs below retain a small record-level audit sample from each comparison. They are useful for seeing what the one-sided parent classifications look like without repeating the same diagnostic structure three times.</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Age</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>::: {#tbl-age-parent-only-records .cell tbl-cap='First up to 20 records classified as available only in Current well-being in the age comparison.'}</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>parent_only_age <span class="ot">&lt;-</span> <span class="fu">COMPARISON_RECORDS</span>(</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> comparisons<span class="sc">$</span>Age,</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="st">"Parent only"</span></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(parent_only_age) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No parent-only records were detected."</span>)</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(parent_only_age)</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>::: {.cell-output-display}</span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>REF_AREA <span class="pp">|</span>MEASURE  <span class="pp">|</span>UNIT_MEASURE      <span class="pp">|</span>AGE <span class="pp">|</span>SEX <span class="pp">|</span>EDUCATION_LEV <span class="pp">|</span>DOMAIN <span class="pp">|</span> TIME_PERIOD<span class="pp">|</span> parent_value<span class="pp">|</span> child_value<span class="pp">|</span>match_status <span class="pp">|</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------|:--------|:-----------------|:---|:---|:-------------|:------|-----------:|------------:|-----------:|:------------|</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ISL      <span class="pp">|</span>2_7      <span class="pp">|</span>PT_SAL_SUB        <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2025<span class="pp">|</span>    3.6500000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>SVN      <span class="pp">|</span>10_3     <span class="pp">|</span>DT_10P5HB         <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2011<span class="pp">|</span>    6.8685233<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>POL      <span class="pp">|</span>10_2     <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2017<span class="pp">|</span>   63.8374868<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CRI      <span class="pp">|</span>2_1      <span class="pp">|</span>PT_POP_Y25T64_SUB <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2025<span class="pp">|</span>   55.0100000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CHE      <span class="pp">|</span>10_2_DEP <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_5T8   <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2009<span class="pp">|</span>    9.4731272<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>NLD      <span class="pp">|</span>10_1     <span class="pp">|</span>DT_10P5HB         <span class="pp">|</span>_T  <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2012<span class="pp">|</span>    1.2000000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CZE      <span class="pp">|</span>5_2_DEP  <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2016<span class="pp">|</span>   12.3000000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>PER      <span class="pp">|</span>5_3      <span class="pp">|</span>DT_10P5HB         <span class="pp">|</span>_T  <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2015<span class="pp">|</span>   19.4456798<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>PRT      <span class="pp">|</span>10_2_DEP <span class="pp">|</span>PT_POP_Y_GE15     <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2017<span class="pp">|</span>   17.6976349<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>NZL      <span class="pp">|</span>11_2     <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_11 <span class="pp">|</span>        2010<span class="pp">|</span>   13.5876968<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>IRL      <span class="pp">|</span>10_2     <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_5T8   <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2023<span class="pp">|</span>   75.9337988<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ISL      <span class="pp">|</span>4_4      <span class="pp">|</span>0_TO_10           <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_4  <span class="pp">|</span>        2013<span class="pp">|</span>    7.4938734<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>HUN      <span class="pp">|</span>2_8_VER  <span class="pp">|</span>FCTR_D1_EARN      <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2010<span class="pp">|</span>    4.2540444<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>GBR      <span class="pp">|</span>3_1      <span class="pp">|</span>PT_HH             <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_3  <span class="pp">|</span>        2022<span class="pp">|</span>    0.5868936<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>AUS      <span class="pp">|</span>5_1      <span class="pp">|</span>Y                 <span class="pp">|</span>_T  <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2004<span class="pp">|</span>   78.1000000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>USA      <span class="pp">|</span>2_2      <span class="pp">|</span>PT_WG_SAL_M_D     <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2023<span class="pp">|</span>   16.3893511<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>SVN      <span class="pp">|</span>7_1      <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_2_3   <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2008<span class="pp">|</span>   92.0001477<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CHE      <span class="pp">|</span>4_4_DEP  <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_2_3   <span class="pp">|</span>HSL_4  <span class="pp">|</span>        2022<span class="pp">|</span>    7.8391912<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>POL      <span class="pp">|</span>7_1_DEP  <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T  <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_2_3   <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2010<span class="pp">|</span>    6.5224725<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>LVA      <span class="pp">|</span>11_1_DEP <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T  <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_11 <span class="pp">|</span>        2024<span class="pp">|</span>    5.6634944<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
 <span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>parent_only_age <span class="ot">&lt;-</span> <span class="fu">COMPARISON_RECORDS</span>(</span>
-<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> comparisons<span class="sc">$</span>Age,</span>
-<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="st">"Parent only"</span></span>
-<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(parent_only_age) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No parent-only records were detected."</span>)</span>
-<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(parent_only_age)</span>
-<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sex</span></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sex</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>::: {#tbl-sex-parent-only-records .cell tbl-cap='First up to 20 records classified as available only in Current well-being in the sex comparison.'}</span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>parent_only_sex <span class="ot">&lt;-</span> <span class="fu">COMPARISON_RECORDS</span>(</span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> comparisons<span class="sc">$</span>Sex,</span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="st">"Parent only"</span></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-sex-parent-only-records</span></span>
-<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "First up to 20 records classified as available only in Current well-being in the sex comparison."</span></span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>parent_only_sex <span class="ot">&lt;-</span> <span class="fu">COMPARISON_RECORDS</span>(</span>
-<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> comparisons<span class="sc">$</span>Sex,</span>
-<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="st">"Parent only"</span></span>
-<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(parent_only_sex) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No parent-only records were detected."</span>)</span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(parent_only_sex)</span>
-<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### Education level</span></span>
-<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-education-parent-only-records</span></span>
-<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "First up to 20 records classified as available only in Current well-being in the education-level comparison."</span></span>
-<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>parent_only_education <span class="ot">&lt;-</span> <span class="fu">COMPARISON_RECORDS</span>(</span>
-<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> comparisons[[<span class="st">"Education level"</span>]],</span>
-<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="st">"Parent only"</span></span>
-<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(parent_only_education) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No parent-only records were detected."</span>)</span>
-<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(parent_only_education)</span>
-<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a><span class="fu">## Specialized-Only Records and Value Disagreements</span></span>
-<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>No specialized-only non-missing values are detected in the frozen age, sex, or education comparisons. Likewise, no matched keys report <span class="in">`OBS_VALUE`</span> disagreements beyond the <span class="in">`1e-10`</span> tolerance.</span>
-<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>This is the central result of the audit: **with respect to the shared canonical keys and non-missing `OBS_VALUE`, the three specialized demographic views add no unique values in the frozen snapshot**. This statement is intentionally narrower than saying that the specialized dataflows are identical to, or literal subsets of, *Current well-being*.</span>
-<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretation and Limitations</span></span>
-<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>The comparison supports a practical conclusion for this project: the specialized demographic dataflows do not contribute additional non-missing <span class="in">`OBS_VALUE`</span> values beyond those already represented in *Current well-being* on matching keys. Their value lies instead in providing dedicated dissemination views with narrower demographic scopes and their own metadata and reliability conventions.</span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>The result should not be generalized beyond what is actually tested. In particular, the audit does not establish equivalence of observation-status flags, methodological annotations, other attributes, or metadata. It also does not distinguish a genuinely absent row from a present row whose <span class="in">`OBS_VALUE`</span> is missing when assigning the parent-only and child-only categories.</span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> src</span><span class="op">=</span><span class="st">"../assets/site-refinements.js"</span><span class="ot"> defer</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(parent_only_sex) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No parent-only records were detected."</span>)</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(parent_only_sex)</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>::: {.cell-output-display}</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>REF_AREA <span class="pp">|</span>MEASURE  <span class="pp">|</span>UNIT_MEASURE      <span class="pp">|</span>AGE   <span class="pp">|</span>SEX <span class="pp">|</span>EDUCATION_LEV <span class="pp">|</span>DOMAIN <span class="pp">|</span> TIME_PERIOD<span class="pp">|</span> parent_value<span class="pp">|</span> child_value<span class="pp">|</span>match_status <span class="pp">|</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------|:--------|:-----------------|:-----|:---|:-------------|:------|-----------:|------------:|-----------:|:------------|</span></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>IDN      <span class="pp">|</span>2_1      <span class="pp">|</span>PT_POP_Y25T64     <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2015<span class="pp">|</span>     74.66600<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>LVA      <span class="pp">|</span>3_5      <span class="pp">|</span>PT_POP_Y_GE16     <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_3  <span class="pp">|</span>        2012<span class="pp">|</span>     19.90000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ESP      <span class="pp">|</span>10_2_DEP <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>MID   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2020<span class="pp">|</span>     16.63918<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>LVA      <span class="pp">|</span>2_1      <span class="pp">|</span>PT_POP_Y25T64_SUB <span class="pp">|</span>MID   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2016<span class="pp">|</span>     79.68600<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CHL      <span class="pp">|</span>7_1      <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_5T8   <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2008<span class="pp">|</span>     90.10051<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>SVK      <span class="pp">|</span>5_2      <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_5T8   <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2019<span class="pp">|</span>     80.60000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CHE      <span class="pp">|</span>10_2_DEP <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>YOUNG <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2012<span class="pp">|</span>     12.52683<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ITA      <span class="pp">|</span>8_2      <span class="pp">|</span>PT_VOTES_SUB      <span class="pp">|</span>YOUNG <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_8  <span class="pp">|</span>        2018<span class="pp">|</span>     62.05280<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ISR      <span class="pp">|</span>5_2      <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>OLD   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2019<span class="pp">|</span>     40.20000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CRI      <span class="pp">|</span>11_2     <span class="pp">|</span>PT_POP_Y_GE15     <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_11 <span class="pp">|</span>        2021<span class="pp">|</span>     15.09337<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CAN      <span class="pp">|</span>5_2      <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>OLD   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2007<span class="pp">|</span>     74.50000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>AUS      <span class="pp">|</span>7_1      <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_5T8   <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2019<span class="pp">|</span>     95.38107<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>NOR      <span class="pp">|</span>5_2      <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_1     <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2012<span class="pp">|</span>     71.10000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>USA      <span class="pp">|</span>2_4      <span class="pp">|</span>PT_POP_Y15T24     <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2023<span class="pp">|</span>     11.82013<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ISR      <span class="pp">|</span>6_1      <span class="pp">|</span>PO                <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_6  <span class="pp">|</span>        2009<span class="pp">|</span>    473.98995<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ITA      <span class="pp">|</span>4_4_DEP  <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_2_3   <span class="pp">|</span>HSL_4  <span class="pp">|</span>        2013<span class="pp">|</span>     14.83122<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CRI      <span class="pp">|</span>2_8_VER  <span class="pp">|</span>FCTR_D1_EARN      <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2018<span class="pp">|</span>      3.00000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>DEU      <span class="pp">|</span>7_1_DEP  <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>OLD   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2016<span class="pp">|</span>     10.21026<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CAN      <span class="pp">|</span>2_1      <span class="pp">|</span>PT_POP_Y25T64_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_2_3   <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2015<span class="pp">|</span>     73.42924<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ITA      <span class="pp">|</span>11_2     <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>ISCED11_2_3   <span class="pp">|</span>HSL_11 <span class="pp">|</span>        2022<span class="pp">|</span>     13.78164<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### Education level</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>::: {#tbl-education-parent-only-records .cell tbl-cap='First up to 20 records classified as available only in Current well-being in the education-level comparison.'}</span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>parent_only_education <span class="ot">&lt;-</span> <span class="fu">COMPARISON_RECORDS</span>(</span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> comparisons[[<span class="st">"Education level"</span>]],</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="st">"Parent only"</span></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(parent_only_education) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No parent-only records were detected."</span>)</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(parent_only_education)</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>{{&lt; oecd-rules &gt;}}</span>
-</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>::: {.cell-output-display}</span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>REF_AREA <span class="pp">|</span>MEASURE <span class="pp">|</span>UNIT_MEASURE      <span class="pp">|</span>AGE   <span class="pp">|</span>SEX <span class="pp">|</span>EDUCATION_LEV <span class="pp">|</span>DOMAIN <span class="pp">|</span> TIME_PERIOD<span class="pp">|</span> parent_value<span class="pp">|</span> child_value<span class="pp">|</span>match_status <span class="pp">|</span></span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------|:-------|:-----------------|:-----|:---|:-------------|:------|-----------:|------------:|-----------:|:------------|</span></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>LTU      <span class="pp">|</span>2_1     <span class="pp">|</span>PT_POP_Y25T64_SUB <span class="pp">|</span>MID   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2009<span class="pp">|</span>   75.8980000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CAN      <span class="pp">|</span>2_3     <span class="pp">|</span>PT_LF_SUB         <span class="pp">|</span>_T    <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2016<span class="pp">|</span>    0.6552636<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>FIN      <span class="pp">|</span>5_1     <span class="pp">|</span>Y                 <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2013<span class="pp">|</span>   81.1000000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>SVK      <span class="pp">|</span>11_2    <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>MID   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_11 <span class="pp">|</span>        2015<span class="pp">|</span>   15.5320941<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>HUN      <span class="pp">|</span>2_3     <span class="pp">|</span>PT_LF_SUB         <span class="pp">|</span>YOUNG <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2016<span class="pp">|</span>    3.5442843<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>MEX      <span class="pp">|</span>2_1     <span class="pp">|</span>PT_POP_Y25T64_SUB <span class="pp">|</span>YOUNG <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2025<span class="pp">|</span>   40.5910000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>FIN      <span class="pp">|</span>2_1     <span class="pp">|</span>PT_POP_Y25T64     <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2005<span class="pp">|</span>   74.5780000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>BGR      <span class="pp">|</span>10_2    <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>YOUNG <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_10 <span class="pp">|</span>        2022<span class="pp">|</span>   64.7567491<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>AUS      <span class="pp">|</span>7_1_DEP <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>_T    <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2007<span class="pp">|</span>    4.8981669<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ROU      <span class="pp">|</span>7_4     <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T    <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2018<span class="pp">|</span>    7.8910281<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>FIN      <span class="pp">|</span>2_1     <span class="pp">|</span>PT_POP_Y25T64_SUB <span class="pp">|</span>_T    <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2018<span class="pp">|</span>   76.0580000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>KOR      <span class="pp">|</span>5_3     <span class="pp">|</span>DT_10P5HB         <span class="pp">|</span>_T    <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2023<span class="pp">|</span>   40.0036728<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>CHE      <span class="pp">|</span>5_1     <span class="pp">|</span>Y                 <span class="pp">|</span>_T    <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2012<span class="pp">|</span>   80.6000000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>ROU      <span class="pp">|</span>1_4     <span class="pp">|</span>PT_POP            <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_1  <span class="pp">|</span>        2017<span class="pp">|</span>   18.0208847<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>FIN      <span class="pp">|</span>2_7     <span class="pp">|</span>PT_SAL_SUB        <span class="pp">|</span>YOUNG <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_2  <span class="pp">|</span>        2012<span class="pp">|</span>    2.2900000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>SVN      <span class="pp">|</span>7_1     <span class="pp">|</span>PT_POP_Y_GE15_SUB <span class="pp">|</span>OLD   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2023<span class="pp">|</span>   92.0274309<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>USA      <span class="pp">|</span>4_1     <span class="pp">|</span>H_D               <span class="pp">|</span>MID   <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_4  <span class="pp">|</span>        2016<span class="pp">|</span>   13.9954102<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>NZL      <span class="pp">|</span>7_1     <span class="pp">|</span>PT_POP_Y_GE15     <span class="pp">|</span>_T    <span class="pp">|</span>_T  <span class="pp">|</span>_T            <span class="pp">|</span>HSL_7  <span class="pp">|</span>        2017<span class="pp">|</span>   94.5086496<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>DEU      <span class="pp">|</span>5_2     <span class="pp">|</span>PT_POP_Y_GE16_SUB <span class="pp">|</span>_T    <span class="pp">|</span>M   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_5  <span class="pp">|</span>        2006<span class="pp">|</span>   63.5000000<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>DNK      <span class="pp">|</span>11_1    <span class="pp">|</span>0_TO_10           <span class="pp">|</span>_T    <span class="pp">|</span>F   <span class="pp">|</span>_T            <span class="pp">|</span>HSL_11 <span class="pp">|</span>        2024<span class="pp">|</span>    7.6411596<span class="pp">|</span>          NA<span class="pp">|</span>Parent only  <span class="pp">|</span></span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a><span class="fu">## Specialized-Only Records and Value Disagreements</span></span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a>No specialized-only non-missing values are detected in the frozen age, sex, or education comparisons. Likewise, no matched keys report <span class="in">`OBS_VALUE`</span> disagreements beyond the <span class="in">`1e-10`</span> tolerance.</span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>This is the central result of the audit: **with respect to the shared canonical keys and non-missing `OBS_VALUE`, the three specialized demographic views add no unique values in the frozen snapshot**. This statement is intentionally narrower than saying that the specialized dataflows are identical to, or literal subsets of, *Current well-being*.</span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretation and Limitations</span></span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>The comparison supports a practical conclusion for this project: the specialized demographic dataflows do not contribute additional non-missing <span class="in">`OBS_VALUE`</span> values beyond those already represented in *Current well-being* on matching keys. Their value lies instead in providing dedicated dissemination views with narrower demographic scopes and their own metadata and reliability conventions.</span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a>The result should not be generalized beyond what is actually tested. In particular, the audit does not establish equivalence of observation-status flags, methodological annotations, other attributes, or metadata. It also does not distinguish a genuinely absent row from a present row whose <span class="in">`OBS_VALUE`</span> is missing when assigning the parent-only and child-only categories.</span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> src</span><span class="op">=</span><span class="st">"../assets/site-refinements.js"</span><span class="ot"> defer</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>{{&lt; oecd-rules &gt;}}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

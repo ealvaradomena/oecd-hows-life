@@ -12,11 +12,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { normalize, tokens, signature, metadata, sha256, substituteOutput } from './frozen-source.mjs';
+import { normalize, tokens, signature, metadata, sha256, sha256Artifact, substituteOutput } from './frozen-source.mjs';
 import { validateSite } from './validate.mjs';
 import { polishSite } from './polish-html.mjs';
 import { derivePresentationAssets } from './derive-presentation-assets.mjs';
-import { deriveVisualAssets } from './derive-visual-assets.mjs';
 import { buildWorkflowDiagram } from './build-workflow-diagram.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -24,7 +23,16 @@ const read = file => fs.readFileSync(path.join(root, file));
 const manifest = () => JSON.parse(read('config/frozen-presentation.json'));
 
 export function requiredPublicationArtifacts(frozen) {
-  const required = new Set(['assets/logo-bg-1200x900.png', 'assets/series-data.json', 'assets/series-inventory.json', 'assets/selected-series.json']);
+  const required = new Set([
+    'assets/completion-rate.svg',
+    'assets/logo-bg-1200x900.png',
+    'assets/selected-series.json',
+    'assets/series-data.json',
+    'assets/series-inventory.json',
+    'assets/twfe-fwl.svg',
+    'assets/twfe-model-progression.svg',
+    'assets/twfe-period-coverage.svg',
+  ]);
   for (const entry of Object.values(frozen.pages)) if (entry.cache) required.add(entry.cache);
   for (const file of Object.keys(frozen.artifacts)) {
     if (file.startsWith('publication-baseline/') && /\/figure-html\//.test(file)) required.add(file);
@@ -71,7 +79,7 @@ export function prepare({ verifyAll = false, requireTracked = false } = {}) {
   for (const file of Object.keys(frozen.artifacts)) {
     const exists = fs.existsSync(path.join(root, file));
     if (!exists && (verifyAll || required.has(file))) throw new Error(`Missing frozen artifact: ${file}`);
-    if (exists && sha256(read(file)) !== frozen.artifacts[file]) throw new Error(`Changed frozen artifact: ${file}`);
+    if (exists && sha256Artifact(file, read(file)) !== frozen.artifacts[file]) throw new Error(`Changed frozen artifact: ${file}`);
   }
   for (const [file, expected] of Object.entries(frozen.executionSources ?? {})) {
     const code = normalize(read(file).toString()).split('\n').filter(line => !/^\s*#/.test(line)).join('\n').trim();
@@ -87,7 +95,7 @@ export function prepare({ verifyAll = false, requireTracked = false } = {}) {
     let markdown = '';
     if (entry.cache) {
       const bytes = read(entry.cache);
-      if (sha256(bytes) !== entry.cacheSha256) throw new Error(`Changed cache: ${entry.cache}`);
+      if (sha256Artifact(entry.cache, bytes) !== entry.cacheSha256) throw new Error(`Changed cache: ${entry.cache}`);
       markdown = normalize(JSON.parse(bytes).result.markdown);
     }
     let compiled = compilePage(read(file).toString(), entry, markdown);
@@ -139,7 +147,6 @@ export function build() {
   requireIconify();
   derivePresentationAssets({ root });
   buildWorkflowDiagram({ root });
-  deriveVisualAssets();
   const stagingRoot = path.join(root, '.presentation-build');
   fs.mkdirSync(stagingRoot, { recursive: true });
   const stage = fs.mkdtempSync(path.join(stagingRoot, 'site-'));
