@@ -11,8 +11,8 @@ An R and Quarto teaching project for working reproducibly with OECD well-being d
 
 | Task | Command | What it does |
 |---|---|---|
-| Rebuild the website | `quarto render` | Re-derives presentation-only assets from existing local artifacts, renders the active Quarto pages, and writes the publication to `docs/` |
-| Inspect the rendered site | `quarto preview` | Serves the already-rendered `docs/` tree through the project's static preview configuration |
+| Rebuild the local website | `quarto render` | Renders the active pages and locally derived presentation assets into ignored `_site/`; tracked `docs/` and `assets/` remain publication-owned |
+| Inspect the rendered site | `quarto preview` | Serves the already-rendered `_site/` tree through the project's static preview configuration |
 | Run strict frozen-input checks | `node scripts/website/build.mjs --check` | Optional read-only validation of the frozen presentation contract; no R or OECD API calls |
 | Verify the complete local snapshot | `node scripts/website/build.mjs --check --verify-all` | Stronger optional validation requiring every recorded local artifact |
 | Recompute the analysis later | In an R session: `source("scripts/00-run-all.R")` | **Separate, destructive analytical operation** that may download missing OECD inputs and overwrite generated results |
@@ -47,14 +47,15 @@ config/ + OECD API
     → local data/processed/ + local analytical outputs
     → scripts/06–10
     → frozen analytical results and website-facing assets
-    → scripts/website/derive-presentation-assets.R
     → scripts/website/build-workflow-diagram.ts
-    → scripts/website/derive-visual-assets.ts
     → quarto render
+    → scripts/website/derive-presentation-assets.R
+    → scripts/website/derive-visual-assets.ts
     → scripts/website/polish-rendered.ts
-    → docs/
+    → ignored _site/
 
-GitHub publication additionally uses the stricter Node frozen-presentation tooling.
+Strict GitHub publication instead uses the Node frozen-presentation tooling and
+is the exclusive writer of canonical docs/.
 ```
 
 | Location | Role |
@@ -79,6 +80,7 @@ GitHub publication additionally uses the stricter Node frozen-presentation tooli
 | `index.qmd`, `analysis/*.qmd` | Authoritative website prose and reader-facing R display code |
 | `styles.css` | Shared site palette, typography, component, table, figure, and responsive styles |
 | `docs/` | Generated GitHub Pages publication; intentionally version-controlled by the publication workflow |
+| `_site/` | Ignored ordinary Quarto render/preview output; may contain locally derived presentation state |
 | `PROJECT_NOTES.md` | Additional maintenance conventions and project-specific notes |
 | `.presentation-build/` | Disposable local staging; ignored by Git |
 | `**/old/`, `archive/` (when present) | Local historical/PatchMyMess backups; ignored by Git and not part of the active workflow |
@@ -97,16 +99,18 @@ For ordinary website work, install Quarto and Node 22, then use `quarto render` 
 
 ## Frozen website maintenance
 
-A full `quarto render` is a **presentation rebuild**, not an analytical refresh. The project currently runs four website hooks around the active QMD pages:
+A full `quarto render` is a **local presentation rebuild**, not an analytical refresh. The project runs four website hooks around the active QMD pages:
 
-1. `scripts/website/derive-presentation-assets.R` derives browser-facing status/audit/provenance JSON from already-existing local artifacts.
-2. `scripts/website/build-workflow-diagram.ts` fingerprints the TikZ source and both Node/Deno generator implementations, recompiling `assets/project-workflow.svg` only when that content changes.
-3. `scripts/website/derive-visual-assets.ts` regenerates presentation-only SVG assets from existing local analytical outputs.
-4. `scripts/website/polish-rendered.ts` applies the canonical site-wide Table/Figure numbering and final presentation transformations to `docs/`.
+1. `scripts/website/build-workflow-diagram.ts` fingerprints the TikZ source and both Node/Deno generator implementations, recompiling tracked `assets/project-workflow.svg` only for a genuine deterministic source change.
+2. After Quarto creates `_site/`, `scripts/website/derive-presentation-assets.R` writes browser-facing status/audit/provenance JSON into `_site/assets/` from already-existing local artifacts.
+3. `scripts/website/derive-visual-assets.ts` writes locally derived presentation SVGs into `_site/assets/`.
+4. `scripts/website/polish-rendered.ts` applies site-wide Table/Figure numbering and final presentation transformations within `_site/`.
+
+The local hooks require Quarto's explicit output-directory environment and reject canonical `docs/` as a destination. They never copy locally derived analytical state back into tracked root `assets/`.
 
 The active QMD chunks read existing local artifacts. They do not call the OECD API or invoke the numbered analytical pipeline. If a required local frozen input is absent, do not substitute an API refresh merely to make a presentation edit work.
 
-After a full render, use `quarto preview` to inspect the generated publication. `_quarto.yml` configures preview as a static server rooted at `docs/`, with input watching and incremental navigation disabled. This avoids accidental page execution while navigating the rendered site.
+After a full render, use `quarto preview` to inspect the local site. `_quarto.yml` configures preview as a static server rooted at `_site/`, with input watching and incremental navigation disabled. This avoids accidental page execution while navigating the rendered site.
 
 The browser-side interactive components read local JSON/SVG/JavaScript assets. Sorting, filtering, coverage summaries, trajectory displays, observation-status views, and other interactions are presentation behavior; they do not write analytical artifacts or contact OECD.
 
@@ -122,6 +126,7 @@ These directories deliberately have different ownership:
 - `publication-baseline/` is the project-managed, Git-tracked analytical publication baseline. Ordinary Quarto hooks do not synchronize or modify it.
 - `config/frozen-presentation.json` binds QMD computations to that reviewed baseline and records integrity hashes.
 - `docs/` is generated publication output, not an input baseline.
+- `_site/` is ignored local output and is never an input to strict publication.
 
 Root `/_freeze/` is also ignored because Quarto reserves and manages that namespace. A deliberate analytical re-baseline requires review of candidate outputs, copying only the approved bytes into `publication-baseline/`, and then explicitly running `node .presentation-bootstrap.mjs --rebaseline`. The guard makes accidental manifest refreshes fail. Never add this utility to ordinary render hooks or CI publication.
 
@@ -180,7 +185,7 @@ The website does intentionally version the browser-facing assets required for th
 
 ## Publication
 
-The publication output is `docs/`. The current GitHub Actions workflow runs the strict Node builder on `main`, force-adds `docs/`, and commits/pushes the rendered publication back to the repository. The repository convention should therefore remain consistent with `docs/`; do not add it to `.gitignore` while this publication model remains active.
+The canonical publication output is `docs/`. The strict builder strips ordinary hooks and explicitly changes its isolated staged configuration from local `_site/` output to `docs/`; it never consumes `_site/`. The current GitHub Actions workflow runs that builder on `main`, force-adds `docs/`, and commits/pushes the rendered publication back to the repository. Do not add `docs/` to `.gitignore` while this publication model remains active.
 
 For routine website changes:
 
@@ -189,7 +194,7 @@ quarto render
 quarto preview
 ```
 
-Inspect the rendered pages, then commit the authoritative source changes together with any versioned presentation assets/publication files required by the repository's established workflow.
+Inspect the rendered pages in `_site/`, then commit only authoritative source changes and any deliberately regenerated deterministic source assets. Canonical `docs/` is produced by the strict publication workflow.
 
 ## Documentation and reuse
 

@@ -40,6 +40,22 @@ export function requiredPublicationArtifacts(frozen) {
   return [...required].sort();
 }
 
+export function publicationQuartoConfig(config) {
+  const hookBlock = /  pre-render:\n(?:    - .*\n)+  post-render:\n(?:    - .*\n)+/;
+  if (!hookBlock.test(config)) throw new Error('Expected presentation render hooks are missing or changed.');
+  if (!/^  output-dir: _site$/m.test(config)) {
+    throw new Error('Expected ordinary Quarto output-dir to be _site.');
+  }
+  const staged = config.replace(hookBlock, '').replace(/^  output-dir: _site$/m, '  output-dir: docs');
+  if (!/^  freeze: false$/m.test(staged)) {
+    throw new Error('Expected execute.freeze: false in website configuration.');
+  }
+  if (/^\s*(?:pre-render|post-render|filters|include-in-header|include-before-body|include-after-body):/m.test(staged)) {
+    throw new Error('Unreviewed render hooks or filters in website configuration.');
+  }
+  return staged.replace(/  freeze: false/, '  enabled: false\n  freeze: false');
+}
+
 function requireTrackedArtifacts(files) {
   const result = spawnSync(
     'git',
@@ -151,18 +167,10 @@ export function build() {
   fs.mkdirSync(stagingRoot, { recursive: true });
   const stage = fs.mkdtempSync(path.join(stagingRoot, 'site-'));
   const config = normalize(read('_quarto.yml').toString());
-  const hookBlock = /  pre-render:\n(?:    - .*\n)+  post-render:\n(?:    - .*\n)+/;
-  if (!hookBlock.test(config)) throw new Error('Expected presentation render hooks are missing or changed.');
-  const stageConfig = config.replace(hookBlock, '');
-  if (!/^  freeze: false$/m.test(stageConfig)) {
-    throw new Error('Expected execute.freeze: false in website configuration.');
-  }
-  if (/^\s*(?:pre-render|post-render|filters|include-in-header|include-before-body|include-after-body):/m.test(stageConfig)) {
-    throw new Error('Unreviewed render hooks or filters in website configuration.');
-  }
+  const stageConfig = publicationQuartoConfig(config);
   fs.writeFileSync(
     path.join(stage, '_quarto.yml'),
-    stageConfig.replace(/  freeze: false/, '  enabled: false\n  freeze: false')
+    stageConfig
   );
   for (const file of ['styles.css', 'references.bib']) fs.copyFileSync(path.join(root, file), path.join(stage, file));
   fs.cpSync(path.join(root, '_extensions'), path.join(stage, '_extensions'), { recursive: true });

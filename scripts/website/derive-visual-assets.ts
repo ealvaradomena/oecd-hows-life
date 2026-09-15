@@ -5,6 +5,24 @@
  */
 
 const root = new URL("../../", import.meta.url);
+const projectRoot = (await Deno.realPath(root)).replaceAll("\\", "/");
+const outputSetting = (Deno.env.get("QUARTO_PROJECT_OUTPUT_DIR") ?? "").trim();
+if (!outputSetting) {
+  throw new Error("QUARTO_PROJECT_OUTPUT_DIR is required; refusing to write presentation assets without an explicit local output root.");
+}
+const outputCandidate = /^(?:[A-Za-z]:\/|\/)/.test(outputSetting.replaceAll("\\", "/"))
+  ? outputSetting
+  : `${projectRoot}/${outputSetting}`;
+const outputRoot = (await Deno.realPath(outputCandidate)).replaceAll("\\", "/");
+const comparable = (value: string) => Deno.build.os === "windows" ? value.toLowerCase() : value;
+if (!comparable(outputRoot).startsWith(`${comparable(projectRoot)}/`)) {
+  throw new Error("Quarto output directory must remain inside the project tree.");
+}
+if (comparable(outputRoot) === comparable(`${projectRoot}/docs`)) {
+  throw new Error("Ordinary render hooks may not write to canonical docs/.");
+}
+const outputAssets = `${outputRoot}/assets`;
+await Deno.mkdir(outputAssets, { recursive: true });
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 const esc = (value: unknown) => String(value).replace(/[&<>"']/g, (character) => ({
@@ -24,7 +42,9 @@ async function readText(path: string): Promise<string> {
 }
 
 async function writeText(path: string, value: string): Promise<void> {
-  await Deno.writeFile(projectUrl(path), encoder.encode(`${value}\n`));
+  const filename = path.replaceAll("\\", "/").split("/").at(-1);
+  if (!filename || filename === "." || filename === "..") throw new Error(`Invalid output filename: ${path}`);
+  await Deno.writeFile(`${outputAssets}/${filename}`, encoder.encode(`${value}\n`));
 }
 
 function parseCsvLine(line: string): string[] {

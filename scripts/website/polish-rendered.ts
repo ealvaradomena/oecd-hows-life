@@ -5,6 +5,22 @@
  */
 
 const root = new URL("../../", import.meta.url);
+const projectRoot = (await Deno.realPath(root)).replaceAll("\\", "/");
+const outputSetting = (Deno.env.get("QUARTO_PROJECT_OUTPUT_DIR") ?? "").trim();
+if (!outputSetting) {
+  throw new Error("QUARTO_PROJECT_OUTPUT_DIR is required; refusing to polish without an explicit local output root.");
+}
+const outputCandidate = /^(?:[A-Za-z]:\/|\/)/.test(outputSetting.replaceAll("\\", "/"))
+  ? outputSetting
+  : `${projectRoot}/${outputSetting}`;
+const outputRoot = (await Deno.realPath(outputCandidate)).replaceAll("\\", "/");
+const comparable = (value: string) => Deno.build.os === "windows" ? value.toLowerCase() : value;
+if (!comparable(outputRoot).startsWith(`${comparable(projectRoot)}/`)) {
+  throw new Error("Quarto output directory must remain inside the project tree.");
+}
+if (comparable(outputRoot) === comparable(`${projectRoot}/docs`)) {
+  throw new Error("Ordinary render hooks may not write to canonical docs/.");
+}
 const pageOrder = [
   "index.qmd",
   "analysis/01-api-and-structure.qmd",
@@ -28,6 +44,14 @@ async function readText(path: string): Promise<string> {
 
 async function writeText(path: string, value: string): Promise<void> {
   await Deno.writeFile(projectUrl(path), encoder.encode(value));
+}
+
+function outputPath(path: string): string {
+  const relative = path.replaceAll("\\", "/").replace(/^\/+/, "");
+  if (relative.split("/").some((part) => part === ".." || part === ".")) {
+    throw new Error(`Invalid output-relative path: ${path}`);
+  }
+  return `${outputRoot}/${relative}`;
 }
 
 function escapeRegExp(value: string): string {
@@ -73,14 +97,14 @@ function replaceFigureImage(html: string, id: string, assetPath: string, alt: st
 }
 
 for (const page of pages) {
-  const htmlPath = `docs/${page.file.replace(/\.qmd$/, ".html")}`;
+  const htmlPath = outputPath(page.file.replace(/\.qmd$/, ".html"));
   try {
-    await Deno.stat(projectUrl(htmlPath));
+    await Deno.stat(htmlPath);
   } catch {
     continue;
   }
 
-  let html = await readText(htmlPath);
+  let html = decoder.decode(await Deno.readFile(htmlPath));
 
   for (const id of page.objects) {
     const label = numbers.get(id);
@@ -121,7 +145,7 @@ for (const page of pages) {
     html = replaceFigureImage(html, "fig-fwl", "../assets/twfe-fwl.svg", "Residualized life satisfaction and employment with the TWFE slope");
   }
 
-  await writeText(htmlPath, html);
+  await Deno.writeFile(htmlPath, encoder.encode(html));
 }
 
 console.log(`Applied canonical site-wide numbering (${table - 1} tables, ${figure - 1} figures) and presentation polish.`);

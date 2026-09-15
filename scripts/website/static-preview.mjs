@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static website preview server for the already-rendered docs/ tree.
+ * Static website preview server for an already-rendered local site tree.
  * Quarto launches this single Node process directly so Windows can terminate
  * the external server without a nested `quarto run`/Deno process tree.
  */
@@ -30,7 +30,7 @@ function option(args, name, fallback) {
 }
 
 export function parseOptions(args) {
-  const root = option(args, '--root', 'docs');
+  const root = option(args, '--root', '_site');
   const host = option(args, '--host', '127.0.0.1');
   const portText = option(args, '--port', '4200');
   const port = Number.parseInt(portText, 10);

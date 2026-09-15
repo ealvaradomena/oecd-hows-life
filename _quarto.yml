@@ -1,13 +1,15 @@
 project:
   type: website
-  output-dir: docs
+  # Ordinary development output is disposable and ignored. Canonical docs/ is
+  # owned exclusively by scripts/website/build.mjs and the publication workflow.
+  output-dir: _site
   # Presentation-only derivation. These hooks rebuild browser/presentation
   # assets from existing local artifacts; none invokes the numbered analytical pipeline.
   pre-render:
-    - '"C:/Program Files/R/R-4.5.2/bin/Rscript.exe" --vanilla scripts/website/derive-presentation-assets.R'
     - scripts/website/build-workflow-diagram.ts
-    - scripts/website/derive-visual-assets.ts
   post-render:
+    - '"C:/Program Files/R/R-4.5.2/bin/Rscript.exe" --vanilla scripts/website/derive-presentation-assets.R'
+    - scripts/website/derive-visual-assets.ts
     - scripts/website/polish-rendered.ts
   # Explicit render allow-list. Only these source documents are rendered by
   # `quarto render`; archival QMDs under adjacent `old/` directories are not
@@ -26,7 +28,7 @@ project:
     - "assets/*.json"
     - "assets/*.svg"
     - "assets/*.png"
-  # Preview the already-rendered docs/ tree through an external static server.
+  # Preview the already-rendered _site/ tree through an external static server.
   # This prevents navbar requests from entering Quarto's incremental-render path,
   # which always executes code unless --use-freezer is supplied explicitly.
   preview:

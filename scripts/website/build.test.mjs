@@ -3,7 +3,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { requiredPublicationArtifacts, root } from './build.mjs';
+import { publicationQuartoConfig, requiredPublicationArtifacts, root } from './build.mjs';
+
+test('strict publication strips local hooks and forces canonical docs output', () => {
+  const source = fs.readFileSync(path.join(root, '_quarto.yml'), 'utf8').replaceAll('\r\n', '\n');
+  const staged = publicationQuartoConfig(source);
+  assert.match(staged, /^  output-dir: docs$/m);
+  assert.doesNotMatch(staged, /^  output-dir: _site$/m);
+  assert.doesNotMatch(staged, /^\s*(?:pre-render|post-render):/m);
+  assert.match(staged, /^  enabled: false$/m);
+  assert.match(staged, /^  freeze: false$/m);
+});
 
 test('default publication requirements include caches, figures, and browser data', () => {
   const frozen = {

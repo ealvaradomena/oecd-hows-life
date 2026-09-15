@@ -7,6 +7,7 @@ import test from 'node:test';
 import { closeServer, createStaticServer, parseOptions, registerShutdownHandlers, resolveRequestPath } from './static-preview.mjs';
 
 test('parses host, port, and root options', () => {
+  assert.equal(parseOptions([]).root, '_site');
   assert.deepEqual(parseOptions(['--root', '.', '--host', '0.0.0.0', '--port', '4321']), {
     root: '.', host: '0.0.0.0', port: 4321,
   });

@@ -8,7 +8,7 @@ For ordinary local website maintenance, run:
 quarto render
 ```
 
-The project-level pre-render hook calls `scripts/website/derive-presentation-assets.R`. That script reads existing local artifacts and writes only browser-facing JSON under `assets/` for OECD observation-status displays, the TWFE audit/sample list, and retrieval provenance. It makes no network requests, does not run the numbered analytical pipeline, and does not fit models. When Quarto invokes the hook for an incremental/preview render, the script exits immediately unless `QUARTO_PROJECT_RENDER_ALL=1`; direct manual `Rscript` invocation still runs normally.
+After Quarto creates ignored `_site/`, the project-level post-render hooks derive browser-facing JSON and SVG assets into `_site/assets/`, then polish HTML within `_site/`. They read existing local artifacts, make no network requests, do not run the numbered analytical pipeline, and do not fit models. The hooks require Quarto's explicit output directory and reject canonical `docs/`; they never update tracked root presentation assets.
 
 Ordinary presentation execution is not frozen: `_quarto.yml` uses `execute.freeze: false` so a full render always reflects current `.qmd` source. The executed page chunks read existing analytical artifacts but do not recreate them, download data, or fit models. If a required local input is absent, rendering fails clearly or the presentation-asset step emits an explicit unavailable state instead of recreating analytical data.
 
@@ -16,11 +16,11 @@ The Node builder remains the stricter publication/CI path. `node scripts/website
 
 The workflow SVG uses a content fingerprint in `assets/project-workflow.sha256`, covering `diagrams/project-workflow.tex` and both generator implementations. Matching content skips TeX entirely; changed content regenerates the committed SVG when `pdflatex` and `dvisvgm` are available and otherwise fails rather than publishing stale output.
 
-After an explicit `quarto render`, use `quarto preview` to inspect the site. `_quarto.yml` configures preview with an external Node 22 static server (`scripts/website/static-preview.mjs`) rooted at `docs/`, disables source watching, and therefore keeps browser navigation out of Quarto's incremental-render path. Quarto launches Node directly so Windows shutdown does not leave a nested `quarto run`/Deno process tree behind. Source edits are picked up by running `quarto render` again.
+After an explicit `quarto render`, use `quarto preview` to inspect `_site/`. `_quarto.yml` configures an external Node 22 static server (`scripts/website/static-preview.mjs`) rooted at the active output directory, disables source watching, and therefore keeps browser navigation out of Quarto's incremental-render path. Quarto launches Node directly so Windows shutdown does not leave a nested `quarto run`/Deno process tree behind. Source edits are picked up by running `quarto render` again.
 
 ### Baseline ownership and Quarto rendering behavior
 
-`.quarto/_freeze/` and root `/_freeze/` are ignored Quarto-owned working state. Neither is a strict-publication input: Quarto may create, refresh, or remove them during ordinary rendering. The reviewed caches and figures used by the strict Node builder live instead in `publication-baseline/`, outside Quarto's reserved namespace. `config/frozen-presentation.json` binds active QMD computations to those files and records their hashes; `docs/` remains generated publication output.
+`.quarto/_freeze/`, root `/_freeze/`, and `_site/` are ignored Quarto-owned local state. None is a strict-publication input. The reviewed caches and figures used by the strict Node builder live instead in `publication-baseline/`, outside Quarto's reserved namespace. `config/frozen-presentation.json` binds active QMD computations to those files and records their hashes; the strict builder alone generates canonical `docs/`.
 
 Do not edit `publication-baseline/`, data, model summaries, or JSON merely to pass checks. Investigate integrity failures. A future authorized analysis requires review of candidate frozen outputs, deliberate replacement of the approved baseline bytes, and explicit manifest regeneration with `node .presentation-bootstrap.mjs --rebaseline`. The command refuses to write without that flag and must not be called by ordinary render hooks or CI.
 

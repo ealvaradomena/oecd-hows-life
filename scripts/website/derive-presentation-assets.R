@@ -7,11 +7,11 @@
 # - outputs/diagnostics/twfe-employment-life-satisfaction-by-area.csv: Optional area labels.
 # - data/retrieval-manifest.csv: Optional retrieval provenance.
 #
-# OUTPUTS
+# OUTPUTS (ordinary Quarto rendering only)
 # ==============================================================================
-# - assets/series-status.json: Browser-facing observation-status data.
-# - assets/twfe-audit.json: Browser-facing TWFE status and sample audit.
-# - assets/retrieval-manifest.json: Browser-facing retrieval provenance.
+# - <Quarto output>/assets/series-status.json: Browser-facing observation-status data.
+# - <Quarto output>/assets/twfe-audit.json: Browser-facing TWFE status and sample audit.
+# - <Quarto output>/assets/retrieval-manifest.json: Browser-facing retrieval provenance.
 # ==============================================================================
 
 # ////////////////////////////////////////////////////
@@ -35,28 +35,16 @@
 # - No OECD/API calls
 # - No analytical recomputation
 # - No model fitting
-# - No writes outside assets/*.json
+# - No writes outside the active, noncanonical Quarto output directory
 #
-# This script is invoked automatically by the project-level Quarto pre-render hook.
-# It is also safe to run directly from any working directory with Rscript.
+# This script is invoked automatically by the project-level Quarto post-render hook.
 #
-# During Quarto project rendering, derive these assets only for a full-project
-# render. Quarto also invokes pre-render hooks for incremental/preview renders;
-# repeating this work there is unnecessary and makes preview navigation slower.
-# A direct `Rscript scripts/website/derive-presentation-assets.R` invocation still
-# runs normally because the Quarto project-script environment variables are absent.
+# Direct invocation intentionally requires QUARTO_PROJECT_OUTPUT_DIR so it cannot
+# accidentally overwrite tracked canonical presentation assets. Preview disables
+# input watching/navigation, so its single startup pass can safely derive the same
+# local assets as an ordinary render.
 #
 # ////////////////////////////////////////////////////
-
-under_quarto <- nzchar(Sys.getenv("QUARTO_PROJECT_OUTPUT_DIR")) ||
-  nzchar(Sys.getenv("QUARTO_PROJECT_INPUT_FILES")) ||
-  nzchar(Sys.getenv("QUARTO_PROJECT_SCRIPT_PROGRESS")) ||
-  nzchar(Sys.getenv("QUARTO_PROJECT_SCRIPT_QUIET"))
-
-if (under_quarto && !identical(Sys.getenv("QUARTO_PROJECT_RENDER_ALL"), "1")) {
-  # Skip incremental Quarto work while retaining direct-Rscript behavior described above
-  quit(save = "no", status = 0L, runLast = FALSE)
-}
 
 required_packages <- c("jsonlite", "readr", "xml2")
 # Confirm the narrow asset-generation dependency set before reading local inputs
@@ -90,16 +78,34 @@ project_root <- normalizePath(
   mustWork = TRUE
 )
 
+output_setting <- trimws(Sys.getenv("QUARTO_PROJECT_OUTPUT_DIR"))
+if (!nzchar(output_setting)) {
+  stop("QUARTO_PROJECT_OUTPUT_DIR is required; refusing to write presentation assets without an explicit local output root.")
+}
+output_candidate <- if (grepl("^[A-Za-z]:[/\\\\]|^/", output_setting)) {
+  output_setting
+} else {
+  file.path(project_root, output_setting)
+}
+output_root <- normalizePath(output_candidate, winslash = "/", mustWork = TRUE)
+project_prefix <- paste0(tolower(project_root), "/")
+if (!startsWith(tolower(output_root), project_prefix)) {
+  stop("Quarto output directory must remain inside the project tree.")
+}
+if (identical(tolower(output_root), tolower(file.path(project_root, "docs")))) {
+  stop("Ordinary render hooks may not write to canonical docs/.")
+}
+
 PROJECT_PATH <- function(...) file.path(project_root, ...)
 # Centralize project-relative paths and create the only directory this script writes to
-assets_dir <- PROJECT_PATH("assets")
+assets_dir <- file.path(output_root, "assets")
 dir.create(assets_dir, recursive = TRUE, showWarnings = FALSE)
 
 WRITE_JSON <- function(value, filename) {
   # Apply one stable browser-JSON serialization policy to every generated asset
   jsonlite::write_json(
     value,
-    path = PROJECT_PATH("assets", filename),
+    path = file.path(assets_dir, filename),
     pretty = TRUE,
     auto_unbox = TRUE,
     na = "null",
@@ -472,7 +478,8 @@ WRITE_JSON(retrieval_manifest, "retrieval-manifest.json")
 
 message(
   "Derived presentation-only assets: ",
-  "assets/series-status.json, assets/twfe-audit.json, ",
-  "assets/retrieval-manifest.json"
+  file.path(assets_dir, "series-status.json"), ", ",
+  file.path(assets_dir, "twfe-audit.json"), ", ",
+  file.path(assets_dir, "retrieval-manifest.json")
 )
 # FINAL OUTPUT LINE
