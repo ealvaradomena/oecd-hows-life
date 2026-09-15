@@ -18,7 +18,7 @@ An R and Quarto teaching project for working reproducibly with OECD well-being d
 | Recompute the analysis later | In an R session: `source("scripts/00-run-all.R")` | **Separate, destructive analytical operation** that may download missing OECD inputs and overwrite generated results |
 | Restore R dependencies | `renv::restore()` | Restores the package environment recorded by `renv.lock` |
 
-Run commands from the project root. The lockfile currently records **R 4.5.2**. Ordinary rendering requires Quarto and the R packages restored from `renv.lock`; the project-local Quarto extensions under `_extensions/` are part of the reproducible website source. Node is not required for ordinary local rendering or static preview, but it is required for the strict frozen-presentation builder and by the current GitHub Actions publication workflow. The strict builder documents Node **20+** and Quarto **1.8.25** as its validated toolchain; CI currently pins Node **22** and Quarto **1.8.25**.
+Run commands from the project root. The lockfile currently records **R 4.5.2**. Ordinary rendering requires Quarto and the R packages restored from `renv.lock`; the project-local Quarto extensions under `_extensions/` are part of the reproducible website source. Static preview requires Node **22**, matching the current GitHub Actions publication runtime. Node is also required for the strict frozen-presentation builder. The strict builder documents Node **20+** and Quarto **1.8.25** as its validated toolchain; CI currently pins Node **22** and Quarto **1.8.25**.
 
 ## What the website renders
 
@@ -93,7 +93,7 @@ renv::restore()
 
 The project `.Rprofile` explicitly sources `renv/activate.R` after disabling renv's automatic autoloader path for this working environment. That startup behavior is deliberate and separate from the lockfile itself. If the local `renv/` bootstrap files are unavailable, restore them before expecting project startup to match the documented environment.
 
-For ordinary website work, install Quarto and use `quarto render` / `quarto preview`. The repository does not require Node for that local path. Node is required only for the strict builder/tests and the current CI publication workflow.
+For ordinary website work, install Quarto and Node 22, then use `quarto render` / `quarto preview`. Rendering itself does not require Node; the static preview server does. Node is also required by the strict builder/tests and the current CI publication workflow.
 
 ## Frozen website maintenance
 

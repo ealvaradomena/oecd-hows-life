@@ -33,7 +33,7 @@ project:
     watch-inputs: false
     navigate: false
     serve:
-      cmd: "quarto run ../scripts/website/static-preview.ts --root . --host {host} --port {port}"
+      cmd: "node ../scripts/website/static-preview.mjs --root . --host {host} --port {port}"
       ready: "STATIC_PREVIEW_READY"
 
 website:
