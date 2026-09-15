@@ -98,7 +98,7 @@ For ordinary website work, install Quarto and use `quarto render` / `quarto prev
 A full `quarto render` is a **presentation rebuild**, not an analytical refresh. The project currently runs four website hooks around the active QMD pages:
 
 1. `scripts/website/derive-presentation-assets.R` derives browser-facing status/audit/provenance JSON from already-existing local artifacts.
-2. `scripts/website/build-workflow-diagram.ts` recompiles `diagrams/project-workflow.tex` into `assets/project-workflow.svg`.
+2. `scripts/website/build-workflow-diagram.ts` fingerprints the TikZ source and both Node/Deno generator implementations, recompiling `assets/project-workflow.svg` only when that content changes.
 3. `scripts/website/derive-visual-assets.ts` regenerates presentation-only SVG assets from existing local analytical outputs.
 4. `scripts/website/polish-rendered.ts` applies the canonical site-wide Table/Figure numbering and final presentation transformations to `docs/`.
 
@@ -107,6 +107,8 @@ The active QMD chunks read existing local artifacts. They do not call the OECD A
 After a full render, use `quarto preview` to inspect the generated publication. `_quarto.yml` configures preview as a static server rooted at `docs/`, with input watching and incremental navigation disabled. This avoids accidental page execution while navigating the rendered site.
 
 The browser-side interactive components read local JSON/SVG/JavaScript assets. Sorting, filtering, coverage summaries, trajectory displays, observation-status views, and other interactions are presentation behavior; they do not write analytical artifacts or contact OECD.
+
+The workflow diagram is a committed reproducible output. Its expected content fingerprint is stored in `assets/project-workflow.sha256`; timestamps are ignored. Both ordinary Quarto rendering and the strict Node/CI builder skip TeX when the fingerprint matches. If the source or either generator changes, a machine with `pdflatex` and `dvisvgm` must regenerate and commit both the SVG and fingerprint. A stale diagram fails closed when those tools are unavailable, preventing CI from publishing an outdated asset.
 
 ## Strict frozen-presentation path
 
