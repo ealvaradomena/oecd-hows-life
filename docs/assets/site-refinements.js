@@ -89,10 +89,17 @@
     cards.setAttribute("aria-label","Panel summary");
     items.forEach(item=>{
       const card=document.createElement("div"); card.className=`panel-summary-card ${item.className}`;
+      const primary=document.createElement("div"); primary.className="panel-summary-primary";
       const value=document.createElement("strong"); value.textContent=item.value;
       const label=document.createElement("span"); label.textContent=item.label;
-      card.append(value,label);
-      if(item.meta){const meta=document.createElement("small");meta.textContent=item.meta;card.append(meta);}
+      primary.append(value,label);
+      card.append(primary);
+      if(item.meta){
+        const meta=document.createElement("small"); meta.className="panel-summary-balance-detail";
+        const parts=item.meta.split(" · ");
+        parts.forEach(part=>{const line=document.createElement("span");line.textContent=part;meta.append(line);});
+        card.append(meta);
+      }
       cards.append(card);
     });
     panelObject.id="panel-series-summary";

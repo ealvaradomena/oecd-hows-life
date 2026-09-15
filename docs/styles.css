@@ -1783,14 +1783,21 @@ table caption,
   border-radius: .45rem;
   background: linear-gradient(145deg, #fff 0%, var(--hl-soft) 100%);
 }
-.panel-summary-card strong {
+.panel-summary-primary {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: 2.15rem auto;
+  align-content: center;
+}
+.panel-summary-primary strong {
+  align-self: end;
   color: var(--burgundy-dark);
   font-size: 1.7rem;
   font-weight: 800;
   line-height: 1.05;
   font-variant-numeric: tabular-nums;
 }
-.panel-summary-card span {
+.panel-summary-primary > span {
   margin-top: .42rem;
   color: #5f5a5c;
   font-size: .72rem;
@@ -1798,22 +1805,38 @@ table caption,
   letter-spacing: .055em;
   text-transform: uppercase;
 }
-.panel-summary-card small {
-  margin-top: .5rem;
+.panel-kpi-balance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 1rem;
+  border-top-color: var(--pink);
+}
+.panel-summary-balance-detail {
+  display: grid;
+  gap: .18rem;
   color: #6b6668;
   font-size: .78rem;
   line-height: 1.35;
 }
-.panel-summary-balance { border-top-color: var(--pink); }
-.panel-summary-completion {
+.panel-summary-balance-detail > span {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+}
+.panel-kpi-completion {
   border-top-color: var(--teal);
   background: linear-gradient(145deg, #fff 0%, var(--hl-soft-teal) 100%);
 }
-.panel-summary-completion strong {
+.panel-kpi-completion strong {
   color: var(--teal-dark);
   font-size: 1.95rem;
 }
-.panel-summary-periods { border-top-color: var(--teal-dark); }
+.panel-kpi-periods { border-top-color: var(--teal-dark); }
 
 /* Table 6: consistent columns; literal SDMX codes are the only typographic exception. */
 #tbl-selected-series tbody td:nth-child(2) {
