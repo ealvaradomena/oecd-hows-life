@@ -12,15 +12,17 @@ on:
       - 'analysis/*.qmd'
       - 'assets/*.js'
       - 'assets/*.json'
+      - 'assets/*.png'
       - 'assets/*.sha256'
       - 'assets/project-workflow.svg'
       - 'diagrams/project-workflow.tex'
-      - '_freeze/**'
+      - 'publication-baseline/**'
       - 'scripts/website/**'
       - 'config/**'
       - '_quarto.yml'
       - 'styles.css'
       - 'references.bib'
+      - '.gitattributes'
       - '.github/workflows/publish.yml'
 
 permissions:
@@ -51,7 +53,7 @@ jobs:
         run: node --test scripts/website/*.test.mjs
 
       - name: Render frozen presentation (no R or analytical execution)
-        run: node scripts/website/build.mjs
+        run: node scripts/website/build.mjs --require-tracked
 
       - name: Commit rendered site
         run: |

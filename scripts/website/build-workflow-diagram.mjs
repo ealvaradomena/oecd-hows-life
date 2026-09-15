@@ -18,7 +18,8 @@ export function workflowDiagramFingerprint(root) {
   for (const relative of generatorInputs) {
     const file = path.join(root, relative);
     if (!fs.existsSync(file)) throw new Error(`Missing workflow-diagram input: ${relative}`);
-    hash.update(`${relative}\0`); hash.update(fs.readFileSync(file)); hash.update('\0');
+    const content = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
+    hash.update(`${relative}\0`); hash.update(content); hash.update('\0');
   }
   return hash.digest('hex');
 }

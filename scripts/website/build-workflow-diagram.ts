@@ -13,7 +13,8 @@ async function fingerprint(): Promise<string> {
   const encoder = new TextEncoder();
   for (const relative of generatorInputs) {
     if (!(await exists(relative))) throw new Error(`Missing workflow-diagram input: ${relative}`);
-    chunks.push(encoder.encode(`${relative}\0`), await Deno.readFile(relative), encoder.encode("\0"));
+    const content = (await Deno.readTextFile(relative)).replaceAll("\r\n", "\n");
+    chunks.push(encoder.encode(`${relative}\0`), encoder.encode(content), encoder.encode("\0"));
   }
   const bytes = new Uint8Array(chunks.reduce((sum, chunk) => sum + chunk.length, 0));
   let offset = 0;

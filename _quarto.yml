@@ -93,7 +93,7 @@ execute:
   # Rebuild presentation output from current source on every full render. Page
   # chunks read existing local artifacts; they do not run the analytical pipeline
   # or contact OECD. The strict Node/CI path separately consumes the historical
-  # _freeze/ cache recorded by config/frozen-presentation.json.
+  # reviewed publication-baseline/ recorded by config/frozen-presentation.json.
   freeze: false
   warning: false
   message: false

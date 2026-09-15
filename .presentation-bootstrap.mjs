@@ -1,8 +1,11 @@
-// One-time frozen-manifest bootstrap retained for provenance.
-// Reads source/cache/data/output state and writes config/frozen-presentation.json;
-// it is not part of the ordinary Quarto render or current GitHub Actions path.
+// Explicit frozen-publication re-baseline utility retained for provenance.
+// Reads reviewed source/cache/data/output state and writes the manifest; it is
+// never part of ordinary Quarto rendering or the GitHub Actions publication path.
 import fs from 'node:fs';
 import { normalize, tokens, signature, metadata, sha256 } from './scripts/website/frozen-source.mjs';
+if (!process.argv.includes('--rebaseline')) {
+  throw new Error('Refusing to rewrite the frozen manifest without explicit --rebaseline approval.');
+}
 const pages = ['index.qmd', ...fs.readdirSync('analysis').filter(x => x.endsWith('.qmd')).sort().map(x => `analysis/${x}`)];
 const manifest = { version: 1, pages: {}, artifacts: {} };
 const escape = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s*');
@@ -10,7 +13,7 @@ for (const page of pages) {
   const source = normalize(fs.readFileSync(page, 'utf8'));
   const found = tokens(source);
   if (!found.length) { manifest.pages[page] = { bindings: [] }; continue; }
-  const cache = `_freeze/${page.replace(/\.qmd$/, '')}/execute-results/html.json`;
+  const cache = `publication-baseline/${page.replace(/\.qmd$/, '')}/execute-results/html.json`;
   const bytes = fs.readFileSync(cache);
   const markdown = normalize(JSON.parse(bytes).result.markdown);
   let pos = 0, pattern = '^';
@@ -33,8 +36,8 @@ function inventory(dir) {
     else manifest.artifacts[file] = sha256(fs.readFileSync(file));
   }
 }
-for (const dir of ['data', 'outputs', '_freeze']) inventory(dir);
-for (const file of ['assets/series-data.json', 'assets/series-inventory.json', 'renv.lock', 'config/analysis.yml', 'config/dataflows.yml']) {
+for (const dir of ['data', 'outputs', 'publication-baseline']) inventory(dir);
+for (const file of ['assets/logo-bg-1200x900.png', 'assets/series-data.json', 'assets/series-inventory.json', 'assets/selected-series.json', 'renv.lock', 'config/analysis.yml', 'config/dataflows.yml']) {
   manifest.artifacts[file] = sha256(fs.readFileSync(file));
 }
 fs.writeFileSync('config/frozen-presentation.json', JSON.stringify(manifest, null, 2) + '\n');

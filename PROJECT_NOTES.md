@@ -18,17 +18,17 @@ The workflow SVG uses a content fingerprint in `assets/project-workflow.sha256`,
 
 After an explicit `quarto render`, use `quarto preview` to inspect the site. `_quarto.yml` configures preview with an external static server (`scripts/website/static-preview.ts`) rooted at `docs/`, disables source watching, and therefore keeps browser navigation out of Quarto's incremental-render path. The server runs through `quarto run` and Quarto's bundled Deno runtime; Node and Python are not required. Source edits are picked up by running `quarto render` again.
 
-### Quarto rendering behavior
+### Baseline ownership and Quarto rendering behavior
 
-The historical `_freeze/` tree remains a reviewed input to the strict Node publication builder and a reproducibility record. Because ordinary full renders use `execute.freeze: false`, this tree does not control their visible output.
+`.quarto/_freeze/` and root `/_freeze/` are ignored Quarto-owned working state. Neither is a strict-publication input: Quarto may create, refresh, or remove them during ordinary rendering. The reviewed caches and figures used by the strict Node builder live instead in `publication-baseline/`, outside Quarto's reserved namespace. `config/frozen-presentation.json` binds active QMD computations to those files and records their hashes; `docs/` remains generated publication output.
 
-Do not edit `_freeze/`, data, model summaries, or JSON merely to pass checks. Investigate integrity failures. A future authorized analysis requires a reviewed new baseline; the frozen manifest must not refresh automatically.
+Do not edit `publication-baseline/`, data, model summaries, or JSON merely to pass checks. Investigate integrity failures. A future authorized analysis requires review of candidate frozen outputs, deliberate replacement of the approved baseline bytes, and explicit manifest regeneration with `node .presentation-bootstrap.mjs --rebaseline`. The command refuses to write without that flag and must not be called by ordinary render hooks or CI.
 
 ### Legacy maintenance helpers
 
 Two top-level JavaScript utilities are retained as one-time migration/provenance helpers rather than active render steps:
 
-- `.presentation-bootstrap.mjs` bootstraps `config/frozen-presentation.json` from source, `_freeze/`, data, and outputs; it writes the manifest and therefore is not a read-only check.
+- `.presentation-bootstrap.mjs` deliberately re-baselines `config/frozen-presentation.json` from source, `publication-baseline/`, data, and outputs. It writes the manifest only when passed `--rebaseline`; it is not a read-only check or an automatic synchronization tool.
 - `.presentation-edits.mjs` records an earlier batch of presentation edits. It is not invoked by `_quarto.yml` or the current GitHub Actions workflow and should not be rerun against the current source tree without a deliberate review of every replacement.
 
 Likewise, `scripts/website/ensure-iconify.ts` is not part of the current Quarto pre-render list. The project-local Iconify extension is already versioned under `_extensions/mcanouil/iconify/`; the strict Node builder checks for that local extension rather than installing it during rendering.
@@ -58,6 +58,6 @@ The live AlvaradoCSS stylesheet was inspected on 2026-09-10: `.site-legal-footer
 
 Local baseline: `quarto render`, then `quarto preview`, then inspect the rendered pages and interactive controls. The preview server is static; rerun `quarto render` after source edits.
 
-Optional strict checks (when Node is available): `node --test scripts/website/*.test.mjs`, `node scripts/website/build.mjs --check`, and `node scripts/website/build.mjs --check --verify-all`.
+Optional strict checks (when Node is available): `node --test scripts/website/*.test.mjs`, `node scripts/website/build.mjs --check`, and `node scripts/website/build.mjs --check --verify-all`. CI also passes `--require-tracked` so a required frozen cache, figure, or browser-data asset cannot exist only in a maintainer's local workspace.
 
 Static checks cover object IDs, unique numbers, caption order, image descriptions, and local file/fragment references. Browser checks remain necessary for responsive layout, dynamic widgets, and keyboard behavior; static validation is not a screen-reader audit.

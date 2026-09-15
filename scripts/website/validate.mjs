@@ -20,7 +20,7 @@ export function validateSite(directory, pages) {
       const caption = /<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/.exec(content);
       if (!caption) { failures.push(`${page.file}: uncaptioned figure`); continue; }
       const text = caption[1].replace(/<[^>]+>/g, '').replaceAll('&nbsp;', ' ').trim();
-      const number = /^(Figure|Table)\s+(\d+):/.exec(text);
+      const number = /^(Figure|Table)\s+(\d+)(?::|\s|$)/.exec(text);
       if (!number) failures.push(`${page.file}: caption lacks number: ${text}`);
       else {
         const key = `${number[1]} ${number[2]}`;

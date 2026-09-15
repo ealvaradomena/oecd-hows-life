@@ -43,8 +43,8 @@ export function buildNumberMap(pages) {
 
 
 function replaceFigureImage(html, id, assetPath, alt) {
-  const pattern = new RegExp(`(<div\\b[^>]*id="${escapeRegExp(id)}"[\\s\\S]*?<figure[^>]*>)[\\s\\S]*?(<figcaption\\b)`, 'm');
-  return html.replace(pattern, `$1<img src="${assetPath}" class="img-fluid presentation-svg" alt="${alt}">$2`);
+  const pattern = new RegExp(`(<div\\b[^>]*id="${escapeRegExp(id)}"[\\s\\S]*?<figure[^>]*>[\\s\\S]*?)<img\\b[^>]*>`, 'm');
+  return html.replace(pattern, `$1<img src="${assetPath}" class="img-fluid presentation-svg" alt="${alt}">`);
 }
 
 export function polishSite(directory, pages) {

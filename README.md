@@ -65,6 +65,8 @@ GitHub publication additionally uses the stricter Node frozen-presentation tooli
 | `config/dataflows.yml` | OECD agency/dataflow registry and versions |
 | `config/analysis.yml` | Analytical settings such as panel dimensions and total-category codes |
 | `config/frozen-presentation.json` | Frozen presentation bindings and integrity information used by the strict path |
+| `publication-baseline/` | Reviewed, Git-tracked caches and figures consumed only by the strict publication path |
+| `.quarto/_freeze/` | Quarto-owned, ignored working cache; never an approved publication baseline |
 | `data/raw/` | Local OECD data downloads; ignored by Git |
 | `data/metadata/` | Local OECD SDMX structure metadata; ignored by Git |
 | `data/processed/` | Locally generated processed datasets; ignored by Git |
@@ -112,7 +114,16 @@ The workflow diagram is a committed reproducible output. Its expected content fi
 
 ## Strict frozen-presentation path
 
-The Node path is intended for strict validation/publication, not routine local rendering. It is optional for local website maintenance but required by `.github/workflows/publish.yml`. The strict builder checks recorded frozen inputs and generates the publication without rerunning the R analytical pipeline. Its contract depends on `config/frozen-presentation.json` and the local `_freeze/` tree recorded there. ZipMyMess snapshots may list `_freeze/` in `wd_view.txt` without embedding the pruned cache itself; absence from a compact snapshot is therefore not evidence that the project no longer uses it. Keep the ordinary Quarto/Deno path and the strict Node path behaviorally aligned whenever presentation-asset derivation is changed.
+The Node path is intended for strict validation/publication, not routine local rendering. It is optional for local website maintenance but required by `.github/workflows/publish.yml`. The strict builder checks `config/frozen-presentation.json`, reads the reviewed caches and figures in `publication-baseline/`, and generates `docs/` without rerunning the R analytical pipeline. Every baseline artifact needed by the default CI build must exist, match its recorded SHA-256 hash, and be tracked by Git.
+
+These directories deliberately have different ownership:
+
+- `.quarto/_freeze/` is Quarto-managed, ignored working state. It may be refreshed as part of local rendering and is not trusted by CI.
+- `publication-baseline/` is the project-managed, Git-tracked analytical publication baseline. Ordinary Quarto hooks do not synchronize or modify it.
+- `config/frozen-presentation.json` binds QMD computations to that reviewed baseline and records integrity hashes.
+- `docs/` is generated publication output, not an input baseline.
+
+Root `/_freeze/` is also ignored because Quarto reserves and manages that namespace. A deliberate analytical re-baseline requires review of candidate outputs, copying only the approved bytes into `publication-baseline/`, and then explicitly running `node .presentation-bootstrap.mjs --rebaseline`. The guard makes accidental manifest refreshes fail. Never add this utility to ordinary render hooks or CI publication.
 
 ## Validation and tests
 
@@ -122,9 +133,10 @@ The repository includes Node tests for the frozen-source substitution contract a
 node --test scripts/website/*.test.mjs
 node scripts/website/build.mjs --check
 node scripts/website/build.mjs --check --verify-all
+node scripts/website/build.mjs --check --require-tracked
 ```
 
-`--check` verifies the required frozen bindings and artifacts without rendering. `--verify-all` additionally requires every artifact recorded in the integrity manifest. Browser inspection remains necessary for responsive layout, interactive behavior, and keyboard/focus behavior.
+`--check` verifies the required frozen bindings and artifacts without rendering. `--verify-all` additionally requires every artifact recorded in the integrity manifest. `--require-tracked`, used by CI, also rejects a baseline whose required caches, figures, or browser-data assets are not tracked by Git. Browser inspection remains necessary for responsive layout, interactive behavior, and keyboard/focus behavior.
 
 ## Recomputing the analysis later
 

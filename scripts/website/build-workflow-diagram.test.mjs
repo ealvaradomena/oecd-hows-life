@@ -42,3 +42,13 @@ test('stale output fails closed when TeX is unavailable', t => {
   const root = fixture(); t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   assert.throws(() => buildWorkflowDiagram({ root, commandAvailable: () => false }), /stale or missing/);
 });
+
+test('fingerprint is stable across LF and CRLF checkouts', t => {
+  const lf = fixture(); const crlf = fixture();
+  t.after(() => { fs.rmSync(lf, { recursive: true, force: true }); fs.rmSync(crlf, { recursive: true, force: true }); });
+  for (const relative of ['diagrams/project-workflow.tex', 'scripts/website/build-workflow-diagram.mjs', 'scripts/website/build-workflow-diagram.ts']) {
+    const file = path.join(crlf, relative);
+    fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replace(/\n/g, '\r\n'));
+  }
+  assert.equal(workflowDiagramFingerprint(lf), workflowDiagramFingerprint(crlf));
+});

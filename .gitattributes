@@ -1,0 +1,11 @@
+*.mjs text eol=lf
+*.ts text eol=lf
+*.tex text eol=lf
+*.sha256 text eol=lf
+/publication-baseline/**/*.json text eol=lf
+/publication-baseline/**/*.png binary
+/assets/*.json text eol=lf
+/assets/*.png binary
+/config/*.json text eol=lf
+/config/*.yml text eol=lf
+/renv.lock text eol=lf

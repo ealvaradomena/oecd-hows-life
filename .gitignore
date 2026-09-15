@@ -8,6 +8,7 @@ renv/staging/
 
 # Quarto local caches and temporary render products
 .quarto/
+/_freeze/
 _site/
 **/*.quarto_ipynb
 
@@ -50,6 +51,7 @@ desktop.ini
 # Intentionally NOT ignored:
 # - docs/ (GitHub Pages publication output)
 # - assets/*.json and assets/*.svg required by the frozen website
+# - publication-baseline/ (reviewed strict-publication inputs)
 # - _extensions/ (project-local Quarto extensions required for reproducibility)
 
 /.quarto/

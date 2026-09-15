@@ -50,7 +50,7 @@ function objectIds(source: string): string[] {
   const matches = [...source.matchAll(/(?:\{#|#\|\s*label:\s*)((?:fig|tbl)-[\w-]+)/g)]
     .sort((left, right) => (left.index ?? 0) - (right.index ?? 0))
     .map((match) => match[1]);
-  return [...new Set(matches)].filter((id) => id !== "tbl-panel-series-summary");
+  return [...new Set(matches)];
 }
 
 const pages = [];

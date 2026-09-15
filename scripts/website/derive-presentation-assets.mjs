@@ -6,6 +6,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 
 function parseCsv(text) {
   const rows = [];
@@ -50,9 +51,18 @@ function parseCsv(text) {
     .map(values => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ''])));
 }
 
-const clean = value => String(value ?? '').trim();
+const clean = value => {
+  const cleaned = String(value ?? '').trim();
+  return cleaned === 'NA' ? '' : cleaned;
+};
 const readCsv = file => parseCsv(fs.readFileSync(file, 'utf8'));
-const writeJson = (file, value) => fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
+const writeJson = (file, value) => {
+  if (fs.existsSync(file)) {
+    try { if (isDeepStrictEqual(JSON.parse(fs.readFileSync(file, 'utf8')), value)) return; }
+    catch { /* Rewrite malformed or non-JSON content below. */ }
+  }
+  fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
+};
 
 function statusLabelsFromStructure(file) {
   if (!fs.existsSync(file)) return {};

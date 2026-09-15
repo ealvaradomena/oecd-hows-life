@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
  * Render the website from frozen outputs; no R, OECD, LLM, or model execution.
- * Inputs: QMD prose, frozen-presentation.json, _freeze, local JS/JSON/CSS.
+ * Inputs: QMD prose, frozen-presentation.json, publication-baseline, local JS/JSON/CSS.
  * Outputs: disposable .presentation-build staging; docs/ only after validation.
  * Requires Node >= 20 and Quarto 1.8.25. Run from anywhere in this project.
  * --check verifies bindings/artifacts without rendering. --verify-all also
  * requires every local analytical artifact recorded in the integrity manifest.
+ * --require-tracked verifies that every default publication input is in Git.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,6 +22,27 @@ import { buildWorkflowDiagram } from './build-workflow-diagram.mjs';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const read = file => fs.readFileSync(path.join(root, file));
 const manifest = () => JSON.parse(read('config/frozen-presentation.json'));
+
+export function requiredPublicationArtifacts(frozen) {
+  const required = new Set(['assets/logo-bg-1200x900.png', 'assets/series-data.json', 'assets/series-inventory.json', 'assets/selected-series.json']);
+  for (const entry of Object.values(frozen.pages)) if (entry.cache) required.add(entry.cache);
+  for (const file of Object.keys(frozen.artifacts)) {
+    if (file.startsWith('publication-baseline/') && /\/figure-html\//.test(file)) required.add(file);
+  }
+  return [...required].sort();
+}
+
+function requireTrackedArtifacts(files) {
+  const result = spawnSync(
+    'git',
+    ['-c', `safe.directory=${root.replaceAll('\\', '/')}`, 'ls-files', '-z'],
+    { cwd: root, encoding: 'utf8', shell: false }
+  );
+  if (result.error || result.status !== 0) throw new Error('Unable to inspect Git-tracked publication artifacts.');
+  const tracked = new Set(result.stdout.split('\0').filter(Boolean));
+  const missing = files.filter(file => !tracked.has(file));
+  if (missing.length) throw new Error(`Required publication artifacts are not Git-tracked: ${missing.join(', ')}`);
+}
 
 
 export function compilePage(source, entry, markdown = '') {
@@ -41,13 +63,12 @@ export function compilePage(source, entry, markdown = '') {
   return result;
 }
 
-export function prepare({ verifyAll = false } = {}) {
+export function prepare({ verifyAll = false, requireTracked = false } = {}) {
   const frozen = manifest();
   if (frozen.version !== 1) throw new Error('Unsupported frozen manifest version.');
-  const required = new Set(['assets/series-data.json', 'assets/series-inventory.json', 'assets/selected-series.json']);
-  for (const entry of Object.values(frozen.pages)) if (entry.cache) required.add(entry.cache);
+  const required = new Set(requiredPublicationArtifacts(frozen));
+  if (requireTracked) requireTrackedArtifacts([...required]);
   for (const file of Object.keys(frozen.artifacts)) {
-    if (file.startsWith('_freeze/') && /\/figure-html\//.test(file)) required.add(file);
     const exists = fs.existsSync(path.join(root, file));
     if (!exists && (verifyAll || required.has(file))) throw new Error(`Missing frozen artifact: ${file}`);
     if (exists && sha256(read(file)) !== frozen.artifacts[file]) throw new Error(`Changed frozen artifact: ${file}`);
@@ -72,17 +93,14 @@ export function prepare({ verifyAll = false } = {}) {
     let compiled = compilePage(read(file).toString(), entry, markdown);
     const sourceForObjects = read(file).toString();
     const objectMatches = [...sourceForObjects.matchAll(/(?:\{#|#\|\s*label:\s*)((?:fig|tbl)-[\w-]+)/g)].sort((a,b)=>a.index-b.index);
-    const objects = [...new Set(objectMatches.map(match => match[1]))].filter(id => id !== 'tbl-panel-series-summary');
-    const labels = { fig: [], tbl: [] };
+    const objects = [...new Set(objectMatches.map(match => match[1]))];
     for (const id of objects) {
       if (identifiers.has(id)) throw new Error(`Duplicate object identifier: ${id}`);
       identifiers.add(id);
-      labels[id.slice(0, 3)].push(String(id.startsWith('fig-') ? figure++ : table++));
+      if (id.startsWith('fig-')) figure++; else table++;
     }
-    // Quarto's native custom labels supply one sequence across all website pages.
-    const crossref = Object.entries(labels).filter(([, values]) => values.length)
-      .map(([type, values]) => `  ${type}-labels: ${JSON.stringify(values)}`).join('\n');
-    compiled = compiled.replace(/^---\n/, `---\nengine: markdown\n${crossref ? `crossref:\n${crossref}\n` : ''}`);
+    // Site-wide object numbers and cross-reference text are applied after render.
+    compiled = compiled.replace(/^---\n/, '---\nengine: markdown\n');
     pages.push({ file, compiled, objects });
   }
   return { frozen, pages, counts: { figures: figure - 1, tables: table - 1 } };
@@ -111,7 +129,11 @@ function requireIconify() {
 }
 
 export function build() {
-  const prepared = prepare({ verifyAll: process.argv.includes('--verify-all') });
+  const options = {
+    verifyAll: process.argv.includes('--verify-all'),
+    requireTracked: process.argv.includes('--require-tracked'),
+  };
+  const prepared = prepare(options);
   console.log(`Verified frozen bindings: ${prepared.pages.length} pages, ${prepared.counts.figures} figures, ${prepared.counts.tables} tables.`);
   if (process.argv.includes('--check')) return;
   requireIconify();
@@ -138,14 +160,14 @@ export function build() {
   for (const file of ['styles.css', 'references.bib']) fs.copyFileSync(path.join(root, file), path.join(stage, file));
   fs.cpSync(path.join(root, '_extensions'), path.join(stage, '_extensions'), { recursive: true });
   fs.mkdirSync(path.join(stage, 'assets'));
-  for (const file of fs.readdirSync(path.join(root, 'assets')).filter(file => /\.(js|json|svg)$/.test(file))) {
+  for (const file of fs.readdirSync(path.join(root, 'assets')).filter(file => /\.(js|json|png|svg)$/.test(file))) {
     fs.copyFileSync(path.join(root, 'assets', file), path.join(stage, 'assets', file));
   }
   for (const { file, compiled } of prepared.pages) {
     const destination = path.join(stage, file);
     fs.mkdirSync(path.dirname(destination), { recursive: true });
     fs.writeFileSync(destination, compiled);
-    const frozenFigures = path.join(root, '_freeze', file.replace(/\.qmd$/, ''), 'figure-html');
+    const frozenFigures = path.join(root, 'publication-baseline', file.replace(/\.qmd$/, ''), 'figure-html');
     if (fs.existsSync(frozenFigures)) {
       const images = path.join(stage, file.replace(/\.qmd$/, '_files'), 'figure-html');
       fs.cpSync(frozenFigures, images, { recursive: true });
@@ -157,7 +179,7 @@ export function build() {
   const output = path.join(stage, 'docs');
   polishSite(output, prepared.pages);
   validateSite(output, prepared.pages);
-  prepare({ verifyAll: process.argv.includes('--verify-all') });
+  prepare(options);
   // Both paths are resolved inside this workspace; preserve the old publication.
   const docs = path.resolve(root, 'docs');
   const backup = path.resolve(stage, 'previous-docs');
