@@ -54,7 +54,8 @@ desktop.ini
 # - publication-baseline/ (reviewed strict-publication inputs)
 # - _extensions/ (project-local Quarto extensions required for reproducibility)
 
-/.quarto/
 
 # Temporary working files and review artifacts
 tmp/
+
+/.quarto/

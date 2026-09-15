@@ -8,7 +8,7 @@ project:
   pre-render:
     - scripts/website/build-workflow-diagram.ts
   post-render:
-    - '"C:/Program Files/R/R-4.5.2/bin/Rscript.exe" --vanilla scripts/website/derive-presentation-assets.R'
+    - 'Rscript --vanilla scripts/website/derive-presentation-assets.R'
     - scripts/website/derive-visual-assets.ts
     - scripts/website/polish-rendered.ts
   # Explicit render allow-list. Only these source documents are rendered by

@@ -26,10 +26,9 @@ Do not edit `publication-baseline/`, data, model summaries, or JSON merely to pa
 
 ### Legacy maintenance helpers
 
-Two top-level JavaScript utilities are retained as one-time migration/provenance helpers rather than active render steps:
+One top-level JavaScript utility is retained as a deliberate re-baselining helper rather than an active render step:
 
 - `.presentation-bootstrap.mjs` deliberately re-baselines `config/frozen-presentation.json` from source, `publication-baseline/`, data, and outputs. It writes the manifest only when passed `--rebaseline`; it is not a read-only check or an automatic synchronization tool.
-- `.presentation-edits.mjs` records an earlier batch of presentation edits. It is not invoked by `_quarto.yml` or the current GitHub Actions workflow and should not be rerun against the current source tree without a deliberate review of every replacement.
 
 Likewise, `scripts/website/ensure-iconify.ts` is not part of the current Quarto pre-render list. The project-local Iconify extension is already versioned under `_extensions/mcanouil/iconify/`; the strict Node builder checks for that local extension rather than installing it during rendering.
 
