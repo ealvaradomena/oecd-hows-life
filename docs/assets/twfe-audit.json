@@ -1,4 +1,186 @@
 {
-  "available": false,
-  "message": "The status audit requires the frozen Current well-being raw snapshot and TWFE sample diagnostics."
+  "available": true,
+  "note": "Status codes are counted on the frozen full matched sample used by the TWFE workflow. No observations are automatically excluded because of their status code.",
+  "status_summary": [
+    {
+      "variable": "Employment rate",
+      "status": "A",
+      "status_label": "Normal value",
+      "observations": 252
+    },
+    {
+      "variable": "Life satisfaction",
+      "status": "A",
+      "status_label": "Normal value",
+      "observations": 233
+    },
+    {
+      "variable": "Life satisfaction",
+      "status": "B",
+      "status_label": "Time series break",
+      "observations": 5
+    },
+    {
+      "variable": "Life satisfaction",
+      "status": "D",
+      "status_label": "Definition differs",
+      "observations": 7
+    },
+    {
+      "variable": "Life satisfaction",
+      "status": "E",
+      "status_label": "Estimated value",
+      "observations": 7
+    }
+  ],
+  "areas": [
+    {
+      "code": "AUS",
+      "label": "Australia"
+    },
+    {
+      "code": "AUT",
+      "label": "Austria"
+    },
+    {
+      "code": "BEL",
+      "label": "Belgium"
+    },
+    {
+      "code": "BGR",
+      "label": "Bulgaria"
+    },
+    {
+      "code": "CAN",
+      "label": "Canada"
+    },
+    {
+      "code": "COL",
+      "label": "Colombia"
+    },
+    {
+      "code": "HRV",
+      "label": "Croatia"
+    },
+    {
+      "code": "CZE",
+      "label": "Czechia"
+    },
+    {
+      "code": "DNK",
+      "label": "Denmark"
+    },
+    {
+      "code": "EST",
+      "label": "Estonia"
+    },
+    {
+      "code": "FIN",
+      "label": "Finland"
+    },
+    {
+      "code": "FRA",
+      "label": "France"
+    },
+    {
+      "code": "DEU",
+      "label": "Germany"
+    },
+    {
+      "code": "GRC",
+      "label": "Greece"
+    },
+    {
+      "code": "HUN",
+      "label": "Hungary"
+    },
+    {
+      "code": "ISL",
+      "label": "Iceland"
+    },
+    {
+      "code": "IRL",
+      "label": "Ireland"
+    },
+    {
+      "code": "ITA",
+      "label": "Italy"
+    },
+    {
+      "code": "JPN",
+      "label": "Japan"
+    },
+    {
+      "code": "KOR",
+      "label": "Korea"
+    },
+    {
+      "code": "LVA",
+      "label": "Latvia"
+    },
+    {
+      "code": "LTU",
+      "label": "Lithuania"
+    },
+    {
+      "code": "LUX",
+      "label": "Luxembourg"
+    },
+    {
+      "code": "MEX",
+      "label": "Mexico"
+    },
+    {
+      "code": "NLD",
+      "label": "Netherlands"
+    },
+    {
+      "code": "NZL",
+      "label": "New Zealand"
+    },
+    {
+      "code": "NOR",
+      "label": "Norway"
+    },
+    {
+      "code": "POL",
+      "label": "Poland"
+    },
+    {
+      "code": "PRT",
+      "label": "Portugal"
+    },
+    {
+      "code": "ROU",
+      "label": "Romania"
+    },
+    {
+      "code": "SVK",
+      "label": "Slovak Republic"
+    },
+    {
+      "code": "SVN",
+      "label": "Slovenia"
+    },
+    {
+      "code": "ESP",
+      "label": "Spain"
+    },
+    {
+      "code": "SWE",
+      "label": "Sweden"
+    },
+    {
+      "code": "CHE",
+      "label": "Switzerland"
+    },
+    {
+      "code": "TUR",
+      "label": "Türkiye"
+    },
+    {
+      "code": "GBR",
+      "label": "United Kingdom"
+    }
+  ]
 }
