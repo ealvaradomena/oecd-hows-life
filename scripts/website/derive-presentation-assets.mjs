@@ -115,7 +115,9 @@ function deriveTwfeAudit(root, raw, labels) {
   const samplePath = path.join(root, 'outputs', 'diagnostics', 'twfe-employment-life-satisfaction-sample.csv');
   const areaPath = path.join(root, 'outputs', 'diagnostics', 'twfe-employment-life-satisfaction-by-area.csv');
   if (!raw || !fs.existsSync(samplePath) || !fs.existsSync(areaPath)) {
-    writeJson(output, {
+    // Preserve the reviewed canonical publication asset when local analytical
+    // inputs are unavailable, as they are in a clean strict-publication checkout.
+    if (!fs.existsSync(output)) writeJson(output, {
       available: false,
       message: 'The status audit requires the frozen Current well-being raw snapshot and TWFE sample diagnostics.'
     });

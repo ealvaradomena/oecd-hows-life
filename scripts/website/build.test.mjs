@@ -2,8 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { publicationQuartoConfig, requiredPublicationArtifacts, root } from './build.mjs';
+import { derivePresentationAssets } from './derive-presentation-assets.mjs';
 
 test('strict publication strips local hooks and forces canonical docs output', () => {
   const source = fs.readFileSync(path.join(root, '_quarto.yml'), 'utf8').replaceAll('\r\n', '\n');
@@ -33,12 +35,41 @@ test('default publication requirements include caches, figures, and browser data
     'assets/selected-series.json',
     'assets/series-data.json',
     'assets/series-inventory.json',
+    'assets/twfe-audit.json',
     'assets/twfe-fwl.svg',
     'assets/twfe-model-progression.svg',
     'assets/twfe-period-coverage.svg',
     'publication-baseline/index/execute-results/html.json',
     'publication-baseline/index/figure-html/fig-example-1.png',
   ]);
+});
+
+test('missing local analytical inputs preserve the canonical TWFE audit', () => {
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'twfe-publication-'));
+  try {
+    fs.mkdirSync(path.join(fixture, 'assets'));
+    const audit = {
+      available: true,
+      status_summary: [{ variable: 'Employment rate', status: 'A', observations: 1 }],
+      areas: [{ code: 'AUS', label: 'Australia' }],
+    };
+    const output = path.join(fixture, 'assets', 'twfe-audit.json');
+    fs.writeFileSync(output, `${JSON.stringify(audit, null, 2)}\n`);
+
+    derivePresentationAssets({ root: fixture });
+
+    assert.deepEqual(JSON.parse(fs.readFileSync(output, 'utf8')), audit);
+  } finally {
+    fs.rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test('frozen manifest protects the canonical TWFE audit', () => {
+  const frozen = JSON.parse(fs.readFileSync(path.join(root, 'config/frozen-presentation.json')));
+  assert.equal(
+    frozen.artifacts['assets/twfe-audit.json'],
+    '363e20f4a0def618035b4fe5b2d27a94c839a5de7e65f47d73c6cb8ab73d2fe5',
+  );
 });
 
 test('repository manifest keeps strict inputs outside Quarto freeze namespaces', () => {

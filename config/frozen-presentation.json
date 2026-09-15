@@ -531,6 +531,7 @@
     "assets/series-data.json": "9fc600c555f79f2a986609095822808de7efd95754192b6e620fd0dd8ba9cf5d",
     "assets/series-inventory.json": "f903cf9e305400484ee618ab814572cca172a15cd506d98d34bcaf2ec096ab65",
     "assets/selected-series.json": "e2ddb3ae3e9aba9eaa75d2c510c81b44fd7b8050fe075da017239e56d387d2e1",
+    "assets/twfe-audit.json": "363e20f4a0def618035b4fe5b2d27a94c839a5de7e65f47d73c6cb8ab73d2fe5",
     "assets/twfe-fwl.svg": "07bd02bac34cdf635c4fd867dd076512e8f2d8c9fddc7c3bde4dc86532350046",
     "assets/twfe-model-progression.svg": "f655676e0995098c274d3971c238aa4e27a596bd804573bead86ea4c5d2a88e6",
     "assets/twfe-period-coverage.svg": "de56d8c4bf58d9cb7ffbfdddce9acd6a03e8d6dcf8dbae38f84c8a8758bb85ec",

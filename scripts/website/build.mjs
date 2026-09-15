@@ -29,6 +29,7 @@ export function requiredPublicationArtifacts(frozen) {
     'assets/selected-series.json',
     'assets/series-data.json',
     'assets/series-inventory.json',
+    'assets/twfe-audit.json',
     'assets/twfe-fwl.svg',
     'assets/twfe-model-progression.svg',
     'assets/twfe-period-coverage.svg',
