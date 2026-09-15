@@ -19,9 +19,9 @@ project:
     - "analysis/01-api-and-structure.qmd"
     - "analysis/02-database-inventory.qmd"
     - "analysis/03-panel-structure.qmd"
-    - "analysis/05-demographic-comparisons.qmd"
-    - "analysis/09-series-explorer.qmd"
-    - "analysis/10-twfe-analysis.qmd"
+    - "analysis/04-demographic-comparisons.qmd"
+    - "analysis/05-series-explorer.qmd"
+    - "analysis/06-twfe-analysis.qmd"
     - "analysis/series.qmd"
   resources:
     - "assets/*.js"
@@ -60,11 +60,11 @@ website:
             text: Database Inventory
           - href: analysis/03-panel-structure.qmd
             text: Panel Data
-          - href: analysis/05-demographic-comparisons.qmd
+          - href: analysis/04-demographic-comparisons.qmd
             text: Demographic Comparisons
-      - href: analysis/09-series-explorer.qmd
+      - href: analysis/05-series-explorer.qmd
         text: Series
-      - href: analysis/10-twfe-analysis.qmd
+      - href: analysis/06-twfe-analysis.qmd
         text: Analysis
     right:
       - icon: github

@@ -185,8 +185,8 @@
         }
       ]
     },
-    "analysis/05-demographic-comparisons.qmd": {
-      "cache": "publication-baseline/analysis/05-demographic-comparisons/execute-results/html.json",
+    "analysis/04-demographic-comparisons.qmd": {
+      "cache": "publication-baseline/analysis/04-demographic-comparisons/execute-results/html.json",
       "cacheSha256": "5ce0d0b1d9d1b735206ea043ae60258e8eeb1d08c0c71f457b7cb3fd95db0318",
       "bindings": [
         {
@@ -245,12 +245,13 @@
         }
       ]
     },
-    "analysis/09-series-explorer.qmd": {
+    "analysis/05-series-explorer.qmd": {
       "bindings": []
     },
-    "analysis/10-twfe-analysis.qmd": {
-      "cache": "publication-baseline/analysis/10-twfe-analysis/execute-results/html.json",
+    "analysis/06-twfe-analysis.qmd": {
+      "cache": "publication-baseline/analysis/06-twfe-analysis/execute-results/html.json",
       "cacheSha256": "7a9fb15df05a3a1f8a8661d7c8b2a69c467f7408e6a870db45f4203b92c8dda4",
+      "supportingFiles": "10-twfe-analysis_files",
       "bindings": [
         {
           "signature": "5647788a0d93a3cec1916afeba4bde79b291a88633a1850d112c060c6f3d5da1",
@@ -520,11 +521,11 @@
     "publication-baseline/analysis/03-panel-structure/execute-results/html.json": "238f9ed52d8522d3201fc4277599d58d782ee83892fb24d32f0af101bade5bd8",
     "publication-baseline/analysis/03-panel-structure/figure-html/fig-completion-rate-1.png": "5db66fa06b49da4208131c1216714f7aa49521ccf100f715c63bc61d90dd2ed0",
     "publication-baseline/analysis/03-panel-structure/figure-html/fig-panelview-example-1.png": "ac35c66e9b0c756400d85cfd7405fac7f086a8946e92bab162a05197aeb8bcd4",
-    "publication-baseline/analysis/05-demographic-comparisons/execute-results/html.json": "5ce0d0b1d9d1b735206ea043ae60258e8eeb1d08c0c71f457b7cb3fd95db0318",
-    "publication-baseline/analysis/10-twfe-analysis/execute-results/html.json": "7a9fb15df05a3a1f8a8661d7c8b2a69c467f7408e6a870db45f4203b92c8dda4",
-    "publication-baseline/analysis/10-twfe-analysis/figure-html/fig-fwl-1.png": "a896e35ada02f6840b7e1a46759bcdb550221aafd0b2b3d3fe95e132a2e57e41",
-    "publication-baseline/analysis/10-twfe-analysis/figure-html/fig-model-progression-1.png": "abb7bc8251111b5c9e40d60529fc947215a9d6d9bf45c817475c19d642a5f6d2",
-    "publication-baseline/analysis/10-twfe-analysis/figure-html/fig-period-coverage-1.png": "f69b6b3da3cc70d89c880fedaccbfec399693bfb22932c4e056774f51e71969a",
+    "publication-baseline/analysis/04-demographic-comparisons/execute-results/html.json": "5ce0d0b1d9d1b735206ea043ae60258e8eeb1d08c0c71f457b7cb3fd95db0318",
+    "publication-baseline/analysis/06-twfe-analysis/execute-results/html.json": "7a9fb15df05a3a1f8a8661d7c8b2a69c467f7408e6a870db45f4203b92c8dda4",
+    "publication-baseline/analysis/06-twfe-analysis/figure-html/fig-fwl-1.png": "a896e35ada02f6840b7e1a46759bcdb550221aafd0b2b3d3fe95e132a2e57e41",
+    "publication-baseline/analysis/06-twfe-analysis/figure-html/fig-model-progression-1.png": "abb7bc8251111b5c9e40d60529fc947215a9d6d9bf45c817475c19d642a5f6d2",
+    "publication-baseline/analysis/06-twfe-analysis/figure-html/fig-period-coverage-1.png": "f69b6b3da3cc70d89c880fedaccbfec399693bfb22932c4e056774f51e71969a",
     "publication-baseline/index/execute-results/html.json": "98cff7419a858c164be89ffb573f838170d482375ab74675ced50899a4b73b21",
     "assets/completion-rate.svg": "631713f21cf9ae0313b3ee7a6b2487c1a7712df03396f785aa1d9120f4325d13",
     "assets/logo-bg-1200x900.png": "9f4d27d6d295c5f4dbaa381555eb76784ff4a46306285524b65619a85506d9f7",

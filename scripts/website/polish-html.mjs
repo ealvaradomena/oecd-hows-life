@@ -4,6 +4,30 @@ import path from 'node:path';
 
 const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+export const legacyRedirects = new Map([
+  ['analysis/05-demographic-comparisons.html', '04-demographic-comparisons.html'],
+  ['analysis/09-series-explorer.html', '05-series-explorer.html'],
+  ['analysis/10-twfe-analysis.html', '06-twfe-analysis.html'],
+]);
+
+export function writeLegacyRedirects(directory) {
+  for (const [legacy, target] of legacyRedirects) {
+    const file = path.join(directory, legacy);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=${target}">
+<link rel="canonical" href="${target}">
+<title>Page moved</title>
+</head>
+<body><p>This page has moved to <a href="${target}">${target}</a>.</p></body>
+</html>
+`);
+  }
+}
+
 export function captionMarkup(inner) {
   let content = inner.trim();
   content = content.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -78,7 +102,7 @@ export function polishSite(directory, pages) {
     if (page.file === "analysis/03-panel-structure.qmd") {
       html = replaceFigureImage(html, "fig-completion-rate", "../assets/completion-rate.svg", "Distribution of analytical-series completion rates");
     }
-    if (page.file === "analysis/10-twfe-analysis.qmd") {
+    if (page.file === "analysis/06-twfe-analysis.qmd") {
       html = replaceFigureImage(html, "fig-period-coverage", "../assets/twfe-period-coverage.svg", "Country coverage by period with the 70 percent core-period rule");
       html = replaceFigureImage(html, "fig-model-progression", "../assets/twfe-model-progression.svg", "Employment coefficients across core and full matched samples");
       html = replaceFigureImage(html, "fig-fwl", "../assets/twfe-fwl.svg", "Residualized life satisfaction and employment with the TWFE slope");
@@ -86,5 +110,6 @@ export function polishSite(directory, pages) {
     html = polishHtml(html, numbers);
     fs.writeFileSync(file, html);
   }
+  writeLegacyRedirects(directory);
   return numbers;
 }

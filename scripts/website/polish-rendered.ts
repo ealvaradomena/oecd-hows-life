@@ -26,9 +26,9 @@ const pageOrder = [
   "analysis/01-api-and-structure.qmd",
   "analysis/02-database-inventory.qmd",
   "analysis/03-panel-structure.qmd",
-  "analysis/05-demographic-comparisons.qmd",
-  "analysis/09-series-explorer.qmd",
-  "analysis/10-twfe-analysis.qmd",
+  "analysis/04-demographic-comparisons.qmd",
+  "analysis/05-series-explorer.qmd",
+  "analysis/06-twfe-analysis.qmd",
   "analysis/series.qmd",
 ];
 const decoder = new TextDecoder();
@@ -139,13 +139,34 @@ for (const page of pages) {
     html = replaceFigureImage(html, "fig-completion-rate", "../assets/completion-rate.svg", "Distribution of analytical-series completion rates");
   }
 
-  if (page.file === "analysis/10-twfe-analysis.qmd") {
+  if (page.file === "analysis/06-twfe-analysis.qmd") {
     html = replaceFigureImage(html, "fig-period-coverage", "../assets/twfe-period-coverage.svg", "Country coverage by period with the 70 percent core-period rule");
     html = replaceFigureImage(html, "fig-model-progression", "../assets/twfe-model-progression.svg", "Employment coefficients across core and full matched samples");
     html = replaceFigureImage(html, "fig-fwl", "../assets/twfe-fwl.svg", "Residualized life satisfaction and employment with the TWFE slope");
   }
 
   await Deno.writeFile(htmlPath, encoder.encode(html));
+}
+
+const legacyRedirects = new Map([
+  ["analysis/05-demographic-comparisons.html", "04-demographic-comparisons.html"],
+  ["analysis/09-series-explorer.html", "05-series-explorer.html"],
+  ["analysis/10-twfe-analysis.html", "06-twfe-analysis.html"],
+]);
+for (const [legacy, target] of legacyRedirects) {
+  const file = outputPath(legacy);
+  await Deno.mkdir(file.slice(0, file.lastIndexOf("/")), { recursive: true });
+  await Deno.writeFile(file, encoder.encode(`<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=${target}">
+<link rel="canonical" href="${target}">
+<title>Page moved</title>
+</head>
+<body><p>This page has moved to <a href="${target}">${target}</a>.</p></body>
+</html>
+`));
 }
 
 console.log(`Applied canonical site-wide numbering (${table - 1} tables, ${figure - 1} figures) and presentation polish.`);

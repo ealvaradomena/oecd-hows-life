@@ -4,8 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { spawnSync } from 'node:child_process';
-import { publicationQuartoConfig, requiredPublicationArtifacts, root } from './build.mjs';
+import { frozenFigurePaths, pageOrder, publicationQuartoConfig, requiredPublicationArtifacts, root } from './build.mjs';
 import { derivePresentationAssets } from './derive-presentation-assets.mjs';
+import { sha256Artifact } from './frozen-source.mjs';
+import { legacyRedirects, writeLegacyRedirects } from './polish-html.mjs';
 
 test('strict publication strips local hooks and forces canonical docs output', () => {
   const source = fs.readFileSync(path.join(root, '_quarto.yml'), 'utf8').replaceAll('\r\n', '\n');
@@ -70,6 +72,66 @@ test('frozen manifest protects the canonical TWFE audit', () => {
     frozen.artifacts['assets/twfe-audit.json'],
     '363e20f4a0def618035b4fe5b2d27a94c839a5de7e65f47d73c6cb8ab73d2fe5',
   );
+});
+
+test('active teaching pages use canonical 04, 05, and 06 identities', () => {
+  const canonical = [
+    'analysis/04-demographic-comparisons.qmd',
+    'analysis/05-series-explorer.qmd',
+    'analysis/06-twfe-analysis.qmd',
+  ];
+  const obsolete = [
+    'analysis/05-demographic-comparisons.qmd',
+    'analysis/09-series-explorer.qmd',
+    'analysis/10-twfe-analysis.qmd',
+  ];
+  assert.ok(canonical.every(file => pageOrder.includes(file) && fs.existsSync(path.join(root, file))));
+  assert.ok(obsolete.every(file => !pageOrder.includes(file) && !fs.existsSync(path.join(root, file))));
+  const quarto = fs.readFileSync(path.join(root, '_quarto.yml'), 'utf8');
+  assert.ok(canonical.every(file => quarto.includes(file)));
+  assert.ok(obsolete.every(file => !quarto.includes(file)));
+});
+
+test('legacy teaching routes receive static redirects to canonical pages', () => {
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'teaching-redirects-'));
+  try {
+    writeLegacyRedirects(fixture);
+    for (const [legacy, target] of legacyRedirects) {
+      const html = fs.readFileSync(path.join(fixture, legacy), 'utf8');
+      assert.match(html, new RegExp(`<meta http-equiv="refresh" content="0; url=${target}">`));
+      assert.match(html, new RegExp(`<link rel="canonical" href="${target}">`));
+      assert.match(html, new RegExp(`<a href="${target}">`));
+    }
+  } finally {
+    fs.rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test('renamed frozen pages preserve reviewed hashes and TWFE supporting namespace', () => {
+  const frozen = JSON.parse(fs.readFileSync(path.join(root, 'config/frozen-presentation.json')));
+  const demographic = frozen.pages['analysis/04-demographic-comparisons.qmd'];
+  const twfe = frozen.pages['analysis/06-twfe-analysis.qmd'];
+  assert.equal(demographic.cache, 'publication-baseline/analysis/04-demographic-comparisons/execute-results/html.json');
+  assert.equal(twfe.cache, 'publication-baseline/analysis/06-twfe-analysis/execute-results/html.json');
+  assert.equal(twfe.supportingFiles, '10-twfe-analysis_files');
+
+  for (const entry of [demographic, twfe]) {
+    const bytes = fs.readFileSync(path.join(root, entry.cache));
+    assert.equal(sha256Artifact(entry.cache, bytes), entry.cacheSha256);
+  }
+  const twfeCache = fs.readFileSync(path.join(root, twfe.cache), 'utf8');
+  assert.match(twfeCache, /10-twfe-analysis_files\/figure-html\/fig-period-coverage-1\.png/);
+
+  const paths = frozenFigurePaths(root, 'stage', {
+    file: 'analysis/06-twfe-analysis.qmd',
+    cache: twfe.cache,
+    supportingFiles: twfe.supportingFiles,
+  });
+  assert.equal(path.relative(root, paths.source).replaceAll('\\', '/'), 'publication-baseline/analysis/06-twfe-analysis/figure-html');
+  assert.equal(paths.destination.replaceAll('\\', '/'), 'stage/analysis/10-twfe-analysis_files/figure-html');
+  for (const [file, expected] of Object.entries(frozen.artifacts).filter(([file]) => file.startsWith('publication-baseline/analysis/06-twfe-analysis/'))) {
+    assert.equal(sha256Artifact(file, fs.readFileSync(path.join(root, file))), expected);
+  }
 });
 
 test('repository manifest keeps strict inputs outside Quarto freeze namespaces', () => {

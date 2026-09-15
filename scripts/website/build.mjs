@@ -19,6 +19,7 @@ import { derivePresentationAssets } from './derive-presentation-assets.mjs';
 import { buildWorkflowDiagram } from './build-workflow-diagram.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+export const pageOrder = ["index.qmd", "analysis/01-api-and-structure.qmd", "analysis/02-database-inventory.qmd", "analysis/03-panel-structure.qmd", "analysis/04-demographic-comparisons.qmd", "analysis/05-series-explorer.qmd", "analysis/06-twfe-analysis.qmd", "analysis/series.qmd"];
 const read = file => fs.readFileSync(path.join(root, file));
 const manifest = () => JSON.parse(read('config/frozen-presentation.json'));
 
@@ -55,6 +56,15 @@ export function publicationQuartoConfig(config) {
     throw new Error('Unreviewed render hooks or filters in website configuration.');
   }
   return staged.replace(/  freeze: false/, '  enabled: false\n  freeze: false');
+}
+
+export function frozenFigurePaths(projectRoot, stage, { file, cache, supportingFiles }) {
+  const source = cache
+    ? path.join(projectRoot, path.dirname(path.dirname(cache)), 'figure-html')
+    : path.join(projectRoot, 'publication-baseline', file.replace(/\.qmd$/, ''), 'figure-html');
+  const namespace = supportingFiles ?? `${path.basename(file, '.qmd')}_files`;
+  const destination = path.join(stage, path.dirname(file), namespace, 'figure-html');
+  return { source, destination };
 }
 
 function requireTrackedArtifacts(files) {
@@ -105,7 +115,6 @@ export function prepare({ verifyAll = false, requireTracked = false } = {}) {
   const pages = [];
   let figure = 1, table = 1;
   const identifiers = new Set();
-  const pageOrder = ["index.qmd", "analysis/01-api-and-structure.qmd", "analysis/02-database-inventory.qmd", "analysis/03-panel-structure.qmd", "analysis/05-demographic-comparisons.qmd", "analysis/09-series-explorer.qmd", "analysis/10-twfe-analysis.qmd", "analysis/series.qmd"];
   for (const file of pageOrder) {
     const entry = frozen.pages[file];
     if (!entry) continue;
@@ -126,7 +135,7 @@ export function prepare({ verifyAll = false, requireTracked = false } = {}) {
     }
     // Site-wide object numbers and cross-reference text are applied after render.
     compiled = compiled.replace(/^---\n/, '---\nengine: markdown\n');
-    pages.push({ file, compiled, objects });
+    pages.push({ file, compiled, objects, cache: entry.cache, supportingFiles: entry.supportingFiles });
   }
   return { frozen, pages, counts: { figures: figure - 1, tables: table - 1 } };
 }
@@ -179,14 +188,13 @@ export function build() {
   for (const file of fs.readdirSync(path.join(root, 'assets')).filter(file => /\.(js|json|png|svg)$/.test(file))) {
     fs.copyFileSync(path.join(root, 'assets', file), path.join(stage, 'assets', file));
   }
-  for (const { file, compiled } of prepared.pages) {
+  for (const { file, compiled, cache, supportingFiles } of prepared.pages) {
     const destination = path.join(stage, file);
     fs.mkdirSync(path.dirname(destination), { recursive: true });
     fs.writeFileSync(destination, compiled);
-    const frozenFigures = path.join(root, 'publication-baseline', file.replace(/\.qmd$/, ''), 'figure-html');
-    if (fs.existsSync(frozenFigures)) {
-      const images = path.join(stage, file.replace(/\.qmd$/, '_files'), 'figure-html');
-      fs.cpSync(frozenFigures, images, { recursive: true });
+    const figures = frozenFigurePaths(root, stage, { file, cache, supportingFiles });
+    if (fs.existsSync(figures.source)) {
+      fs.cpSync(figures.source, figures.destination, { recursive: true });
     }
   }
   const result = spawnSync(quartoExecutable(), ['render', '--no-execute'], { cwd: stage, stdio: 'inherit', shell: false });

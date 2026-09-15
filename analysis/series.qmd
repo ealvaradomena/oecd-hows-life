@@ -50,7 +50,7 @@ Reference area–time-period observation coverage for the selected analytical se
 <span class="series-caption-name" data-series-caption></span>
 :::
 
-[← Back to the Analytical Series Explorer](09-series-explorer.qmd){.series-back-link}
+[← Back to the Analytical Series Explorer](05-series-explorer.qmd){.series-back-link}
 
 <noscript>
 This page requires JavaScript to load the selected analytical series.

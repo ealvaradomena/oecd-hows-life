@@ -28,9 +28,9 @@ The active render allow-list lives in `_quarto.yml` and currently contains:
 - `analysis/01-api-and-structure.qmd`
 - `analysis/02-database-inventory.qmd`
 - `analysis/03-panel-structure.qmd`
-- `analysis/05-demographic-comparisons.qmd`
-- `analysis/09-series-explorer.qmd`
-- `analysis/10-twfe-analysis.qmd`
+- `analysis/04-demographic-comparisons.qmd`
+- `analysis/05-series-explorer.qmd`
+- `analysis/06-twfe-analysis.qmd`
 - `analysis/series.qmd`
 
 The allow-list is deliberate: archival QMD files elsewhere in a local working directory are not automatically promoted into the publication.

@@ -40,47 +40,47 @@
     "caption": "Figure 4\nReference area–time-period missingness for the selected Current well-being analytical series"
   },
   {
-    "page": "analysis/05-demographic-comparisons.qmd",
+    "page": "analysis/04-demographic-comparisons.qmd",
     "caption": "Table 7\nDemographic codes represented by the three specialized dataflows in the current SDMX structures"
   },
   {
-    "page": "analysis/05-demographic-comparisons.qmd",
+    "page": "analysis/04-demographic-comparisons.qmd",
     "caption": "Table 8\nRecord-level comparison of Current well-being with its specialized demographic dataflows"
   },
   {
-    "page": "analysis/05-demographic-comparisons.qmd",
+    "page": "analysis/04-demographic-comparisons.qmd",
     "caption": "Table 9\nFirst up to 20 records classified as available only in Current well-being in the age comparison"
   },
   {
-    "page": "analysis/05-demographic-comparisons.qmd",
+    "page": "analysis/04-demographic-comparisons.qmd",
     "caption": "Table 10\nFirst up to 20 records classified as available only in Current well-being in the sex comparison"
   },
   {
-    "page": "analysis/05-demographic-comparisons.qmd",
+    "page": "analysis/04-demographic-comparisons.qmd",
     "caption": "Table 11\nFirst up to 20 records classified as available only in Current well-being in the education-level comparison"
   },
   {
-    "page": "analysis/09-series-explorer.qmd",
+    "page": "analysis/05-series-explorer.qmd",
     "caption": "Table 12\nAnalytical series inventory for the Current well-being dataset\nBy Age, By Education, and By Sex identify subgroup-defined series Aggregate indicates totals on all three dimensions"
   },
   {
-    "page": "analysis/10-twfe-analysis.qmd",
+    "page": "analysis/06-twfe-analysis.qmd",
     "caption": "Table 13\nOECD observation-status flags in the matched TWFE sample\nA pre-model audit of source status metadata"
   },
   {
-    "page": "analysis/10-twfe-analysis.qmd",
+    "page": "analysis/06-twfe-analysis.qmd",
     "caption": "Figure 5\nCountry coverage by period\nThe dashed line marks the project-defined 70% threshold used to define the core sample"
   },
   {
-    "page": "analysis/10-twfe-analysis.qmd",
+    "page": "analysis/06-twfe-analysis.qmd",
     "caption": "Table 14\nEmployment-rate coefficient across specifications"
   },
   {
-    "page": "analysis/10-twfe-analysis.qmd",
+    "page": "analysis/06-twfe-analysis.qmd",
     "caption": "Figure 6\nEstimated employment coefficients\nApproximate 95% normal intervals (estimate ± 1.96 country-clustered standard errors) across specifications"
   },
   {
-    "page": "analysis/10-twfe-analysis.qmd",
+    "page": "analysis/06-twfe-analysis.qmd",
     "caption": "Figure 7\nLife satisfaction and employment after residualizing both variables with respect to country and period fixed effects\nThe line has the TWFE slope"
   },
   {
