@@ -17,17 +17,17 @@ The project can be summarized as three connected workflows:
 ::: {.project-workflow-card}
 ### Analysis
 
-OECD API
+OECD API<br>
 + `config/`
 
 <span class="project-flow-arrow">↓</span>
 
-`R/`
+`R/`<br>
 + `scripts/01–10`
 
 <span class="project-flow-arrow">↓</span>
 
-`data/`
+`data/`<br>
 + `outputs/`
 
 <span class="project-flow-arrow">↓</span>
@@ -38,8 +38,8 @@ OECD API
 ::: {.project-workflow-card}
 ### Local presentation
 
-QMD
-+ existing analytical artifacts
+QMD<br>
++ existing analytical artifacts<br>
 + tracked `assets/`
 
 <span class="project-flow-arrow">↓</span>
@@ -58,8 +58,8 @@ Presentation-only derivation and polishing
 ::: {.project-workflow-card}
 ### Strict publication
 
-QMD
-+ `publication-baseline/`
+QMD<br>
++ `publication-baseline/`<br>
 + tracked publication inputs
 
 <span class="project-flow-arrow">↓</span>
@@ -68,17 +68,17 @@ QMD
 
 <span class="project-flow-arrow">↓</span>
 
-Verify frozen publication contract
+Verify frozen publication contract<br>
 + stage reviewed computational results
 
 <span class="project-flow-arrow">↓</span>
 
-Quarto `--no-execute`
+Quarto `--no-execute`<br>
 + validation and polishing
 
 <span class="project-flow-arrow">↓</span>
 
-`docs/` → **canonical publication** → GitHub Pages
+`docs/` → **GitHub Pages website**
 :::
 :::
 
@@ -305,3 +305,5 @@ Only if a **reviewed state** is ready for the web
 The analytical workflow can reconstruct the evidence, Quarto can reconstruct its presentation, and the frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.
 
 For implementation details and maintenance rules, see the project `README.md` and `PROJECT_NOTES.md` in the repository.
+
+{{< oecd-rules >}}

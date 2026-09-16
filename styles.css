@@ -1957,7 +1957,7 @@ th[aria-sort="descending"] .series-sort-button::after { content: "↓"; }
 
 /* OECD rules: slightly larger guidance text on the white half only. */
 .oecd-rules__guidance {
-  font-size: 1.13rem;
+  font-size: 1.43rem;
 }
 
 /* Series definition is a structured information grid, not a numbered data table. */
@@ -2242,14 +2242,112 @@ main :not(pre) > code {
 }
 
 /* How This Project Works: static architecture teaching components. */
-.project-workflows,
+.project-workflows {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 1rem 0 1.6rem;
+  border-block: 1px solid var(--hl-border);
+  background: #fff;
+}
+
+.project-workflow-card {
+  --workflow-accent: var(--teal);
+  position: relative;
+  min-width: 0;
+  padding: 1.15rem 1.35rem 1.3rem;
+}
+
+.project-workflow-card + .project-workflow-card {
+  border-left: 1px solid var(--hl-border);
+}
+
+.project-workflow-card:nth-child(2) { --workflow-accent: var(--pink); }
+.project-workflow-card:nth-child(3) { --workflow-accent: var(--burgundy); }
+
+.project-workflow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto 0;
+  height: 3px;
+  background: var(--workflow-accent);
+}
+
+.project-workflow-card h3 {
+  margin: .2rem 0 1.15rem;
+  color: var(--workflow-accent);
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.project-workflow-card p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Each prose block is a workflow node; arrows become quiet connectors. */
+.project-workflow-card p:not(:has(.project-flow-arrow)) {
+  padding: .72rem 0;
+}
+
+.project-workflow-card p:has(.project-flow-arrow) {
+  position: relative;
+  height: 1.45rem;
+  margin: 0;
+  padding: 0;
+}
+
+.project-workflow-card p:has(.project-flow-arrow)::before {
+  content: "";
+  position: absolute;
+  top: .05rem;
+  bottom: .05rem;
+  left: .18rem;
+  width: 1px;
+  background: color-mix(in srgb, var(--workflow-accent) 45%, var(--hl-border));
+}
+
+.project-flow-arrow {
+  position: absolute;
+  left: -.12rem;
+  bottom: -.2rem;
+  z-index: 1;
+  display: grid;
+  width: .62rem;
+  height: .62rem;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+  color: var(--workflow-accent);
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: .62rem;
+}
+
+/* Terminal outputs read as destinations rather than another process step. */
+.project-workflow-card p:last-child {
+  margin-top: .2rem;
+  padding: .78rem .85rem;
+  border-left: 3px solid var(--workflow-accent);
+  background: color-mix(in srgb, var(--workflow-accent) 5%, #fff);
+  font-size: .94rem;
+}
+
+.project-workflow-card code {
+  padding: .08em .28em;
+  border: 0;
+  background: color-mix(in srgb, var(--workflow-accent) 5%, #f4f4f4);
+}
+
 .project-verbs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .8rem;
   margin: .7rem 0 1.35rem;
 }
-.project-workflow-card,
 .project-verb {
   min-width: 0;
   padding: 1rem 1.05rem;
@@ -2258,27 +2356,15 @@ main :not(pre) > code {
   border-radius: var(--hl-radius);
   background: linear-gradient(145deg, #fff 0%, var(--hl-soft-teal) 100%);
 }
-.project-workflow-card:nth-child(2),
 .project-verb:nth-child(2) { border-top-color: var(--pink); }
-.project-workflow-card:nth-child(3),
 .project-verb:nth-child(3) { border-top-color: var(--burgundy); }
-.project-workflow-card h3,
 .project-verb h3 {
   margin-top: 0;
   font-size: 1rem;
   letter-spacing: .035em;
   text-transform: uppercase;
 }
-.project-workflow-card p:last-child,
 .project-verb p:last-child { margin-bottom: 0; }
-.project-flow-arrow {
-  display: block;
-  margin: -.25rem 0;
-  color: var(--teal-dark);
-  font-size: 1.15rem;
-  font-weight: 800;
-  line-height: 1;
-}
 .result-lineage {
   position: relative;
   margin: .75rem 0 1.35rem;
@@ -2312,7 +2398,17 @@ main :not(pre) > code {
 .project-verb p { font-size: .92rem; }
 
 @media (max-width: 767.98px) {
-  .project-workflows,
+  .project-workflows {
+    grid-template-columns: 1fr;
+    border-block: 0;
+  }
+  .project-workflow-card {
+    border-block: 1px solid var(--hl-border);
+  }
+  .project-workflow-card + .project-workflow-card {
+    margin-top: 1rem;
+    border-left: 0;
+  }
   .project-verbs { grid-template-columns: 1fr; }
   .result-lineage-step {
     grid-template-columns: 2rem minmax(0, 1fr);

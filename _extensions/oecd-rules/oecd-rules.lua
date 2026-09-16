@@ -12,9 +12,9 @@ return {
 
     local guidance = pandoc.Div({
       pandoc.Para({
-        pandoc.Str("This website uses the OECD API to teach reproducible"),
+        pandoc.Str("This website uses the OECD API to teach"),
         pandoc.LineBreak(),
-        pandoc.Str("R workflows.")
+        pandoc.Str("reproducible R workflows.")
       }),
       pandoc.Para({
         pandoc.Str("For "),
