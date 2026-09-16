@@ -1,5 +1,5 @@
 ---
-title: "Exploring OECD <em>How’s Life?</em> Database<span class=\"title-teaching-materials\">—Teaching Materials</span>"
+title: "OECD <em>How’s Life?</em> Database<span class=\"title-teaching-materials\">—Teaching Materials</span>"
 subtitle: "Using OECD data to learn a bit of panel data econometrics, data visualization, and reproducible, API-driven data collection"
 ---
 

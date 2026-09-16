@@ -1,15 +1,15 @@
 ---
 title: "How This Project Works"
-subtitle: "From OECD data to a reproducible teaching website"
+subtitle: "From OECD API to a reproducible teaching website"
 ---
 
-This project does more than display results from the OECD *How’s Life?* Database. It retrieves structured data through the OECD SDMX API, turns those data into analytical artifacts, uses them in teaching materials, and publishes a reviewed version of the website.
+This project does more than display data from the OECD *How’s Life?* Database. It retrieves structured data through the OECD SDMX API, turns those data into analytical artifacts, uses them in teaching materials, and, importantly, publishes a reviewed version of the website.
 
-Those activities are deliberately separated. A useful way to understand the project is to distinguish **analysis**, **local presentation**, and **strict publication**. They are related workflows, but they are not consecutive stages that automatically rerun one another.
+All these activities are deliberately separated. A useful way to understand the project is to distinguish *analysis*, *local presentation*, and *strict publication*. These workflows are closely related, but they are not consecutive stages that automatically trigger one another.
 
-That distinction matters. Editing a paragraph should not unexpectedly retrieve newer OECD data, and publishing the website should not silently change an econometric result.
+These computational safeguards matter. Editing a paragraph should not unexpectedly retrieve newer OECD data, just as publishing the website should not silently change an econometric result.
 
-## From the OECD API to the browser
+## An Overview
 
 The project can be summarized as three connected workflows:
 
@@ -17,15 +17,18 @@ The project can be summarized as three connected workflows:
 ::: {.project-workflow-card}
 ### Analysis
 
-`OECD API + config/`
+OECD API
++ `config/`
 
 <span class="project-flow-arrow">↓</span>
 
-`R/ + scripts/01–10`
+`R/`
++ `scripts/01–10`
 
 <span class="project-flow-arrow">↓</span>
 
-`data/ + outputs/`
+`data/`
++ `outputs/`
 
 <span class="project-flow-arrow">↓</span>
 
@@ -35,7 +38,9 @@ The project can be summarized as three connected workflows:
 ::: {.project-workflow-card}
 ### Local presentation
 
-QMD + existing analytical artifacts + tracked `assets/`
+QMD
++ existing analytical artifacts
++ tracked `assets/`
 
 <span class="project-flow-arrow">↓</span>
 
@@ -53,7 +58,9 @@ Presentation-only derivation and polishing
 ::: {.project-workflow-card}
 ### Strict publication
 
-QMD + `publication-baseline/` + tracked publication inputs
+QMD
++ `publication-baseline/`
++ tracked publication inputs
 
 <span class="project-flow-arrow">↓</span>
 
@@ -61,11 +68,13 @@ QMD + `publication-baseline/` + tracked publication inputs
 
 <span class="project-flow-arrow">↓</span>
 
-Verify frozen publication contract + stage reviewed computational results
+Verify frozen publication contract
++ stage reviewed computational results
 
 <span class="project-flow-arrow">↓</span>
 
-Quarto `--no-execute` + validation and polishing
+Quarto `--no-execute`
++ validation and polishing
 
 <span class="project-flow-arrow">↓</span>
 
@@ -73,31 +82,45 @@ Quarto `--no-execute` + validation and polishing
 :::
 :::
 
-The key idea is **separation of concerns**. The analytical workflow owns empirical results. The presentation workflow controls how existing results are explained and displayed locally. The publication workflow controls what reaches the public website.
+The key idea is **separation of concerns**:
 
-## Analysis: producing the evidence
+- The analytical workflow owns empirical results.
+- The presentation workflow controls how existing results are explained and displayed locally.
+- The publication workflow controls what reaches the public website.
 
-The analytical workflow begins with registered OECD *How’s Life?* **dataflows**. The project retrieves observations and SDMX structure metadata, then normalizes the resulting snapshots and constructs the analytical artifacts used downstream.
+## Analysis: Producing the Evidence
 
-Reusable functions live under `R/`. The numbered scripts under `scripts/` organize the workflow: the early stages retrieve and normalize OECD data, intermediate stages examine panel structure and dataflow relationships, and later stages construct the two-way fixed-effects (TWFE) teaching example.
+The analytical workflow begins with registered OECD *How’s Life?* **dataflows**.
 
-The principal analytical working state lives under `data/` and `outputs/`. These files are **analytical artifacts**: data snapshots, processed data, diagnostics, estimation samples, model results, and related computational products created by the analytical pipeline.
+The project retrieves observations and SDMX structure metadata, then normalizes the resulting snapshots and constructs the analytical artifacts used downstream.
 
-Running the complete analytical workflow is therefore consequential. It can retrieve source data that have changed since the previous run and can replace downstream analytical artifacts.
+The numbered scripts under `scripts/` organize the workflow: the early stages retrieve and normalize OECD data, intermediate stages examine panel structure and dataflow relationships, and later stages construct the two-way fixed-effects (TWFE) teaching example.
+
+Reusable functions live under `R/`.
+
+The principal analytical working state lives under `data/` and `outputs/`.
+
+These files are **analytical artifacts**: data snapshots, processed data, diagnostics, estimation samples, model results, and related computational products created by the analytical pipeline.
+
+Running the complete analytical workflow is therefore consequential. It can retrieve source data that have changed since the previous run and can therefore replace downstream analytical artifacts.
 
 ::: {.data-note}
 ### [Reproducibility does not mean rerunning everything constantly]{.smallcaps}
 
 A reproducible project should make it possible to reconstruct an analysis. It does not follow that every routine operation should reconstruct it.
 
-Separating analytical computation from presentation makes changes easier to interpret. A wording or styling edit should not unexpectedly produce different empirical results merely because the OECD source has changed since the last analytical run.
+Separating analytical **computation** from **presentation** makes changes easier to interpret.
+
+A wording or styling edit should not unexpectedly produce different empirical results merely because the OECD source has changed since the last analytical run.
 :::
 
-## Local presentation: turning results into teaching materials
+## Local Presentation: Turning Results into Teaching Materials
 
-The Quarto documents provide the presentation layer. They combine explanatory text, existing analytical artifacts, and **tracked presentation assets** under root `assets/` to construct the teaching website.
+The Quarto documents provide the presentation layer. They combine explanatory text, existing analytical artifacts, and **tracked presentation assets** under root `assets/` to construct the website.
 
-Some presentation steps also derive browser-facing JSON or SVG files from analytical artifacts that already exist. These are presentation operations: they do not contact the OECD API, recreate the analytical pipeline, or refit the models. During ordinary local rendering, such outputs are **local presentation derivatives** written under `_site/assets/`.
+Some presentation steps also derive browser-facing JSON or SVG files from analytical artifacts that already exist. These are presentation operations: they do not contact the OECD API, recreate the analytical pipeline, or refit the models.
+
+During ordinary local rendering, such outputs are **local presentation derivatives** written under `_site/assets/`.
 
 A normal local build is therefore:
 
@@ -107,35 +130,61 @@ quarto render
 
 The result is `_site/`, the disposable **local website**.
 
-> `quarto render` is a website-development command, not an analytical-pipeline command.
-
 It renders the active teaching pages from the current source and existing analytical state. It does not run `scripts/01-*` through `scripts/10-*` or refresh the OECD source data.
 
-## Strict publication: publishing a reviewed state
+:::{.context-note}
+### [Render]{.smallcaps}
 
-Executable teaching documents create a subtle reproducibility problem. Suppose an R chunk produces a table that has been inspected and approved. Later, only the surrounding explanation changes. Should publication automatically execute that chunk again?
+Here, `quarto render` is a website-development command, not an analytical-pipeline command.
+:::
 
-This project separates those operations.
+## Strict Publication: Publishing a Reviewed State
 
-The **publication baseline** under `publication-baseline/` stores reviewed computational presentation results. The **frozen publication contract**, `config/frozen-presentation.json`, binds active pages to those reviewed computations and records the required artifacts and integrity hashes.
+Executable Quarto documents create a subtle reproducibility problem.
 
-The strict publication process verifies that state, substitutes the reviewed computational results into staged Markdown-only pages, invokes Quarto with execution disabled, validates and polishes the rendered website, and only then replaces `docs/`.
+Suppose an R chunk produces a table that has already been inspected and approved. Later, only the surrounding explanation changes.
 
-`docs/` is therefore the **canonical publication** served by GitHub Pages. It has a different role from `_site/`: `_site/` is disposable output for local development, whereas `docs/` is generated and validated by the strict publication process.
+Should publishing that revision automatically execute the R code again?
+
+This project separates those operations:
+
+- The **publication baseline** under `publication-baseline/` stores reviewed computational presentation results.
+- The **frozen publication contract**, `config/frozen-presentation.json`, binds active pages to those reviewed computations and records the required artifacts and integrity hashes.
+
+Then, the strict publication process verifies that state, substitutes the reviewed computational results into staged Markdown-only pages, invokes Quarto with execution disabled, validates and polishes the rendered website, and only then replaces `docs/`.
+
+`docs/` is therefore the **canonical publication** served by GitHub Pages. It has a different role from `_site/`:
+
+- `_site/` is disposable output for local development.
+- `docs/` is generated and validated by the strict publication process.
 
 This design means that publishing a prose change does not silently become an analytical recomputation.
 
-## Following one result through the project
+## Following One Result Through the Project
 
 The observation-status audit on the [TWFE teaching page](06-twfe-analysis.qmd#tbl-twfe-status-audit) provides a useful concrete example because it crosses the analytical, presentation, and publication boundaries.
 
-The TWFE exercise uses two project-defined **analytical series** from the *Current well-being* dataflow: life satisfaction and the employment rate. The analytical pipeline first evaluates feasible series, then constructs the matched reference-area–period estimation sample. In particular, `scripts/08-build-estimation-sample.R` saves the matched sample and reference-area coverage diagnostics under `outputs/diagnostics/`. Subsequent scripts fit the models and construct additional diagnostics used elsewhere on the TWFE page.
+The TWFE exercise uses two project-defined **analytical series** from the *Current well-being* dataflow: life satisfaction and the employment rate.
 
-The status audit itself is deliberately a presentation operation. During an ordinary render, `scripts/website/derive-presentation-assets.R` reads the existing raw *Current well-being* observation snapshot, the saved matched sample, the saved reference-area summary, and the SDMX labels for `OBS_STATUS`. It aligns the two selected analytical series to the already saved matched reference-area–period keys and counts their OECD observation-status codes. It then writes `_site/assets/twfe-audit.json`. No OECD request or model fitting occurs at this stage.
+The analytical pipeline first evaluates feasible series, then constructs the matched reference-area–period estimation sample.
 
-In the browser, `assets/twfe-audit.js` reads that JSON and fills the audit container defined in `analysis/06-twfe-analysis.qmd`. The reader sees the resulting status categories and numbers of **data points** without needing to know which files supplied them.
+In particular, `scripts/08-build-estimation-sample.R` saves the matched sample and reference-area coverage diagnostics under `outputs/diagnostics/`.
 
-The strict publication path adds another safeguard. The reviewed root `assets/twfe-audit.json` is a tracked presentation asset protected by the frozen publication contract. If ignored analytical inputs are unavailable in a clean publication environment, the strict builder preserves that reviewed asset rather than reconstructing the analysis or replacing it with a less informative result.
+Subsequent scripts fit the models and construct additional diagnostics used elsewhere on the TWFE page.
+
+The status audit itself is deliberately a presentation operation. During an ordinary render, `scripts/website/derive-presentation-assets.R` reads the existing raw *Current well-being* observation snapshot, the saved matched sample, the saved reference-area summary, and the SDMX labels for `OBS_STATUS`.
+
+It aligns the two selected analytical series to the already saved matched reference-area–period keys and counts their OECD observation-status codes.
+
+It then writes `_site/assets/twfe-audit.json`. No OECD request or model fitting occurs at this stage.
+
+In the browser, `assets/twfe-audit.js` reads that JSON and fills the audit container defined in `analysis/06-twfe-analysis.qmd`.
+
+The reader sees the resulting status categories and numbers of **data points** without needing to know which files supplied them.
+
+The strict publication path adds another safeguard. The reviewed root `assets/twfe-audit.json` is a tracked presentation asset protected by the frozen publication contract.
+
+If ignored analytical inputs are unavailable in a clean publication environment, the strict builder preserves that reviewed asset rather than reconstructing the analysis or replacing it with a less informative result.
 
 The complete lineage is therefore:
 
@@ -147,9 +196,12 @@ The complete lineage is therefore:
 <div class="result-lineage-step"><span>5</span><strong>Teaching page</strong><p>`06-twfe-analysis.qmd` → rendered browser table</p></div>
 :::
 
-This example illustrates why provenance is not only about knowing where a number originally came from. It also means knowing **which layer is allowed to change it**.
+This example illustrates why provenance is not only about knowing where a number originally came from. It also means knowing which layer is allowed to change it.
 
-## Three different verbs
+## Three Different Verbs
+
+Treating these verbs as synonyms would erase one of the project's main reproducibility safeguards.
+
 
 | Action | Meaning | Typical reason |
 |---|---|---|
@@ -157,9 +209,11 @@ This example illustrates why provenance is not only about knowing where a number
 | **Render** | Build the disposable local website from current source and existing analytical state | Edit prose, inspect presentation, or develop a table, figure, or interactive component |
 | **Publish** | Build the canonical publication from reviewed frozen computational state without rerunning the analytical pipeline | Release an approved version of the website |
 
-Treating these verbs as synonyms would erase one of the project's main reproducibility safeguards.
+: Recompute, render, and publish. {#tbl-project-verbs}
 
-## Where things live
+## Where Things Live
+
+In summary:
 
 | Location | Role |
 |---|---|
@@ -175,9 +229,15 @@ Treating these verbs as synonyms would erase one of the project's main reproduci
 | `config/frozen-presentation.json` | Frozen publication contract |
 | `docs/` | Canonical publication |
 
-The useful distinction is not the directory names themselves but **ownership**: analytical code owns empirical results, presentation code owns how those results are communicated, and the publication system controls the reviewed state released on the web.
+: Project locations and responsibilities. {#tbl-project-locations}
 
-## What should I change?
+The useful distinction is not the directory names themselves but **ownership**:
+
+- Analytical code owns empirical results.
+- Presentation code owns how those results are communicated.
+- The publication system controls the reviewed state released on the web.
+
+## What Should I Change?
 
 | If I want to change… | Start here |
 |---|---|
@@ -190,44 +250,58 @@ The useful distinction is not the directory names themselves but **ownership**: 
 | Navigation or site configuration | `_quarto.yml` |
 | A reviewed computational result used for publication | Analytical review followed by the deliberate publication-baseline workflow |
 
+: Where to make a change. {#tbl-project-changes}
+
 ::: {.context-note}
 ### [Edit sources, not generated websites]{.smallcaps}
 
-Do not manually fix `_site/` or `docs/`. They are outputs. A manual edit may appear to solve an immediate problem while leaving its source untouched. Fix the responsible source or build step and regenerate the output instead.
+Do not manually fix `_site/` or `docs/`. They are outputs. A manual edit may appear to solve an immediate problem while leaving its source untouched.
 
-Likewise, a publication-baseline mismatch is information to investigate, not an inconvenience to suppress. Rebaseline only after deliberately reviewing and accepting the changed computational result.
+Fix the responsible source or build step and regenerate the output instead.
+
+Likewise, a publication-baseline mismatch is information to investigate, not an inconvenience to suppress.
+
+Rebaseline only after deliberately reviewing and accepting the changed computational result.
 :::
 
-## Why use this architecture?
+## Why Use This Architecture?
 
 For a small static website, this machinery would be unnecessary. It becomes useful here because the project combines a changing external database, an analytical pipeline, executable teaching documents, browser-side interactive components, and a public website.
 
-The architecture aims to make changes **local and interpretable**. Changing prose should primarily change prose. Changing styling should primarily change presentation. Changing an analytical assumption should enter through the analytical workflow. Refreshing OECD data should be deliberate. Publishing should reproduce a reviewed state rather than silently create a new analytical one.
+The architecture aims to make changes **local** and **interpretable**.
+
+The logic here is straightforward:
+
+- Changing prose should primarily change prose.
+- Changing styling should primarily change presentation.
+- Changing an analytical assumption should enter through the analytical workflow.
+- Refreshing OECD data should be deliberate.
+- Publishing should reproduce a reviewed state rather than silently create a new analytical one.
 
 These are practical applications of separation of concerns and provenance to reproducible research.
 
-## The project in one minute
+## A Menu
 
 ::: {.project-verbs}
 ::: {.project-verb}
 ### Recompute
 
-When the **evidence** needs to change.
+Only if the **evidence** needs to change
 :::
 
 ::: {.project-verb}
 ### Render
 
-When you need to see the **current project locally**.
+Only if you need to see the **current project locally**
 :::
 
 ::: {.project-verb}
 ### Publish
 
-When a **reviewed state** is ready for the web.
+Only if a **reviewed state** is ready for the web
 :::
 :::
 
-The analytical workflow can reconstruct the evidence. Quarto can reconstruct its presentation. The frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.
+The analytical workflow can reconstruct the evidence, Quarto can reconstruct its presentation, and the frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.
 
 For implementation details and maintenance rules, see the project `README.md` and `PROJECT_NOTES.md` in the repository.
