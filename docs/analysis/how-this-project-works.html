@@ -107,11 +107,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="How This Project Works – Exploring OECD How’s Life? Database">
-<meta property="og:description" content="From OECD data to a reproducible teaching website">
+<meta property="og:description" content="From OECD API to a reproducible teaching website">
 <meta property="og:image" content="https://ealvaradomena.github.io/oecd-hows-life/analysis/assets/logo-bg-1200x900.png">
 <meta property="og:site_name" content="Exploring OECD <em>How’s Life?</em> Database">
 <meta name="twitter:title" content="How This Project Works – Exploring OECD How’s Life? Database">
-<meta name="twitter:description" content="From OECD data to a reproducible teaching website">
+<meta name="twitter:description" content="From OECD API to a reproducible teaching website">
 <meta name="twitter:image" content="https://ealvaradomena.github.io/oecd-hows-life/analysis/assets/logo-bg-1200x900.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -204,16 +204,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#from-the-oecd-api-to-the-browser" id="toc-from-the-oecd-api-to-the-browser" class="nav-link active" data-scroll-target="#from-the-oecd-api-to-the-browser">From the OECD API to the browser</a></li>
-  <li><a href="#analysis-producing-the-evidence" id="toc-analysis-producing-the-evidence" class="nav-link" data-scroll-target="#analysis-producing-the-evidence">Analysis: producing the evidence</a></li>
-  <li><a href="#local-presentation-turning-results-into-teaching-materials" id="toc-local-presentation-turning-results-into-teaching-materials" class="nav-link" data-scroll-target="#local-presentation-turning-results-into-teaching-materials">Local presentation: turning results into teaching materials</a></li>
-  <li><a href="#strict-publication-publishing-a-reviewed-state" id="toc-strict-publication-publishing-a-reviewed-state" class="nav-link" data-scroll-target="#strict-publication-publishing-a-reviewed-state">Strict publication: publishing a reviewed state</a></li>
-  <li><a href="#following-one-result-through-the-project" id="toc-following-one-result-through-the-project" class="nav-link" data-scroll-target="#following-one-result-through-the-project">Following one result through the project</a></li>
-  <li><a href="#three-different-verbs" id="toc-three-different-verbs" class="nav-link" data-scroll-target="#three-different-verbs">Three different verbs</a></li>
-  <li><a href="#where-things-live" id="toc-where-things-live" class="nav-link" data-scroll-target="#where-things-live">Where things live</a></li>
-  <li><a href="#what-should-i-change" id="toc-what-should-i-change" class="nav-link" data-scroll-target="#what-should-i-change">What should I change?</a></li>
-  <li><a href="#why-use-this-architecture" id="toc-why-use-this-architecture" class="nav-link" data-scroll-target="#why-use-this-architecture">Why use this architecture?</a></li>
-  <li><a href="#the-project-in-one-minute" id="toc-the-project-in-one-minute" class="nav-link" data-scroll-target="#the-project-in-one-minute">The project in one minute</a></li>
+  <li><a href="#an-overview" id="toc-an-overview" class="nav-link active" data-scroll-target="#an-overview">An Overview</a></li>
+  <li><a href="#analysis-producing-the-evidence" id="toc-analysis-producing-the-evidence" class="nav-link" data-scroll-target="#analysis-producing-the-evidence">Analysis: Producing the Evidence</a></li>
+  <li><a href="#local-presentation-turning-results-into-teaching-materials" id="toc-local-presentation-turning-results-into-teaching-materials" class="nav-link" data-scroll-target="#local-presentation-turning-results-into-teaching-materials">Local Presentation: Turning Results into Teaching Materials</a></li>
+  <li><a href="#strict-publication-publishing-a-reviewed-state" id="toc-strict-publication-publishing-a-reviewed-state" class="nav-link" data-scroll-target="#strict-publication-publishing-a-reviewed-state">Strict Publication: Publishing a Reviewed State</a></li>
+  <li><a href="#following-one-result-through-the-project" id="toc-following-one-result-through-the-project" class="nav-link" data-scroll-target="#following-one-result-through-the-project">Following One Result Through the Project</a></li>
+  <li><a href="#three-different-verbs" id="toc-three-different-verbs" class="nav-link" data-scroll-target="#three-different-verbs">Three Different Verbs</a></li>
+  <li><a href="#where-things-live" id="toc-where-things-live" class="nav-link" data-scroll-target="#where-things-live">Where Things Live</a></li>
+  <li><a href="#what-should-i-change" id="toc-what-should-i-change" class="nav-link" data-scroll-target="#what-should-i-change">What Should I Change?</a></li>
+  <li><a href="#why-use-this-architecture" id="toc-why-use-this-architecture" class="nav-link" data-scroll-target="#why-use-this-architecture">Why Use This Architecture?</a></li>
+  <li><a href="#a-menu" id="toc-a-menu" class="nav-link" data-scroll-target="#a-menu">A Menu</a></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">How This Project Works</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">From OECD data to a reproducible teaching website</p>
+<p class="subtitle lead">From OECD API to a reproducible teaching website</p>
 </div>
 
 
@@ -240,26 +240,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This project does more than display results from the OECD <em>How’s Life?</em> Database. It retrieves structured data through the OECD SDMX API, turns those data into analytical artifacts, uses them in teaching materials, and publishes a reviewed version of the website.</p>
-<p>Those activities are deliberately separated. A useful way to understand the project is to distinguish <strong>analysis</strong>, <strong>local presentation</strong>, and <strong>strict publication</strong>. They are related workflows, but they are not consecutive stages that automatically rerun one another.</p>
-<p>That distinction matters. Editing a paragraph should not unexpectedly retrieve newer OECD data, and publishing the website should not silently change an econometric result.</p>
-<section id="from-the-oecd-api-to-the-browser" class="level2">
-<h2 class="anchored" data-anchor-id="from-the-oecd-api-to-the-browser">From the OECD API to the browser</h2>
+<p>This project does more than display data from the OECD <em>How’s Life?</em> Database. It retrieves structured data through the OECD SDMX API, turns those data into analytical artifacts, uses them in teaching materials, and, importantly, publishes a reviewed version of the website.</p>
+<p>All these activities are deliberately separated. A useful way to understand the project is to distinguish <em>analysis</em>, <em>local presentation</em>, and <em>strict publication</em>. These workflows are closely related, but they are not consecutive stages that automatically trigger one another.</p>
+<p>These computational safeguards matter. Editing a paragraph should not unexpectedly retrieve newer OECD data, just as publishing the website should not silently change an econometric result.</p>
+<section id="an-overview" class="level2">
+<h2 class="anchored" data-anchor-id="an-overview">An Overview</h2>
 <p>The project can be summarized as three connected workflows:</p>
 <div class="project-workflows">
 <section id="analysis" class="level3 project-workflow-card">
 <h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
-<p><code>OECD API + config/</code></p>
+<p>OECD API<br> + <code>config/</code></p>
 <p><span class="project-flow-arrow">↓</span></p>
-<p><code>R/ + scripts/01–10</code></p>
+<p><code>R/</code><br> + <code>scripts/01–10</code></p>
 <p><span class="project-flow-arrow">↓</span></p>
-<p><code>data/ + outputs/</code></p>
+<p><code>data/</code><br> + <code>outputs/</code></p>
 <p><span class="project-flow-arrow">↓</span></p>
 <p><strong>Analytical artifacts</strong></p>
 </section>
 <section id="local-presentation" class="level3 project-workflow-card">
 <h3 class="anchored" data-anchor-id="local-presentation">Local presentation</h3>
-<p>QMD + existing analytical artifacts + tracked <code>assets/</code></p>
+<p>QMD<br> + existing analytical artifacts<br> + tracked <code>assets/</code></p>
 <p><span class="project-flow-arrow">↓</span></p>
 <p><code>quarto render</code></p>
 <p><span class="project-flow-arrow">↓</span></p>
@@ -269,59 +269,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="strict-publication" class="level3 project-workflow-card">
 <h3 class="anchored" data-anchor-id="strict-publication">Strict publication</h3>
-<p>QMD + <code>publication-baseline/</code> + tracked publication inputs</p>
+<p>QMD<br> + <code>publication-baseline/</code><br> + tracked publication inputs</p>
 <p><span class="project-flow-arrow">↓</span></p>
 <p><code>scripts/website/build.mjs</code></p>
 <p><span class="project-flow-arrow">↓</span></p>
-<p>Verify frozen publication contract + stage reviewed computational results</p>
+<p>Verify frozen publication contract<br> + stage reviewed computational results</p>
 <p><span class="project-flow-arrow">↓</span></p>
-<p>Quarto <code>--no-execute</code> + validation and polishing</p>
+<p>Quarto <code>--no-execute</code><br> + validation and polishing</p>
 <p><span class="project-flow-arrow">↓</span></p>
-<p><code>docs/</code> → <strong>canonical publication</strong> → GitHub Pages</p>
+<p><code>docs/</code> → <strong>GitHub Pages website</strong></p>
 </section>
 </div>
-<p>The key idea is <strong>separation of concerns</strong>. The analytical workflow owns empirical results. The presentation workflow controls how existing results are explained and displayed locally. The publication workflow controls what reaches the public website.</p>
+<p>The key idea is <strong>separation of concerns</strong>:</p>
+<ul>
+<li>The analytical workflow owns empirical results.</li>
+<li>The presentation workflow controls how existing results are explained and displayed locally.</li>
+<li>The publication workflow controls what reaches the public website.</li>
+</ul>
 </section>
 <section id="analysis-producing-the-evidence" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-producing-the-evidence">Analysis: producing the evidence</h2>
-<p>The analytical workflow begins with registered OECD <em>How’s Life?</em> <strong>dataflows</strong>. The project retrieves observations and SDMX structure metadata, then normalizes the resulting snapshots and constructs the analytical artifacts used downstream.</p>
-<p>Reusable functions live under <code>R/</code>. The numbered scripts under <code>scripts/</code> organize the workflow: the early stages retrieve and normalize OECD data, intermediate stages examine panel structure and dataflow relationships, and later stages construct the two-way fixed-effects (TWFE) teaching example.</p>
-<p>The principal analytical working state lives under <code>data/</code> and <code>outputs/</code>. These files are <strong>analytical artifacts</strong>: data snapshots, processed data, diagnostics, estimation samples, model results, and related computational products created by the analytical pipeline.</p>
-<p>Running the complete analytical workflow is therefore consequential. It can retrieve source data that have changed since the previous run and can replace downstream analytical artifacts.</p>
+<h2 class="anchored" data-anchor-id="analysis-producing-the-evidence">Analysis: Producing the Evidence</h2>
+<p>The analytical workflow begins with registered OECD <em>How’s Life?</em> <strong>dataflows</strong>.</p>
+<p>The project retrieves observations and SDMX structure metadata, then normalizes the resulting snapshots and constructs the analytical artifacts used downstream.</p>
+<p>The numbered scripts under <code>scripts/</code> organize the workflow: the early stages retrieve and normalize OECD data, intermediate stages examine panel structure and dataflow relationships, and later stages construct the two-way fixed-effects (TWFE) teaching example.</p>
+<p>Reusable functions live under <code>R/</code>.</p>
+<p>The principal analytical working state lives under <code>data/</code> and <code>outputs/</code>.</p>
+<p>These files are <strong>analytical artifacts</strong>: data snapshots, processed data, diagnostics, estimation samples, model results, and related computational products created by the analytical pipeline.</p>
+<p>Running the complete analytical workflow is therefore consequential. It can retrieve source data that have changed since the previous run and can therefore replace downstream analytical artifacts.</p>
 <section id="reproducibility-does-not-mean-rerunning-everything-constantly" class="level3 data-note">
 <h3 class="anchored" data-anchor-id="reproducibility-does-not-mean-rerunning-everything-constantly"><span class="smallcaps">Reproducibility does not mean rerunning everything constantly</span></h3>
 <p>A reproducible project should make it possible to reconstruct an analysis. It does not follow that every routine operation should reconstruct it.</p>
-<p>Separating analytical computation from presentation makes changes easier to interpret. A wording or styling edit should not unexpectedly produce different empirical results merely because the OECD source has changed since the last analytical run.</p>
+<p>Separating analytical <strong>computation</strong> from <strong>presentation</strong> makes changes easier to interpret.</p>
+<p>A wording or styling edit should not unexpectedly produce different empirical results merely because the OECD source has changed since the last analytical run.</p>
 </section>
 </section>
 <section id="local-presentation-turning-results-into-teaching-materials" class="level2">
-<h2 class="anchored" data-anchor-id="local-presentation-turning-results-into-teaching-materials">Local presentation: turning results into teaching materials</h2>
-<p>The Quarto documents provide the presentation layer. They combine explanatory text, existing analytical artifacts, and <strong>tracked presentation assets</strong> under root <code>assets/</code> to construct the teaching website.</p>
-<p>Some presentation steps also derive browser-facing JSON or SVG files from analytical artifacts that already exist. These are presentation operations: they do not contact the OECD API, recreate the analytical pipeline, or refit the models. During ordinary local rendering, such outputs are <strong>local presentation derivatives</strong> written under <code>_site/assets/</code>.</p>
+<h2 class="anchored" data-anchor-id="local-presentation-turning-results-into-teaching-materials">Local Presentation: Turning Results into Teaching Materials</h2>
+<p>The Quarto documents provide the presentation layer. They combine explanatory text, existing analytical artifacts, and <strong>tracked presentation assets</strong> under root <code>assets/</code> to construct the website.</p>
+<p>Some presentation steps also derive browser-facing JSON or SVG files from analytical artifacts that already exist. These are presentation operations: they do not contact the OECD API, recreate the analytical pipeline, or refit the models.</p>
+<p>During ordinary local rendering, such outputs are <strong>local presentation derivatives</strong> written under <code>_site/assets/</code>.</p>
 <p>A normal local build is therefore:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The result is <code>_site/</code>, the disposable <strong>local website</strong>.</p>
-<blockquote class="blockquote">
-<p><code>quarto render</code> is a website-development command, not an analytical-pipeline command.</p>
-</blockquote>
 <p>It renders the active teaching pages from the current source and existing analytical state. It does not run <code>scripts/01-*</code> through <code>scripts/10-*</code> or refresh the OECD source data.</p>
+<section id="render" class="level3 context-note">
+<h3 class="anchored" data-anchor-id="render"><span class="smallcaps">Render</span></h3>
+<p>Here, <code>quarto render</code> is a website-development command, not an analytical-pipeline command.</p>
+</section>
 </section>
 <section id="strict-publication-publishing-a-reviewed-state" class="level2">
-<h2 class="anchored" data-anchor-id="strict-publication-publishing-a-reviewed-state">Strict publication: publishing a reviewed state</h2>
-<p>Executable teaching documents create a subtle reproducibility problem. Suppose an R chunk produces a table that has been inspected and approved. Later, only the surrounding explanation changes. Should publication automatically execute that chunk again?</p>
-<p>This project separates those operations.</p>
-<p>The <strong>publication baseline</strong> under <code>publication-baseline/</code> stores reviewed computational presentation results. The <strong>frozen publication contract</strong>, <code>config/frozen-presentation.json</code>, binds active pages to those reviewed computations and records the required artifacts and integrity hashes.</p>
-<p>The strict publication process verifies that state, substitutes the reviewed computational results into staged Markdown-only pages, invokes Quarto with execution disabled, validates and polishes the rendered website, and only then replaces <code>docs/</code>.</p>
-<p><code>docs/</code> is therefore the <strong>canonical publication</strong> served by GitHub Pages. It has a different role from <code>_site/</code>: <code>_site/</code> is disposable output for local development, whereas <code>docs/</code> is generated and validated by the strict publication process.</p>
+<h2 class="anchored" data-anchor-id="strict-publication-publishing-a-reviewed-state">Strict Publication: Publishing a Reviewed State</h2>
+<p>Executable Quarto documents create a subtle reproducibility problem.</p>
+<p>Suppose an R chunk produces a table that has already been inspected and approved. Later, only the surrounding explanation changes.</p>
+<p>Should publishing that revision automatically execute the R code again?</p>
+<p>This project separates those operations:</p>
+<ul>
+<li>The <strong>publication baseline</strong> under <code>publication-baseline/</code> stores reviewed computational presentation results.</li>
+<li>The <strong>frozen publication contract</strong>, <code>config/frozen-presentation.json</code>, binds active pages to those reviewed computations and records the required artifacts and integrity hashes.</li>
+</ul>
+<p>Then, the strict publication process verifies that state, substitutes the reviewed computational results into staged Markdown-only pages, invokes Quarto with execution disabled, validates and polishes the rendered website, and only then replaces <code>docs/</code>.</p>
+<p><code>docs/</code> is therefore the <strong>canonical publication</strong> served by GitHub Pages. It has a different role from <code>_site/</code>:</p>
+<ul>
+<li><code>_site/</code> is disposable output for local development.</li>
+<li><code>docs/</code> is generated and validated by the strict publication process.</li>
+</ul>
 <p>This design means that publishing a prose change does not silently become an analytical recomputation.</p>
 </section>
 <section id="following-one-result-through-the-project" class="level2">
-<h2 class="anchored" data-anchor-id="following-one-result-through-the-project">Following one result through the project</h2>
+<h2 class="anchored" data-anchor-id="following-one-result-through-the-project">Following One Result Through the Project</h2>
 <p>The observation-status audit on the <a href="../analysis/06-twfe-analysis.html#tbl-twfe-status-audit">TWFE teaching page</a> provides a useful concrete example because it crosses the analytical, presentation, and publication boundaries.</p>
-<p>The TWFE exercise uses two project-defined <strong>analytical series</strong> from the <em>Current well-being</em> dataflow: life satisfaction and the employment rate. The analytical pipeline first evaluates feasible series, then constructs the matched reference-area–period estimation sample. In particular, <code>scripts/08-build-estimation-sample.R</code> saves the matched sample and reference-area coverage diagnostics under <code>outputs/diagnostics/</code>. Subsequent scripts fit the models and construct additional diagnostics used elsewhere on the TWFE page.</p>
-<p>The status audit itself is deliberately a presentation operation. During an ordinary render, <code>scripts/website/derive-presentation-assets.R</code> reads the existing raw <em>Current well-being</em> observation snapshot, the saved matched sample, the saved reference-area summary, and the SDMX labels for <code>OBS_STATUS</code>. It aligns the two selected analytical series to the already saved matched reference-area–period keys and counts their OECD observation-status codes. It then writes <code>_site/assets/twfe-audit.json</code>. No OECD request or model fitting occurs at this stage.</p>
-<p>In the browser, <code>assets/twfe-audit.js</code> reads that JSON and fills the audit container defined in <code>analysis/06-twfe-analysis.qmd</code>. The reader sees the resulting status categories and numbers of <strong>data points</strong> without needing to know which files supplied them.</p>
-<p>The strict publication path adds another safeguard. The reviewed root <code>assets/twfe-audit.json</code> is a tracked presentation asset protected by the frozen publication contract. If ignored analytical inputs are unavailable in a clean publication environment, the strict builder preserves that reviewed asset rather than reconstructing the analysis or replacing it with a less informative result.</p>
+<p>The TWFE exercise uses two project-defined <strong>analytical series</strong> from the <em>Current well-being</em> dataflow: life satisfaction and the employment rate.</p>
+<p>The analytical pipeline first evaluates feasible series, then constructs the matched reference-area–period estimation sample.</p>
+<p>In particular, <code>scripts/08-build-estimation-sample.R</code> saves the matched sample and reference-area coverage diagnostics under <code>outputs/diagnostics/</code>.</p>
+<p>Subsequent scripts fit the models and construct additional diagnostics used elsewhere on the TWFE page.</p>
+<p>The status audit itself is deliberately a presentation operation. During an ordinary render, <code>scripts/website/derive-presentation-assets.R</code> reads the existing raw <em>Current well-being</em> observation snapshot, the saved matched sample, the saved reference-area summary, and the SDMX labels for <code>OBS_STATUS</code>.</p>
+<p>It aligns the two selected analytical series to the already saved matched reference-area–period keys and counts their OECD observation-status codes.</p>
+<p>It then writes <code>_site/assets/twfe-audit.json</code>. No OECD request or model fitting occurs at this stage.</p>
+<p>In the browser, <code>assets/twfe-audit.js</code> reads that JSON and fills the audit container defined in <code>analysis/06-twfe-analysis.qmd</code>.</p>
+<p>The reader sees the resulting status categories and numbers of <strong>data points</strong> without needing to know which files supplied them.</p>
+<p>The strict publication path adds another safeguard. The reviewed root <code>assets/twfe-audit.json</code> is a tracked presentation asset protected by the frozen publication contract.</p>
+<p>If ignored analytical inputs are unavailable in a clean publication environment, the strict builder preserves that reviewed asset rather than reconstructing the analysis or replacing it with a less informative result.</p>
 <p>The complete lineage is therefore:</p>
 <div class="result-lineage">
 <div class="result-lineage-step">
@@ -355,10 +382,18 @@ Numbered analytical pipeline → matched TWFE estimation sample + reference-area
 </p>
 </div>
 </div>
-<p>This example illustrates why provenance is not only about knowing where a number originally came from. It also means knowing <strong>which layer is allowed to change it</strong>.</p>
+<p>This example illustrates why provenance is not only about knowing where a number originally came from. It also means knowing which layer is allowed to change it.</p>
 </section>
 <section id="three-different-verbs" class="level2">
-<h2 class="anchored" data-anchor-id="three-different-verbs">Three different verbs</h2>
+<h2 class="anchored" data-anchor-id="three-different-verbs">Three Different Verbs</h2>
+<p>Treating these verbs as synonyms would erase one of the project’s main reproducibility safeguards.</p>
+<div id="tbl-project-verbs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-project-verbs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="object-caption-number">Table&nbsp;15</span>
+<span class="object-caption-title">Recompute, render, and publish</span>
+</figcaption>
+<div aria-describedby="tbl-project-verbs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -390,10 +425,20 @@ Numbered analytical pipeline → matched TWFE estimation sample + reference-area
 </tr>
 </tbody>
 </table>
-<p>Treating these verbs as synonyms would erase one of the project’s main reproducibility safeguards.</p>
+</div>
+</figure>
+</div>
 </section>
 <section id="where-things-live" class="level2">
-<h2 class="anchored" data-anchor-id="where-things-live">Where things live</h2>
+<h2 class="anchored" data-anchor-id="where-things-live">Where Things Live</h2>
+<p>In summary:</p>
+<div id="tbl-project-locations" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-project-locations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="object-caption-number">Table&nbsp;16</span>
+<span class="object-caption-title">Project locations and responsibilities</span>
+</figcaption>
+<div aria-describedby="tbl-project-locations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -452,10 +497,25 @@ Numbered analytical pipeline → matched TWFE estimation sample + reference-area
 </tr>
 </tbody>
 </table>
-<p>The useful distinction is not the directory names themselves but <strong>ownership</strong>: analytical code owns empirical results, presentation code owns how those results are communicated, and the publication system controls the reviewed state released on the web.</p>
+</div>
+</figure>
+</div>
+<p>The useful distinction is not the directory names themselves but <strong>ownership</strong>:</p>
+<ul>
+<li>Analytical code owns empirical results.</li>
+<li>Presentation code owns how those results are communicated.</li>
+<li>The publication system controls the reviewed state released on the web.</li>
+</ul>
 </section>
 <section id="what-should-i-change" class="level2">
-<h2 class="anchored" data-anchor-id="what-should-i-change">What should I change?</h2>
+<h2 class="anchored" data-anchor-id="what-should-i-change">What Should I Change?</h2>
+<div id="tbl-project-changes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-project-changes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="object-caption-number">Table&nbsp;17</span>
+<span class="object-caption-title">Where to make a change</span>
+</figcaption>
+<div aria-describedby="tbl-project-changes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -502,36 +562,62 @@ Numbered analytical pipeline → matched TWFE estimation sample + reference-area
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <section id="edit-sources-not-generated-websites" class="level3 context-note">
 <h3 class="anchored" data-anchor-id="edit-sources-not-generated-websites"><span class="smallcaps">Edit sources, not generated websites</span></h3>
-<p>Do not manually fix <code>_site/</code> or <code>docs/</code>. They are outputs. A manual edit may appear to solve an immediate problem while leaving its source untouched. Fix the responsible source or build step and regenerate the output instead.</p>
-<p>Likewise, a publication-baseline mismatch is information to investigate, not an inconvenience to suppress. Rebaseline only after deliberately reviewing and accepting the changed computational result.</p>
+<p>Do not manually fix <code>_site/</code> or <code>docs/</code>. They are outputs. A manual edit may appear to solve an immediate problem while leaving its source untouched.</p>
+<p>Fix the responsible source or build step and regenerate the output instead.</p>
+<p>Likewise, a publication-baseline mismatch is information to investigate, not an inconvenience to suppress.</p>
+<p>Rebaseline only after deliberately reviewing and accepting the changed computational result.</p>
 </section>
 </section>
 <section id="why-use-this-architecture" class="level2">
-<h2 class="anchored" data-anchor-id="why-use-this-architecture">Why use this architecture?</h2>
+<h2 class="anchored" data-anchor-id="why-use-this-architecture">Why Use This Architecture?</h2>
 <p>For a small static website, this machinery would be unnecessary. It becomes useful here because the project combines a changing external database, an analytical pipeline, executable teaching documents, browser-side interactive components, and a public website.</p>
-<p>The architecture aims to make changes <strong>local and interpretable</strong>. Changing prose should primarily change prose. Changing styling should primarily change presentation. Changing an analytical assumption should enter through the analytical workflow. Refreshing OECD data should be deliberate. Publishing should reproduce a reviewed state rather than silently create a new analytical one.</p>
+<p>The architecture aims to make changes <strong>local</strong> and <strong>interpretable</strong>.</p>
+<p>The logic here is straightforward:</p>
+<ul>
+<li>Changing prose should primarily change prose.</li>
+<li>Changing styling should primarily change presentation.</li>
+<li>Changing an analytical assumption should enter through the analytical workflow.</li>
+<li>Refreshing OECD data should be deliberate.</li>
+<li>Publishing should reproduce a reviewed state rather than silently create a new analytical one.</li>
+</ul>
 <p>These are practical applications of separation of concerns and provenance to reproducible research.</p>
 </section>
-<section id="the-project-in-one-minute" class="level2">
-<h2 class="anchored" data-anchor-id="the-project-in-one-minute">The project in one minute</h2>
+<section id="a-menu" class="level2">
+<h2 class="anchored" data-anchor-id="a-menu">A Menu</h2>
 <div class="project-verbs">
 <section id="recompute" class="level3 project-verb">
 <h3 class="anchored" data-anchor-id="recompute">Recompute</h3>
-<p>When the <strong>evidence</strong> needs to change.</p>
+<p>Only if the <strong>evidence</strong> needs to change</p>
 </section>
-<section id="render" class="level3 project-verb">
-<h3 class="anchored" data-anchor-id="render">Render</h3>
-<p>When you need to see the <strong>current project locally</strong>.</p>
+<section id="render-1" class="level3 project-verb">
+<h3 class="anchored" data-anchor-id="render-1">Render</h3>
+<p>Only if you need to see the <strong>current project locally</strong></p>
 </section>
 <section id="publish" class="level3 project-verb">
 <h3 class="anchored" data-anchor-id="publish">Publish</h3>
-<p>When a <strong>reviewed state</strong> is ready for the web.</p>
+<p>Only if a <strong>reviewed state</strong> is ready for the web</p>
 </section>
 </div>
-<p>The analytical workflow can reconstruct the evidence. Quarto can reconstruct its presentation. The frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.</p>
+<p>The analytical workflow can reconstruct the evidence, Quarto can reconstruct its presentation, and the frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.</p>
 <p>For implementation details and maintenance rules, see the project <code>README.md</code> and <code>PROJECT_NOTES.md</code> in the repository.</p>
+<div class="oecd-rules">
+<div class="oecd-rules__slogan">
+<span class="oecd-rules__slogan-line">Do as</span><br>
+<span class="oecd-rules__slogan-oecd">OECD</span><br>
+<span class="oecd-rules__slogan-line">says</span>
+</div>
+<div class="oecd-rules__guidance">
+<p>This website uses the OECD API to teach<br>
+reproducible R workflows.</p>
+<p>For <strong>authoritative</strong> and <strong>up-to-date</strong> technical guidance,<br>
+consult the official OECD documentation.</p>
+</div>
+</div>
 
 
 <!-- -->
@@ -998,16 +1084,16 @@ Numbered analytical pipeline → matched TWFE estimation sample + reference-area
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">engine:</span><span class="co"> markdown</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "How This Project Works"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "From OECD data to a reproducible teaching website"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "From OECD API to a reproducible teaching website"</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>This project does more than display results from the OECD *How’s Life?* Database. It retrieves structured data through the OECD SDMX API, turns those data into analytical artifacts, uses them in teaching materials, and publishes a reviewed version of the website.</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>This project does more than display data from the OECD *How’s Life?* Database. It retrieves structured data through the OECD SDMX API, turns those data into analytical artifacts, uses them in teaching materials, and, importantly, publishes a reviewed version of the website.</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Those activities are deliberately separated. A useful way to understand the project is to distinguish **analysis**, **local presentation**, and **strict publication**. They are related workflows, but they are not consecutive stages that automatically rerun one another.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>All these activities are deliberately separated. A useful way to understand the project is to distinguish *analysis*, *local presentation*, and *strict publication*. These workflows are closely related, but they are not consecutive stages that automatically trigger one another.</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>That distinction matters. Editing a paragraph should not unexpectedly retrieve newer OECD data, and publishing the website should not silently change an econometric result.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>These computational safeguards matter. Editing a paragraph should not unexpectedly retrieve newer OECD data, just as publishing the website should not silently change an econometric result.</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## From the OECD API to the browser</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## An Overview</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>The project can be summarized as three connected workflows:</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
@@ -1015,220 +1101,296 @@ Numbered analytical pipeline → matched TWFE estimation sample + reference-area
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>::: {.project-workflow-card}</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Analysis</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="in">`OECD API + config/`</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="in">`R/ + scripts/01–10`</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>OECD API<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span><span class="in">`config/`</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="in">`R/`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span><span class="in">`scripts/01–10`</span></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="in">`data/ + outputs/`</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>**Analytical artifacts**</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="in">`data/`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span><span class="in">`outputs/`</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>::: {.project-workflow-card}</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Local presentation</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>**Analytical artifacts**</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>QMD + existing analytical artifacts + tracked <span class="in">`assets/`</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="in">`quarto render`</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>Presentation-only derivation and polishing</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="in">`_site/`</span> → **local website**</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>::: {.project-workflow-card}</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### Local presentation</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>QMD<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>existing analytical artifacts<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>tracked <span class="in">`assets/`</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="in">`quarto render`</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>Presentation-only derivation and polishing</span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>::: {.project-workflow-card}</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Strict publication</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>QMD + <span class="in">`publication-baseline/`</span> + tracked publication inputs</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="in">`_site/`</span> → **local website**</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/website/build.mjs`</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>Verify frozen publication contract + stage reviewed computational results</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>Quarto <span class="in">`--no-execute`</span> + validation and polishing</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="in">`docs/`</span> → **canonical publication** → GitHub Pages</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>::: {.project-workflow-card}</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Strict publication</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>QMD<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span><span class="in">`publication-baseline/`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>tracked publication inputs</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/website/build.mjs`</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Verify frozen publication contract<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>stage reviewed computational results</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
 <span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>The key idea is **separation of concerns**. The analytical workflow owns empirical results. The presentation workflow controls how existing results are explained and displayed locally. The publication workflow controls what reaches the public website.</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis: producing the evidence</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>The analytical workflow begins with registered OECD *How’s Life?* **dataflows**. The project retrieves observations and SDMX structure metadata, then normalizes the resulting snapshots and constructs the analytical artifacts used downstream.</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>Reusable functions live under <span class="in">`R/`</span>. The numbered scripts under <span class="in">`scripts/`</span> organize the workflow: the early stages retrieve and normalize OECD data, intermediate stages examine panel structure and dataflow relationships, and later stages construct the two-way fixed-effects (TWFE) teaching example.</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>The principal analytical working state lives under <span class="in">`data/`</span> and <span class="in">`outputs/`</span>. These files are **analytical artifacts**: data snapshots, processed data, diagnostics, estimation samples, model results, and related computational products created by the analytical pipeline.</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>Running the complete analytical workflow is therefore consequential. It can retrieve source data that have changed since the previous run and can replace downstream analytical artifacts.</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>::: {.data-note}</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Reproducibility does not mean rerunning everything constantly]{.smallcaps}</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>Quarto <span class="in">`--no-execute`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>validation and polishing</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"project-flow-arrow"</span><span class="dt">&gt;</span>↓<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="in">`docs/`</span> → **GitHub Pages website**</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>The key idea is **separation of concerns**:</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The analytical workflow owns empirical results.</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The presentation workflow controls how existing results are explained and displayed locally.</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The publication workflow controls what reaches the public website.</span>
 <span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>A reproducible project should make it possible to reconstruct an analysis. It does not follow that every routine operation should reconstruct it.</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis: Producing the Evidence</span></span>
 <span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>Separating analytical computation from presentation makes changes easier to interpret. A wording or styling edit should not unexpectedly produce different empirical results merely because the OECD source has changed since the last analytical run.</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Local presentation: turning results into teaching materials</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>The Quarto documents provide the presentation layer. They combine explanatory text, existing analytical artifacts, and **tracked presentation assets** under root <span class="in">`assets/`</span> to construct the teaching website.</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>Some presentation steps also derive browser-facing JSON or SVG files from analytical artifacts that already exist. These are presentation operations: they do not contact the OECD API, recreate the analytical pipeline, or refit the models. During ordinary local rendering, such outputs are **local presentation derivatives** written under <span class="in">`_site/assets/`</span>.</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>A normal local build is therefore:</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>The result is <span class="in">`_site/`</span>, the disposable **local website**.</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>The analytical workflow begins with registered OECD *How’s Life?* **dataflows**.</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>The project retrieves observations and SDMX structure metadata, then normalizes the resulting snapshots and constructs the analytical artifacts used downstream.</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>The numbered scripts under <span class="in">`scripts/`</span> organize the workflow: the early stages retrieve and normalize OECD data, intermediate stages examine panel structure and dataflow relationships, and later stages construct the two-way fixed-effects (TWFE) teaching example.</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>Reusable functions live under <span class="in">`R/`</span>.</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>The principal analytical working state lives under <span class="in">`data/`</span> and <span class="in">`outputs/`</span>.</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>These files are **analytical artifacts**: data snapshots, processed data, diagnostics, estimation samples, model results, and related computational products created by the analytical pipeline.</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>Running the complete analytical workflow is therefore consequential. It can retrieve source data that have changed since the previous run and can therefore replace downstream analytical artifacts.</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>::: {.data-note}</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Reproducibility does not mean rerunning everything constantly]{.smallcaps}</span></span>
 <span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`quarto render`</span><span class="at"> is a website-development command, not an analytical-pipeline command.</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>A reproducible project should make it possible to reconstruct an analysis. It does not follow that every routine operation should reconstruct it.</span>
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>It renders the active teaching pages from the current source and existing analytical state. It does not run <span class="in">`scripts/01-*`</span> through <span class="in">`scripts/10-*`</span> or refresh the OECD source data.</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>Separating analytical **computation** from **presentation** makes changes easier to interpret.</span>
 <span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Strict publication: publishing a reviewed state</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>Executable teaching documents create a subtle reproducibility problem. Suppose an R chunk produces a table that has been inspected and approved. Later, only the surrounding explanation changes. Should publication automatically execute that chunk again?</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>This project separates those operations.</span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>The **publication baseline** under `publication-baseline/` stores reviewed computational presentation results. The **frozen publication contract**, <span class="in">`config/frozen-presentation.json`</span>, binds active pages to those reviewed computations and records the required artifacts and integrity hashes.</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>The strict publication process verifies that state, substitutes the reviewed computational results into staged Markdown-only pages, invokes Quarto with execution disabled, validates and polishes the rendered website, and only then replaces <span class="in">`docs/`</span>.</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="in">`docs/`</span> is therefore the **canonical publication** served by GitHub Pages. It has a different role from <span class="in">`_site/`</span>: <span class="in">`_site/`</span> is disposable output for local development, whereas <span class="in">`docs/`</span> is generated and validated by the strict publication process.</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>This design means that publishing a prose change does not silently become an analytical recomputation.</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Following one result through the project</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>The observation-status audit on the <span class="co">[</span><span class="ot">TWFE teaching page</span><span class="co">](06-twfe-analysis.qmd#tbl-twfe-status-audit)</span> provides a useful concrete example because it crosses the analytical, presentation, and publication boundaries.</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>The TWFE exercise uses two project-defined **analytical series** from the *Current well-being* dataflow: life satisfaction and the employment rate. The analytical pipeline first evaluates feasible series, then constructs the matched reference-area–period estimation sample. In particular, <span class="in">`scripts/08-build-estimation-sample.R`</span> saves the matched sample and reference-area coverage diagnostics under <span class="in">`outputs/diagnostics/`</span>. Subsequent scripts fit the models and construct additional diagnostics used elsewhere on the TWFE page.</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>The status audit itself is deliberately a presentation operation. During an ordinary render, <span class="in">`scripts/website/derive-presentation-assets.R`</span> reads the existing raw *Current well-being* observation snapshot, the saved matched sample, the saved reference-area summary, and the SDMX labels for <span class="in">`OBS_STATUS`</span>. It aligns the two selected analytical series to the already saved matched reference-area–period keys and counts their OECD observation-status codes. It then writes <span class="in">`_site/assets/twfe-audit.json`</span>. No OECD request or model fitting occurs at this stage.</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>In the browser, <span class="in">`assets/twfe-audit.js`</span> reads that JSON and fills the audit container defined in <span class="in">`analysis/06-twfe-analysis.qmd`</span>. The reader sees the resulting status categories and numbers of **data points** without needing to know which files supplied them.</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>A wording or styling edit should not unexpectedly produce different empirical results merely because the OECD source has changed since the last analytical run.</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Local Presentation: Turning Results into Teaching Materials</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>The Quarto documents provide the presentation layer. They combine explanatory text, existing analytical artifacts, and **tracked presentation assets** under root <span class="in">`assets/`</span> to construct the website.</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>Some presentation steps also derive browser-facing JSON or SVG files from analytical artifacts that already exist. These are presentation operations: they do not contact the OECD API, recreate the analytical pipeline, or refit the models.</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>During ordinary local rendering, such outputs are **local presentation derivatives** written under <span class="in">`_site/assets/`</span>.</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>A normal local build is therefore:</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>The result is <span class="in">`_site/`</span>, the disposable **local website**.</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>It renders the active teaching pages from the current source and existing analytical state. It does not run <span class="in">`scripts/01-*`</span> through <span class="in">`scripts/10-*`</span> or refresh the OECD source data.</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>:::{.context-note}</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Render]{.smallcaps}</span></span>
 <span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>The strict publication path adds another safeguard. The reviewed root <span class="in">`assets/twfe-audit.json`</span> is a tracked presentation asset protected by the frozen publication contract. If ignored analytical inputs are unavailable in a clean publication environment, the strict builder preserves that reviewed asset rather than reconstructing the analysis or replacing it with a less informative result.</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>The complete lineage is therefore:</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>::: {.result-lineage}</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>1<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Source<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>*Current well-being* observations + SDMX structure metadata<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>2<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Analysis<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Numbered analytical pipeline → matched TWFE estimation sample + reference-area diagnostics<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>3<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Presentation derivation<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span><span class="in">`twfe-audit.json`</span> from existing analytical artifacts<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>4<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Browser behavior<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span><span class="in">`twfe-audit.js`</span> reads the derived JSON<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>5<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Teaching page<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span><span class="in">`06-twfe-analysis.qmd`</span> → rendered browser table<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>This example illustrates why provenance is not only about knowing where a number originally came from. It also means knowing **which layer is allowed to change it**.</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Three different verbs</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>Here, <span class="in">`quarto render`</span> is a website-development command, not an analytical-pipeline command.</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Strict Publication: Publishing a Reviewed State</span></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>Executable Quarto documents create a subtle reproducibility problem.</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>Suppose an R chunk produces a table that has already been inspected and approved. Later, only the surrounding explanation changes.</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>Should publishing that revision automatically execute the R code again?</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>This project separates those operations:</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **publication baseline** under <span class="in">`publication-baseline/`</span> stores reviewed computational presentation results.</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **frozen publication contract**, <span class="in">`config/frozen-presentation.json`</span>, binds active pages to those reviewed computations and records the required artifacts and integrity hashes.</span>
 <span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Action <span class="pp">|</span> Meaning <span class="pp">|</span> Typical reason <span class="pp">|</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Recompute** <span class="pp">|</span> Run the numbered analytical pipeline and potentially change analytical artifacts <span class="pp">|</span> New source data, changed analytical logic, or a revised model <span class="pp">|</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Render** <span class="pp">|</span> Build the disposable local website from current source and existing analytical state <span class="pp">|</span> Edit prose, inspect presentation, or develop a table, figure, or interactive component <span class="pp">|</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Publish** <span class="pp">|</span> Build the canonical publication from reviewed frozen computational state without rerunning the analytical pipeline <span class="pp">|</span> Release an approved version of the website <span class="pp">|</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>Treating these verbs as synonyms would erase one of the project's main reproducibility safeguards.</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where things live</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Location <span class="pp">|</span> Role <span class="pp">|</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/`</span> <span class="pp">|</span> Reusable project functions <span class="pp">|</span></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`scripts/01-*`</span>–<span class="in">`scripts/10-*`</span> <span class="pp">|</span> Numbered analytical pipeline <span class="pp">|</span></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/`</span> <span class="pp">|</span> Analytical data state <span class="pp">|</span></span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`outputs/`</span> <span class="pp">|</span> Analytical results and diagnostics <span class="pp">|</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`*.qmd`</span> <span class="pp">|</span> Teaching-page source <span class="pp">|</span></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`assets/`</span> <span class="pp">|</span> Tracked presentation assets <span class="pp">|</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`_site/assets/`</span> <span class="pp">|</span> Local presentation derivatives <span class="pp">|</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`_site/`</span> <span class="pp">|</span> Disposable local website <span class="pp">|</span></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`publication-baseline/`</span> <span class="pp">|</span> Reviewed computational presentation results <span class="pp">|</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`config/frozen-presentation.json`</span> <span class="pp">|</span> Frozen publication contract <span class="pp">|</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/`</span> <span class="pp">|</span> Canonical publication <span class="pp">|</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>The useful distinction is not the directory names themselves but **ownership**: analytical code owns empirical results, presentation code owns how those results are communicated, and the publication system controls the reviewed state released on the web.</span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## What should I change?</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> If I want to change… <span class="pp">|</span> Start here <span class="pp">|</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Explanatory prose <span class="pp">|</span> The corresponding <span class="in">`.qmd`</span> <span class="pp">|</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> An analytical result <span class="pp">|</span> The responsible analytical script or function and its inputs <span class="pp">|</span></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> How an existing result becomes a table or figure <span class="pp">|</span> The corresponding <span class="in">`.qmd`</span> <span class="pp">|</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Interactive behavior <span class="pp">|</span> The relevant JavaScript <span class="pp">|</span></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Browser-facing data used by an interactive component <span class="pp">|</span> The relevant presentation asset and its derivation <span class="pp">|</span></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Site appearance <span class="pp">|</span> <span class="in">`styles.css`</span> <span class="pp">|</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Navigation or site configuration <span class="pp">|</span> <span class="in">`_quarto.yml`</span> <span class="pp">|</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A reviewed computational result used for publication <span class="pp">|</span> Analytical review followed by the deliberate publication-baseline workflow <span class="pp">|</span></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>::: {.context-note}</span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Edit sources, not generated websites]{.smallcaps}</span></span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>Do not manually fix <span class="in">`_site/`</span> or <span class="in">`docs/`</span>. They are outputs. A manual edit may appear to solve an immediate problem while leaving its source untouched. Fix the responsible source or build step and regenerate the output instead.</span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>Likewise, a publication-baseline mismatch is information to investigate, not an inconvenience to suppress. Rebaseline only after deliberately reviewing and accepting the changed computational result.</span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>Then, the strict publication process verifies that state, substitutes the reviewed computational results into staged Markdown-only pages, invokes Quarto with execution disabled, validates and polishes the rendered website, and only then replaces <span class="in">`docs/`</span>.</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="in">`docs/`</span> is therefore the **canonical publication** served by GitHub Pages. It has a different role from <span class="in">`_site/`</span>:</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`_site/`</span> is disposable output for local development.</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`docs/`</span> is generated and validated by the strict publication process.</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>This design means that publishing a prose change does not silently become an analytical recomputation.</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## Following One Result Through the Project</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>The observation-status audit on the <span class="co">[</span><span class="ot">TWFE teaching page</span><span class="co">](06-twfe-analysis.qmd#tbl-twfe-status-audit)</span> provides a useful concrete example because it crosses the analytical, presentation, and publication boundaries.</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>The TWFE exercise uses two project-defined **analytical series** from the *Current well-being* dataflow: life satisfaction and the employment rate.</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>The analytical pipeline first evaluates feasible series, then constructs the matched reference-area–period estimation sample.</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>In particular, <span class="in">`scripts/08-build-estimation-sample.R`</span> saves the matched sample and reference-area coverage diagnostics under <span class="in">`outputs/diagnostics/`</span>.</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>Subsequent scripts fit the models and construct additional diagnostics used elsewhere on the TWFE page.</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>The status audit itself is deliberately a presentation operation. During an ordinary render, <span class="in">`scripts/website/derive-presentation-assets.R`</span> reads the existing raw *Current well-being* observation snapshot, the saved matched sample, the saved reference-area summary, and the SDMX labels for <span class="in">`OBS_STATUS`</span>.</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>It aligns the two selected analytical series to the already saved matched reference-area–period keys and counts their OECD observation-status codes.</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>It then writes <span class="in">`_site/assets/twfe-audit.json`</span>. No OECD request or model fitting occurs at this stage.</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>In the browser, <span class="in">`assets/twfe-audit.js`</span> reads that JSON and fills the audit container defined in <span class="in">`analysis/06-twfe-analysis.qmd`</span>.</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>The reader sees the resulting status categories and numbers of **data points** without needing to know which files supplied them.</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>The strict publication path adds another safeguard. The reviewed root <span class="in">`assets/twfe-audit.json`</span> is a tracked presentation asset protected by the frozen publication contract.</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>If ignored analytical inputs are unavailable in a clean publication environment, the strict builder preserves that reviewed asset rather than reconstructing the analysis or replacing it with a less informative result.</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>The complete lineage is therefore:</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>::: {.result-lineage}</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>1<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Source<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>*Current well-being* observations + SDMX structure metadata<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>2<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Analysis<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Numbered analytical pipeline → matched TWFE estimation sample + reference-area diagnostics<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>3<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Presentation derivation<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span><span class="in">`twfe-audit.json`</span> from existing analytical artifacts<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>4<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Browser behavior<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span><span class="in">`twfe-audit.js`</span> reads the derived JSON<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"result-lineage-step"</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>5<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;&lt;</span><span class="kw">strong</span><span class="dt">&gt;</span>Teaching page<span class="dt">&lt;/</span><span class="kw">strong</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span><span class="in">`06-twfe-analysis.qmd`</span> → rendered browser table<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>This example illustrates why provenance is not only about knowing where a number originally came from. It also means knowing which layer is allowed to change it.</span>
 <span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why use this architecture?</span></span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="fu">## Three Different Verbs</span></span>
 <span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>For a small static website, this machinery would be unnecessary. It becomes useful here because the project combines a changing external database, an analytical pipeline, executable teaching documents, browser-side interactive components, and a public website.</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>Treating these verbs as synonyms would erase one of the project's main reproducibility safeguards.</span>
 <span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>The architecture aims to make changes **local and interpretable**. Changing prose should primarily change prose. Changing styling should primarily change presentation. Changing an analytical assumption should enter through the analytical workflow. Refreshing OECD data should be deliberate. Publishing should reproduce a reviewed state rather than silently create a new analytical one.</span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>These are practical applications of separation of concerns and provenance to reproducible research.</span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## The project in one minute</span></span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>::: {.project-verbs}</span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>::: {.project-verb}</span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### Recompute</span></span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>When the **evidence** needs to change.</span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Action <span class="pp">|</span> Meaning <span class="pp">|</span> Typical reason <span class="pp">|</span></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Recompute** <span class="pp">|</span> Run the numbered analytical pipeline and potentially change analytical artifacts <span class="pp">|</span> New source data, changed analytical logic, or a revised model <span class="pp">|</span></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Render** <span class="pp">|</span> Build the disposable local website from current source and existing analytical state <span class="pp">|</span> Edit prose, inspect presentation, or develop a table, figure, or interactive component <span class="pp">|</span></span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Publish** <span class="pp">|</span> Build the canonical publication from reviewed frozen computational state without rerunning the analytical pipeline <span class="pp">|</span> Release an approved version of the website <span class="pp">|</span></span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>: Recompute, render, and publish. {#tbl-project-verbs}</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where Things Live</span></span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>In summary:</span>
 <span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>::: {.project-verb}</span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="fu">### Render</span></span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>When you need to see the **current project locally**.</span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>::: {.project-verb}</span>
-<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a><span class="fu">### Publish</span></span>
-<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>When a **reviewed state** is ready for the web.</span>
-<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>The analytical workflow can reconstruct the evidence. Quarto can reconstruct its presentation. The frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.</span>
-<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>For implementation details and maintenance rules, see the project <span class="in">`README.md`</span> and <span class="in">`PROJECT_NOTES.md`</span> in the repository.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Location <span class="pp">|</span> Role <span class="pp">|</span></span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/`</span> <span class="pp">|</span> Reusable project functions <span class="pp">|</span></span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`scripts/01-*`</span>–<span class="in">`scripts/10-*`</span> <span class="pp">|</span> Numbered analytical pipeline <span class="pp">|</span></span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/`</span> <span class="pp">|</span> Analytical data state <span class="pp">|</span></span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`outputs/`</span> <span class="pp">|</span> Analytical results and diagnostics <span class="pp">|</span></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`*.qmd`</span> <span class="pp">|</span> Teaching-page source <span class="pp">|</span></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`assets/`</span> <span class="pp">|</span> Tracked presentation assets <span class="pp">|</span></span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`_site/assets/`</span> <span class="pp">|</span> Local presentation derivatives <span class="pp">|</span></span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`_site/`</span> <span class="pp">|</span> Disposable local website <span class="pp">|</span></span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`publication-baseline/`</span> <span class="pp">|</span> Reviewed computational presentation results <span class="pp">|</span></span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`config/frozen-presentation.json`</span> <span class="pp">|</span> Frozen publication contract <span class="pp">|</span></span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/`</span> <span class="pp">|</span> Canonical publication <span class="pp">|</span></span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a>: Project locations and responsibilities. {#tbl-project-locations}</span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>The useful distinction is not the directory names themselves but **ownership**:</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analytical code owns empirical results.</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Presentation code owns how those results are communicated.</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The publication system controls the reviewed state released on the web.</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a><span class="fu">## What Should I Change?</span></span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> If I want to change… <span class="pp">|</span> Start here <span class="pp">|</span></span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Explanatory prose <span class="pp">|</span> The corresponding <span class="in">`.qmd`</span> <span class="pp">|</span></span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> An analytical result <span class="pp">|</span> The responsible analytical script or function and its inputs <span class="pp">|</span></span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> How an existing result becomes a table or figure <span class="pp">|</span> The corresponding <span class="in">`.qmd`</span> <span class="pp">|</span></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Interactive behavior <span class="pp">|</span> The relevant JavaScript <span class="pp">|</span></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Browser-facing data used by an interactive component <span class="pp">|</span> The relevant presentation asset and its derivation <span class="pp">|</span></span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Site appearance <span class="pp">|</span> <span class="in">`styles.css`</span> <span class="pp">|</span></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Navigation or site configuration <span class="pp">|</span> <span class="in">`_quarto.yml`</span> <span class="pp">|</span></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A reviewed computational result used for publication <span class="pp">|</span> Analytical review followed by the deliberate publication-baseline workflow <span class="pp">|</span></span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>: Where to make a change. {#tbl-project-changes}</span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>::: {.context-note}</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a><span class="fu">### [Edit sources, not generated websites]{.smallcaps}</span></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>Do not manually fix <span class="in">`_site/`</span> or <span class="in">`docs/`</span>. They are outputs. A manual edit may appear to solve an immediate problem while leaving its source untouched.</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>Fix the responsible source or build step and regenerate the output instead.</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>Likewise, a publication-baseline mismatch is information to investigate, not an inconvenience to suppress.</span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>Rebaseline only after deliberately reviewing and accepting the changed computational result.</span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why Use This Architecture?</span></span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>For a small static website, this machinery would be unnecessary. It becomes useful here because the project combines a changing external database, an analytical pipeline, executable teaching documents, browser-side interactive components, and a public website.</span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>The architecture aims to make changes **local** and **interpretable**.</span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>The logic here is straightforward:</span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Changing prose should primarily change prose.</span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Changing styling should primarily change presentation.</span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Changing an analytical assumption should enter through the analytical workflow.</span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Refreshing OECD data should be deliberate.</span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Publishing should reproduce a reviewed state rather than silently create a new analytical one.</span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>These are practical applications of separation of concerns and provenance to reproducible research.</span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a><span class="fu">## A Menu</span></span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>::: {.project-verbs}</span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>::: {.project-verb}</span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a><span class="fu">### Recompute</span></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>Only if the **evidence** needs to change</span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>::: {.project-verb}</span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a><span class="fu">### Render</span></span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>Only if you need to see the **current project locally**</span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>::: {.project-verb}</span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### Publish</span></span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>Only if a **reviewed state** is ready for the web</span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>The analytical workflow can reconstruct the evidence, Quarto can reconstruct its presentation, and the frozen publication system ensures that reconstructing the website does not silently become reconstructing the analysis.</span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>For implementation details and maintenance rules, see the project <span class="in">`README.md`</span> and <span class="in">`PROJECT_NOTES.md`</span> in the repository.</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>{{&lt; oecd-rules &gt;}}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

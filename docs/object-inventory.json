@@ -90,5 +90,17 @@
   {
     "page": "analysis/series.qmd",
     "caption": "Figure 9\nReference area–time-period observation coverage for the selected analytical series."
+  },
+  {
+    "page": "analysis/how-this-project-works.qmd",
+    "caption": "Table 15\nRecompute, render, and publish"
+  },
+  {
+    "page": "analysis/how-this-project-works.qmd",
+    "caption": "Table 16\nProject locations and responsibilities"
+  },
+  {
+    "page": "analysis/how-this-project-works.qmd",
+    "caption": "Table 17\nWhere to make a change"
   }
 ]
