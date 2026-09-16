@@ -12,8 +12,7 @@ return {
 
     local guidance = pandoc.Div({
       pandoc.Para({
-        pandoc.Str("This website uses the OECD API to teach"),
-        pandoc.LineBreak(),
+        pandoc.Str("This website uses the OECD API to teach "),
         pandoc.Str("reproducible R workflows.")
       }),
       pandoc.Para({
@@ -21,8 +20,7 @@ return {
         pandoc.Strong({ pandoc.Str("authoritative") }),
         pandoc.Str(" and "),
         pandoc.Strong({ pandoc.Str("up-to-date") }),
-        pandoc.Str(" technical guidance,"),
-        pandoc.LineBreak(),
+        pandoc.Str(" technical guidance, "),
         pandoc.Str("consult the official OECD documentation.")
       })
     }, pandoc.Attr("", { "oecd-rules__guidance" }))
