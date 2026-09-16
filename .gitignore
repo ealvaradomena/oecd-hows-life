@@ -57,3 +57,5 @@ desktop.ini
 
 # Temporary working files and review artifacts
 tmp/
+
+/.quarto/

@@ -30,6 +30,7 @@ const pageOrder = [
   "analysis/05-series-explorer.qmd",
   "analysis/06-twfe-analysis.qmd",
   "analysis/series.qmd",
+  "analysis/how-this-project-works.qmd",
 ];
 const decoder = new TextDecoder();
 const encoder = new TextEncoder();

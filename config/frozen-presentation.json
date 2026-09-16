@@ -458,6 +458,9 @@
     },
     "analysis/series.qmd": {
       "bindings": []
+    },
+    "analysis/how-this-project-works.qmd": {
+      "bindings": []
     }
   },
   "artifacts": {

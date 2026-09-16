@@ -79,6 +79,7 @@ test('active teaching pages use canonical 04, 05, and 06 identities', () => {
     'analysis/04-demographic-comparisons.qmd',
     'analysis/05-series-explorer.qmd',
     'analysis/06-twfe-analysis.qmd',
+    'analysis/how-this-project-works.qmd',
   ];
   const obsolete = [
     'analysis/05-demographic-comparisons.qmd',

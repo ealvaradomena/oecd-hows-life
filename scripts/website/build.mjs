@@ -19,7 +19,7 @@ import { derivePresentationAssets } from './derive-presentation-assets.mjs';
 import { buildWorkflowDiagram } from './build-workflow-diagram.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-export const pageOrder = ["index.qmd", "analysis/01-api-and-structure.qmd", "analysis/02-database-inventory.qmd", "analysis/03-panel-structure.qmd", "analysis/04-demographic-comparisons.qmd", "analysis/05-series-explorer.qmd", "analysis/06-twfe-analysis.qmd", "analysis/series.qmd"];
+export const pageOrder = ["index.qmd", "analysis/01-api-and-structure.qmd", "analysis/02-database-inventory.qmd", "analysis/03-panel-structure.qmd", "analysis/04-demographic-comparisons.qmd", "analysis/05-series-explorer.qmd", "analysis/06-twfe-analysis.qmd", "analysis/series.qmd", "analysis/how-this-project-works.qmd"];
 const read = file => fs.readFileSync(path.join(root, file));
 const manifest = () => JSON.parse(read('config/frozen-presentation.json'));
 

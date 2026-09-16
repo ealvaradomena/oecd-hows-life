@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/series.html</loc>
-    <lastmod>2026-09-15T22:46:51.352Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/05-series-explorer.html</loc>
-    <lastmod>2026-09-15T22:46:51.352Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/03-panel-structure.html</loc>
-    <lastmod>2026-09-15T22:46:51.351Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/01-api-and-structure.html</loc>
-    <lastmod>2026-09-15T22:46:51.350Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/index.html</loc>
-    <lastmod>2026-09-15T22:46:51.350Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/02-database-inventory.html</loc>
-    <lastmod>2026-09-15T22:46:51.351Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/04-demographic-comparisons.html</loc>
-    <lastmod>2026-09-15T22:46:51.352Z</lastmod>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/how-this-project-works.html</loc>
+    <lastmod>2026-09-16T00:12:57.230Z</lastmod>
   </url>
   <url>
     <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/06-twfe-analysis.html</loc>
-    <lastmod>2026-09-15T22:46:51.352Z</lastmod>
+    <lastmod>2026-09-16T00:12:57.219Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/04-demographic-comparisons.html</loc>
+    <lastmod>2026-09-16T00:12:57.216Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/02-database-inventory.html</loc>
+    <lastmod>2026-09-16T00:12:57.205Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/index.html</loc>
+    <lastmod>2026-09-16T00:12:57.201Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/01-api-and-structure.html</loc>
+    <lastmod>2026-09-16T00:12:57.203Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/03-panel-structure.html</loc>
+    <lastmod>2026-09-16T00:12:57.206Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/05-series-explorer.html</loc>
+    <lastmod>2026-09-16T00:12:57.217Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ealvaradomena.github.io/oecd-hows-life/analysis/series.html</loc>
+    <lastmod>2026-09-16T00:12:57.229Z</lastmod>
   </url>
 </urlset>

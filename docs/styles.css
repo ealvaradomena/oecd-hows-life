@@ -2240,3 +2240,85 @@ main :not(pre) > code {
     padding-inline: 0.85rem;
   }
 }
+
+/* How This Project Works: static architecture teaching components. */
+.project-workflows,
+.project-verbs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+  margin: .7rem 0 1.35rem;
+}
+.project-workflow-card,
+.project-verb {
+  min-width: 0;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--hl-border);
+  border-top: 3px solid var(--teal);
+  border-radius: var(--hl-radius);
+  background: linear-gradient(145deg, #fff 0%, var(--hl-soft-teal) 100%);
+}
+.project-workflow-card:nth-child(2),
+.project-verb:nth-child(2) { border-top-color: var(--pink); }
+.project-workflow-card:nth-child(3),
+.project-verb:nth-child(3) { border-top-color: var(--burgundy); }
+.project-workflow-card h3,
+.project-verb h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+.project-workflow-card p:last-child,
+.project-verb p:last-child { margin-bottom: 0; }
+.project-flow-arrow {
+  display: block;
+  margin: -.25rem 0;
+  color: var(--teal-dark);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.result-lineage {
+  position: relative;
+  margin: .75rem 0 1.35rem;
+  padding-left: .2rem;
+}
+.result-lineage-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(8rem, .8fr) minmax(0, 2fr);
+  gap: .7rem;
+  align-items: baseline;
+  padding: .65rem .75rem;
+  border-bottom: 1px solid var(--hl-border);
+}
+.result-lineage-step:first-child { border-top: 1px solid var(--hl-border); }
+.result-lineage-step > span {
+  display: inline-flex;
+  width: 1.55rem;
+  height: 1.55rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--teal-dark);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 800;
+}
+.result-lineage-step strong { color: var(--burgundy-dark); }
+.result-lineage-step p { margin: 0; }
+.project-verb { text-align: center; }
+.project-verb p { font-size: .92rem; }
+
+@media (max-width: 767.98px) {
+  .project-workflows,
+  .project-verbs { grid-template-columns: 1fr; }
+  .result-lineage-step {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+  .result-lineage-step p {
+    grid-column: 2;
+    margin-top: -.25rem;
+  }
+}

@@ -23,6 +23,7 @@ project:
     - "analysis/05-series-explorer.qmd"
     - "analysis/06-twfe-analysis.qmd"
     - "analysis/series.qmd"
+    - "analysis/how-this-project-works.qmd"
   resources:
     - "assets/*.js"
     - "assets/*.json"
@@ -66,6 +67,10 @@ website:
         text: Series
       - href: analysis/06-twfe-analysis.qmd
         text: Analysis
+      - text: About
+        menu:
+          - href: analysis/how-this-project-works.qmd
+            text: How This Project Works
     right:
       - icon: github
         text: GitHub
