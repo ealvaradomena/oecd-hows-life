@@ -1,7 +1,7 @@
 # Exploring the OECD *How’s Life?* database
 
 README file created with generative AI for exceptional documentation depth.  
-See: https://github.com/ealvaradomena/my-prompts/tree/main/prompts/readme-builder
+See: https://github.com/ealvaradomena/my-prompts/tree/main/prompts/readme-builder.md
 
 An R and Quarto teaching project for working reproducibly with OECD well-being data. The site demonstrates the OECD SDMX API, inventories the six *How’s Life?* dataflows used by the project, examines reference-area–time panel structure, compares demographic dissemination views, explores analytical series, and develops a two-way fixed-effects teaching example relating employment and life satisfaction.
 
